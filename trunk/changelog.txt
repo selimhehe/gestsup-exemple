@@ -1,0 +1,19 @@
+########################GESTSUP RELEASE NOTES############################
+##### Version: 2.4
+##### Date: 27/11/2012
+#########################################################################
+
+Update:
+- Tâches: liste des taches est trié en second critère sur la date la plus recente
+- Barre utilisateur: affichage de la charge de travail en heure en fonction du temps estimé dans les ticket
+- Ticket: affichage du pourcentage d'avancement du ticket en fonction du temps estimé.
+- Etats: Ajout d'un nouvel état "en attente de retour", avec les objet des mails paramètrable dans les listes.
+- Statististiques: Vu de la charge de travail des techniciens, sous forme d'histogramme.
+- Mise à jour: l'installation automatique des prochaines mises à jour est désormais possible.
+- Mail: Une option d'envoi de message d'avertissement à l'administrateur, lors de la déclaration d'un ticket par l'utilisateur est possible. (administration > paramètres)
+
+Bugfix:
+- Recherche: la navigation dans les pages sur une recherche ne perd pas le mot clé
+- Installation: Erreurs sur les pages perso free
+- Ticket: l'actualisation fonctionne
+- Stat: les stats sous Internet Explorer s'affiche de nouveau

@@ -1,4 +1,5 @@
-<br />
+ï»¿<br />
+
 <h2 class="sec_head">Inscription</h2>
 <div id="catalogue">
 	<form id="1" name="form" method="post"  action="">
@@ -11,7 +12,7 @@
 				<td><input name="mail" id="mail" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
+				<td><label for="civilite"><span class="required">*</span>CivilitÃ©:</label></td>
 				<td>
 					
 					<input type="radio" name="civilite" id="civilite_m" value="M."  /> <label for="civilite_m">M.</label><br />
@@ -25,15 +26,15 @@
 				<td><input name="nom" id="nom" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="prenom"><span class="required">*</span>Prénom:</label></td>
+				<td><label for="prenom"><span class="required">*</span>PrÃ©nom:</label></td>
 				<td><input name="prenom" id="prenom" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="fixe">N° de téléphone fixe:</label></td>
+				<td><label for="fixe">NÂ° de tÃ©lÃ©phone fixe:</label></td>
 				<td><input name="fixe" id="fixe" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="mobile"><span class="required">*</span>N° de mobile:</label></td>
+				<td><label for="mobile"><span class="required">*</span>NÂ° de mobile:</label></td>
 				<td><input name="mobile" id="mobile" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
@@ -45,7 +46,7 @@
 				<td><input name="cp" id="cp" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="rue">N°, Rue:</label></td>
+				<td><label for="rue">NÂ°, Rue:</label></td>
 				<td><input name="rue" id="rue" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
@@ -53,7 +54,7 @@
 				<td><input name="note" id="note" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="tva"><span class="required">*</span>N° TVA:</label></td>
+				<td><label for="tva"><span class="required">*</span>NÂ° TVA:</label></td>
 				<td><input name="tva" id="tva" type="text" value="" size="20" /></td>
 			</tr>
 		</table>

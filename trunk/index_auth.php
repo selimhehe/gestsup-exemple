@@ -94,7 +94,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 				if($r['0']=='')
 				{
 					// if error with login or password 
-					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore �t� cr�e dans ce logiciel.</div>';
+					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore ?t? cr?e dans ce logiciel.</div>';
 					$www = "./index.php";
 					session_destroy();
 					//web redirection to login page
@@ -160,15 +160,56 @@ if($_GET['state']=='') $_GET['state'] = '%';
 	// if user isn't connected then display authentication else display dashboard
 	if ($_SESSION['login'] == '') 
 	{
-		echo '
-		<br /><br /><br /><br /><br /><br /><br /><br />
-		<center>
-		<div style="width:300px" id="catalogue">
-		<table style="height:300; valign:middle; width:300px; text-align:center;"   style="border-style: none" alt="img" cellpadding="0" cellspacing="0"> 
-		<tr> 
-		<td> 
+		if ( isset($_GET['page']) && $_GET['page'] == "subscription" ){
+				include("$_GET[page].php");
+		}else{
+			echo '
+			<br /><br /><br /><br /><br /><br /><br /><br />
 			<center>
-				<fieldset >
+<<<<<<< .mine			<div style="width:300px" id="catalogue">
+			<table style="height:300; valign:middle; width:300px; text-align:center;"   style="border-style: none" alt="img" cellpadding="0" cellspacing="0"> 
+			<tr> 
+			<td> 
+				<center>
+					<fieldset >
+						<legend class="h2"><img alt="authentification" src="./images/auth.png" style="border-style: none" alt="img" />&nbsp;Authentification</legend>
+						
+						<br />
+						<form id="conn" method="post" action="">	
+							<table>
+								<tr>
+									<td><b>Utilisateur:</b></td>
+									<td><input type="text" class="textbox" id="login" name="login" /></td>
+								</tr>
+								<tr>
+									<td><b>Mot de passe:</b></td>
+									<td><input type="password" class="textbox" id="pass" name="pass" /></td>
+								</tr>
+								<tr>
+									<td>&nbsp;</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<td colspan="2">
+										<div class="buttons1">
+											<button name="submit" value="Enregistrer" type="submit"  class="positive"  id="submit">
+												<img src="images/apply2.png" alt=""/>
+												Valider
+											</button>
+										</div>
+									</td>
+								</tr>					
+							</table>
+						</form>
+						<br />
+					</fieldset>
+				</center>
+			</td> 
+			</tr> 
+			</table>
+			
+			</div>
+=======				<fieldset >
 					<legend class="h2"><img alt="authentification" src="./images/auth.png" style="border-style: none" alt="img" />&nbsp;Authentification</legend>
 					
 					<br />
@@ -201,15 +242,10 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					</form>
 					<br />
 				</fieldset>
-			</center>
-		</td> 
-		</tr> 
-		</table>
-		
-		</div>
-		</center>
-		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-		';
+>>>>>>> .theirs			</center>
+			<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			';
+		}
 	}
 	else if ($profile != '' && isset($_POST['submit']) != "Enregistrer")
 	{
@@ -258,7 +294,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					';
 					echo "<li "; if (($_GET['state']=='%') && ($_GET['techid']==$_SESSION['user_id']) && ($_GET['techread']!='0') && $_GET['page']!='searchengine') echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=%">Toutes vos demandes ('.$cnt1[0].')</a></li>';
 					if ($rright['side_your_not_read']!=0) {echo "<li "; if (($_GET['techread']=='0') && ($_GET['techid']==$_SESSION['user_id'])) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;techread=0">Non lu ('.$cnt3[0].')</a></li>';}
-					if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non Attribu� ('.$cnt6[0].')</a></li>';}
+					if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non Attribu? ('.$cnt6[0].')</a></li>';}
 					$reqstate = mysql_query("SELECT * FROM `tstates` WHERE id not like 5 ORDER BY number"); 
 					while ($row=mysql_fetch_array($reqstate))
 					{

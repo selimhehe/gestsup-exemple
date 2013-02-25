@@ -588,4 +588,7 @@ color:#000;
     } 
 .entrer { background:url("images/b_valider.png") width="70" height="29";}
 
-.newUser { text-align: right; padding-top: 20px;}
+.newUser { border-top: 1px solid #CCCCCC;
+    margin: 13px 4px 4px;
+    padding: 7px 10px 4px;
+    text-align: right;}

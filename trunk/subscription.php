@@ -1,21 +1,4 @@
-<?php
-/*
-Author: Florent Hauville
-File name: admin.php
-Description: admin parent page
-Version: 1.2
-creation date: 12/01/2011
-last update: 13/10/2012
-*/
-
-// initialize variables 
-if(!isset($_GET['subpage'])) $_GET['subpage'] = '';
-
-//default settings
-if ($_GET['subpage']=='') $_GET['subpage']='user';
-
-?>
-
+<br />
 <h2 class="sec_head">Inscription</h2>
 <div id="catalogue">
 	<form id="1" name="form" method="post"  action="">
@@ -73,8 +56,6 @@ if ($_GET['subpage']=='') $_GET['subpage']='user';
 				<td><label for="tva"><span class="required">*</span>N° TVA:</label></td>
 				<td><input name="tva" id="tva" type="text" value="" size="20" /></td>
 			</tr>
-			
-
 		</table>
 	</form>
 </div>

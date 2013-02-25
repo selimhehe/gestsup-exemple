@@ -194,7 +194,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 											Valider
 										</button>
 									</div>
-                  <div class="newUser"><a href="index.php?page=subscription">Nouvel utilisateur ?</a></div>
+                  <div class="newUser"><a href="codesubscription.php">Nouvel utilisateur ?</a></div>
 								</td>
 							</tr>					
 						</table>

@@ -1,0 +1,1 @@
+ALTER TABLE  `tusers` ADD  `code` VARCHAR( 100 ) NOT NULL

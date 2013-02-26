@@ -27,11 +27,37 @@ $rparameters= mysql_fetch_array($qparameters);
 
 //Load variables
 $daydate=date('Y-m-d');
-
+$msg = "";
 //if user is connected
 if ($_SESSION['user_id'])
 {
   // #TODO redirection
+}
+
+if(isset($_GET['code']) || isset($_POST['code'])){
+  if (isset($_GET['code']))
+  $code = (isset($_GET['code'])) ? $_GET['code'] : '';
+
+  if (isset($_POST['code']))
+  $code = (isset($_POST['code'])) ? $_POST['code'] : '';
+
+  $query = mysql_query("SELECT code FROM tcompany where code='$code'");
+
+	$r = mysql_fetch_array($query);
+  if($r['0']=='')
+		{
+			echo "<div id='erreur'><img src='./images/access.png' alt='erreur' style='border-style: none' alt='img' /> Merci de vérifier votre code d'inscription.</div>";
+      $www = "./codesubscription.php";
+      echo "<SCRIPT LANGUAGE='JavaScript'>
+							<!--
+							function redirect()
+							{
+							window.location='$www'
+							}
+							setTimeout('redirect()',$rparameters[time_display_msg]);
+							-->
+						</SCRIPT>";
+    } 
 }
 
 if (isset($_POST['submit'])){
@@ -50,7 +76,26 @@ if (isset($_POST['submit'])){
   $_POST['tva']  = str_replace("\\","\\\\",$_POST['tva']);
   $_POST['tva']  = str_replace("'","\'",$_POST['tva']);
 
-  
+  $_POST['service']  = str_replace("\\","\\\\",$_POST['service']);
+  $_POST['service']  = str_replace("'","\'",$_POST['service']);
+
+  $_POST['company']  = str_replace("\\","\\\\",$_POST['company']);
+  $_POST['company']  = str_replace("'","\'",$_POST['company']);
+
+  $_POST['company']  = str_replace("\\","\\\\",$_POST['company']);
+  $_POST['company']  = str_replace("'","\'",$_POST['company']);
+  $email = $_POST['email'];
+
+  $query = mysql_query("SELECT mail FROM tusers where mail='$email'");
+  $r = mysql_fetch_array($query);
+  if($r['0']=='')
+	{
+	  $requete = "INSERT INTO tusers (code, civility, firstname,lastname,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note) VALUES ('$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]')";
+		echo $requete;
+    $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+	} else {
+	  $msg = "Adresse email existe déjà";
+	}  
 }
 
 
@@ -99,16 +144,21 @@ if (isset($_POST['submit'])){
 		<center>
 
 <h2 class="sec_head" style="margin-top:0px">Inscription</h2>
+<?php
+ if($msg != ""){
+   echo "<div class='error'>$msg</div>";
+ }
+?>
 <div id="catalogue" style="width:500px;">
   
-	<form id="myForm" name="myForm" method="post"  action="" onSubmit="return myValidate();">
+	<form id="myForm" name="myForm" method="post"  action="">
 		<table width="100%">
 			<tr>
 				 <th colspan="2" ><img alt="user" src="./images/user.png" sytle="border-style:none;"/>   Inscription utilisateur</th>
 			<tr>
 			<tr>
 				<td width="200"><label for="mail"><span class="required validate-email">*</span>E-mail:</label></td>
-				<td><input name="mail" id="mail" type="text" class="required email"  value="" size="20" /></td>
+				<td><input name="email" id="email" type="text" class="required email"  value="<?php echo $_POST['email']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
@@ -124,43 +174,60 @@ if (isset($_POST['submit'])){
 			</tr>
 			<tr>
 				<td><label for="nom"><span class="required validate" required>*</span>Nom:</label></td>
-				<td><input name="nom" id="nom" type="text" class="required"  value="" size="20" /></td>
+				<td><input name="nom" id="nom" type="text" class="required"  value="<?php echo $_POST['nom']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="prenom"><span class="required">*</span>Prénom:</label></td>
-				<td><input name="prenom" id="prenom" type="text" class="required"  value="" size="20" /></td>
+				<td><input name="prenom" id="prenom" type="text" class="required"  value="<?php echo $_POST['prenom']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="fixe">Tél. fixe:</label></td>
-				<td><input name="fixe" id="fixe" type="text"  value="" size="20" /></td>
+				<td><input name="fixe" id="fixe" type="text"  value="<?php echo $_POST['fixe']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="mobile"><span class="required">*</span>Tél. mobile:</label></td>
-				<td><input name="mobile" id="mobile" type="text" class="required"  value="" size="20" /></td>
+				<td><input name="mobile" id="mobile" type="text" class="required"  value="<?php echo $_POST['mobile']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="ville"><span class="required">*</span>Ville:</label></td>
-				<td><input name="ville" id="ville" type="text" class="required"  value="" size="20" /></td>
+				<td><input name="ville" id="ville" type="text" class="required"  value="<?php echo $_POST['ville']; ?>" size="20" /></td>
+			</tr>
+        <tr>
+				<td><label for="rue">N° rue :</label></td>
+				<td><input name="rue" id="rue" type="text" size="20" value="<?php echo $_POST['rue']; ?>" /></td>
+			</tr>
+        <tr>
+				<td><label for="Adresse">Adresse :</label></td>
+				<td><input name="address1" id="address1" type="text" size="20" value="<?php echo $_POST['address1']; ?>" /></td>
 			</tr>
 			<tr>
-				<td><label for="cp">Code postal:</label></td>
-				<td><input name="cp" id="cp" type="text" value="" size="20" /></td>
+				<td><label for="cp">Code postal :</label></td>
+				<td><input name="zip" id="zip" type="text"  size="20" value="<?php echo $_POST['zip']; ?>" /></td>
 			</tr>
-			<tr>
-				<td><label for="rue">N° rue:</label></td>
-				<td><input name="rue" id="rue" type="text"  value="" size="20" /></td>
-			</tr>
+			
 			<tr>
 				<td><label for="note">Note:</label></td>
-				<td><input name="note" id="note" type="text" value="" size="20" /></td>
+				<td><input name="note" id="note" type="text"  size="20" value="<?php echo $_POST['note']; ?>" /></td>
 			</tr>
 			<tr>
-				<td><label for="tva">N° TVA:</label></td>
-				<td><input name="tva" id="tva" type="text"  value="" size="20" /></td>
+				<td><label for="tva">N° TVA :</label></td>
+				<td><input name="tva" id="tva" type="text"   size="20" value="<?php echo $_POST['tva']; ?>" /></td>
 			</tr>
+
+        <tr>
+				<td><label for="societe">Société :</label></td>
+				<td><input name="company" id="company" type="text" size="20" value="<?php echo $_POST['company']; ?>" /></td>
+			</tr>
+
+        <tr>
+				<td><label for="service">Service :</label></td>
+				<td><input name="service" id="service" type="text" size="20" value="<?php echo $_POST['service']; ?>" /></td>
+			</tr>
+
 		</table>
 
     <div class="buttons1">
+      <input type="hidden" class="textbox" id="code" name="code" value="<?php echo $_GET['code']; ?>" />
 										<button name="submit" value="Enregistrer" type="submit"  class="positive"  id="submit">
 											<img src="images/apply2.png" alt=""/>
 											Valider

@@ -34,6 +34,22 @@ if ($_SESSION['user_id'])
   // #TODO redirection
 }
 
+if (isset($_POST['submit'])){
+  $_POST['ville']  = str_replace("\\","\\\\",$_POST['ville']);
+  $_POST['ville']  = str_replace("'","\'",$_POST['ville']);
+
+  $_POST['nom']  = str_replace("\\","\\\\",$_POST['nom']);
+  $_POST['nom']  = str_replace("'","\'",$_POST['nom']);
+
+  $_POST['prenom']  = str_replace("\\","\\\\",$_POST['prenom']);
+  $_POST['prenom']  = str_replace("'","\'",$_POST['prenom']);
+
+  $_POST['note']  = str_replace("\\","\\\\",$_POST['note']);
+  $_POST['note']  = str_replace("'","\'",$_POST['note']);
+
+  $_POST['tva']  = str_replace("\\","\\\\",$_POST['tva']);
+  $_POST['tva']  = str_replace("'","\'",$_POST['tva']);
+}
 
 
 ?>
@@ -46,13 +62,12 @@ if ($_SESSION['user_id'])
 <link href="style.css" rel="stylesheet" type="text/css" />
 <link href="./components/lightbox2.05/css/lightbox.css" rel="stylesheet" type="text/css" media="screen" />
 
-<script type="text/javascript" src="./components/lightbox2.05/js/prototype.js"></script>
-<script type="text/javascript" src="./components/lightbox2.05/js/scriptaculous.js?load=effects,builder"></script>
-<script type="text/javascript" src="./components/lightbox2.05/js/lightbox.js"></script>
 
 <script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jquery.ata.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jqModal.js"></script>
+<script type="text/javascript" src="js/jquery.validate.js"></script>
+
 </head>
 
 <body>
@@ -84,13 +99,13 @@ if ($_SESSION['user_id'])
 <h2 class="sec_head" style="margin-top:0px">Inscription</h2>
 <div id="catalogue" style="width:500px;">
   
-	<form id="1" name="form" method="post"  action="">
+	<form id="myForm" name="myForm" method="post"  action="" onSubmit="return myValidate();">
 		<table width="100%">
 			<tr>
 				 <th colspan="2" ><img alt="user" src="./images/user.png" sytle="border-style:none;"/>   Inscription utilisateur</th>
 			<tr>
 			<tr>
-				<td width="200"><label for="mail"><span class="required">*</span>Adresse mail:</label></td>
+				<td width="200"><label for="mail"><span class="required validate-email">*</span>Adresse mail:</label></td>
 				<td><input name="mail" id="mail" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
@@ -104,7 +119,7 @@ if ($_SESSION['user_id'])
 				</td>
 			</tr>
 			<tr>
-				<td><label for="nom"><span class="required">*</span>Nom:</label></td>
+				<td><label for="nom"><span class="required validate" required>*</span>Nom:</label></td>
 				<td><input name="nom" id="nom" type="text" value="" size="20" /></td>
 			</tr>
 			<tr>
@@ -166,5 +181,11 @@ if ($_SESSION['user_id'])
 			</div>
 		</div>
 	</div>
+
+  <script language="javascript">
+    $().ready(function() {
+      $("#myForm").validate();
+    });
+  </script>
 </body>
 </html>

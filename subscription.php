@@ -107,16 +107,18 @@ if (isset($_POST['submit'])){
 				 <th colspan="2" ><img alt="user" src="./images/user.png" sytle="border-style:none;"/>   Inscription utilisateur</th>
 			<tr>
 			<tr>
-				<td width="200"><label for="mail"><span class="required validate-email">*</span>Adresse mail:</label></td>
+				<td width="200"><label for="mail"><span class="required validate-email">*</span>E-mail:</label></td>
 				<td><input name="mail" id="mail" type="text" class="required email"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
 				<td>
+          <select name="civilite">
+            <option>M.</option>
+            <option>Mme</option>
+            <option>Mlle</option>
+          </select>
 					
-					<input type="radio" name="civilite" id="civilite_m" value="M."  /> <label for="civilite_m">M.</label><br />
-					<input type="radio" name="civilite" id="civilite_mme" value="Mme"  /> <label for="civilite_mme">Mme</label><br />
-					<input type="radio" name="civilite" id="civilite_mlle" value="Mlle"  /> <label for="civilite_mlle">Mlle</label><br />
 					
 				</td>
 			</tr>

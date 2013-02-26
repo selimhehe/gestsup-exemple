@@ -621,3 +621,5 @@ color:#000;
     margin: 13px 4px 4px;
     padding: 7px 10px 4px;
     text-align: right;}
+
+.error {color: red; font-weight: normal;}

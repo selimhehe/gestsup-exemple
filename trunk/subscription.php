@@ -149,7 +149,7 @@ if (isset($_POST['submit'])){
    echo "<div class='error'>$msg</div>";
  }
 ?>
-<div id="catalogue" style="width:500px;">
+<div id="catalogue" style="width:530px;">
   
 	<form id="myForm" name="myForm" method="post"  action="">
 		<table width="100%">
@@ -254,6 +254,11 @@ if (isset($_POST['submit'])){
 	</div>
 
   <script language="javascript">
+    jQuery.extend(jQuery.validator.messages, {
+    required: "Ce champ est obligatoire",
+    email: "Adresse email n'est pas valide"
+    });
+
 	$(document).ready(function() {
       $("#myForm").validate();
     });

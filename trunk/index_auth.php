@@ -94,7 +94,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 				if($r['0']=='')
 				{
 					// if error with login or password 
-					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore été crée dans ce logiciel.</div>';
+					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore ï¿½tï¿½ crï¿½e dans ce logiciel.</div>';
 					$www = "./index.php";
 					session_destroy();
 					//web redirection to login page
@@ -194,6 +194,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 											Valider
 										</button>
 									</div>
+                  <div class="newUser"><a href="codesubscription.php">Nouvel utilisateur ?</a></div>
 								</td>
 							</tr>					
 						</table>
@@ -259,11 +260,11 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					<h2>Vos demandes</h2>
 					<ul>
 						';
-						echo "<li "; if (($_GET['state']=='%') && ($_GET['techid']==$_SESSION['user_id']) && ($_GET['techread']!='0') && $_GET['page']!='searchengine') echo "class=\"active\""; echo '><a title="Tous les tickets vous étant attribués" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=%">Toutes vos demandes ('.$cnt1[0].')</a></li>';
+						echo "<li "; if (($_GET['state']=='%') && ($_GET['techid']==$_SESSION['user_id']) && ($_GET['techread']!='0') && $_GET['page']!='searchengine') echo "class=\"active\""; echo '><a title="Tous les tickets vous ï¿½tant attribuï¿½s" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=%">Toutes vos demandes ('.$cnt1[0].')</a></li>';
 						if ($rright['side_your_not_read']!=0) {
 							echo "<li "; if (($_GET['techread']=='0') && ($_GET['techid']==$_SESSION['user_id'])) echo "class=\"active\""; echo '><a title="Vos tickets non lus" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;techread=0">Non lu ('.$cnt3[0].')'; if ($cnt3[0]!=0) {echo '&nbsp<img style="border-style: none" alt="img" src="./images/wait.png" />';} echo'</a></li> ';
 						}
-						if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non Attribué ('.$cnt6[0].')</a></li>';}
+						if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non Attribuï¿½ ('.$cnt6[0].')</a></li>';}
 						$reqstate = mysql_query("SELECT * FROM `tstates` WHERE id not like 5 ORDER BY number"); 
 						while ($row=mysql_fetch_array($reqstate))
 						{

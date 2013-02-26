@@ -61,7 +61,7 @@ if ($_SESSION['user_id'])
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php if (($rparameters['auto_refresh']!=0)&&($_GET['page']=='dashboard')) echo '<meta http-equiv="Refresh" content="'.$rparameters['auto_refresh'].';">'; ?>
 <title>GestSup | Gestion de Support</title>
 <link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
@@ -111,7 +111,7 @@ if ($_SESSION['user_id'])
 						<div id="topmenu">
 							<ul>';
 							//Display each menu if user have right
-							if ($rright['task']!=0) {echo'<li ';if (isset($_GET['page']) && ($_GET['page']=="dashboard" || $_GET['page']=="ticket" || $_GET['page']=="newticket" || $_GET['page']=="newticket_u")) {echo "class=\"active\"";}echo '><a href="./index.php?page=dashboard&amp;techid='; echo $_SESSION['user_id']; echo '&amp;state=1"><img style="border-style: none" alt="tache" src="./images/check.png" />  Tâches</a></li>';}
+							if ($rright['task']!=0) {echo'<li ';if (isset($_GET['page']) && ($_GET['page']=="dashboard" || $_GET['page']=="ticket" || $_GET['page']=="newticket" || $_GET['page']=="newticket_u")) {echo "class=\"active\"";}echo '><a href="./index.php?page=dashboard&amp;techid='; echo $_SESSION['user_id']; echo '&amp;state=1"><img style="border-style: none" alt="tache" src="./images/check.png" />  Tï¿½ches</a></li>';}
 							if (($rright['planning']!=0) && ($rparameters['planning']==1)) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="planning") echo "class=\"active\""; echo '><a href="./index.php?page=planning"><img style="border-style: none" alt="stat" src="./images/planning.png" />  Planning</a></li>';}
 							if ($rright['stat']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="stat") echo "class=\"active\""; echo '><a href="./index.php?page=stat"><img style="border-style: none" alt="stat" src="./images/stat.png" />  Statistiques</a></li>';}
 							if ($rright['admin']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="admin") echo "class=\"active\""; echo '><a href="./index.php?page=admin"><img style="border-style: none" alt="administration" src="./images/parametre.png" />  Administration</a></li>';}
@@ -164,23 +164,23 @@ if ($_SESSION['user_id'])
 					echo '
 					<div class="postbottom">
 						<img  style="border-style: none" alt="img" src="./images/admin.png" /><font color="#FFFFFF"><b><a href="./index.php?page=admin/user&amp;action=edit&amp;id='.$_SESSION['user_id'].'"> '.$reqfname['firstname'].' '.$reqfname['lastname'].'</a></b></font>&nbsp;&nbsp;
-						<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Résolues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
+						<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Rï¿½solues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
 						<img  style="border-style: none" alt="img" src="./images/ico_more.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=1"> A traiter: <b>'.$nbatt[0].'</b></a>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/ico_date.png" /><font color="#FFFFFF"> Aujourd\'hui: <b>'.$nbday[0].'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/warning_min.png" /><font color="#FFFFFF"> Anciennes: <b>'.$nb15[0].'</b></font>&nbsp;&nbsp;
-						<img style="border-style: none" alt="img" src="./images/critical_min.png" /><font color="#FFFFFF"> Très anciennes: <b>'.$nb30[0].'</b></font>&nbsp;&nbsp;
+						<img style="border-style: none" alt="img" src="./images/critical_min.png" /><font color="#FFFFFF"> Trï¿½s anciennes: <b>'.$nb30[0].'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/calc.png" /><font color="#FFFFFF"> Ratio du jour: <b>'.$ratio.'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/chronometer.png" /><font color="#FFFFFF"> Charge: <b>'.$nbtps.'h</b></font>&nbsp;&nbsp;
-						<a  href="./index.php?action=logout"><img title="Déconnexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
+						<a  href="./index.php?action=logout"><img title="Dï¿½connexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
 					</div>
 					';
 				} else {
 					echo '
 					<div class="postbottom">
 							<img  style="border-style: none" alt="img" src="./images/admin.png" /><font color="#FFFFFF"><b><a href="./index.php?page=admin/user&amp;action=edit&amp;id='.$_SESSION['user_id'].'"> '.$reqfname['firstname'].' '.$reqfname['lastname'].'</a></b></font>&nbsp;&nbsp;
-								<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Résolues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
+								<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Rï¿½solues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
 								<img  style="border-style: none" alt="img" src="./images/ico_more.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=1"> En cours de traitement: <b>'.$nbatt[0].'</b></a>&nbsp;&nbsp;
-								<a  href="./index.php?action=logout"><img title="Déconnexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
+								<a  href="./index.php?action=logout"><img title="Dï¿½connexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
 					</div>
 					';
 				}

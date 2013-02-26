@@ -1,0 +1,23 @@
+########################GESTSUP RELEASE NOTES############################
+##### Version: 2.6
+##### Date: 27/12/2012
+#########################################################################
+
+Notice:
+
+Update:
+- ticket: affichage d'un warning si le temps estimé est inférieur au temps passé.
+- ticket: possibilité de selectionner aucun technicien pour un attribution postérieur
+- Tâches, tickets, stat: les techniciens sont nommé par leurs nom et prénom, pour le cas ou il y a plusieurs technicien possèdant le même nom.
+- Planning: intégration des tickets dans un planning par semaine
+- Mail: possibilité de mettre un lien vers le serveur GestSup.
+
+Bugfix:
+- stat: aucune selection par defaut
+- stat: repartition de la charge par catégorie non prise en compte des tickets ou le temps estimé est inférieur au temps passé
+- stat: l'export des camembert ne fonctionne pas
+- stat: error d'initialisation de variables.
+- install: manque un f dans le auto_refresh sur le script squelton.sql
+- mail: auto_mail ne fonctionne pas avec le register global à off
+- update: erreur lors de la décompression open = 19
+- mdp: pas affichage mot de passe sur erreur d'authentification 

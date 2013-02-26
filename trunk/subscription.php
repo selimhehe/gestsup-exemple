@@ -49,6 +49,8 @@ if (isset($_POST['submit'])){
 
   $_POST['tva']  = str_replace("\\","\\\\",$_POST['tva']);
   $_POST['tva']  = str_replace("'","\'",$_POST['tva']);
+
+  
 }
 
 

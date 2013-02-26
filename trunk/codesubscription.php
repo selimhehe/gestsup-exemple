@@ -35,7 +35,6 @@ if ($_SESSION['user_id'])
 }
 
 
-
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -79,8 +78,42 @@ if ($_SESSION['user_id'])
 		</div>
 		<div id="content">
       <br /><br /><br /><br /><br /><br /><br /><br />
+       <?php
+        if (isset($_POST['submit'])){
+  $code = (isset($_POST['code'])) ? $_POST['code'] : '';
+  $query = mysql_query("SELECT code FROM tcompany where code='$code'");
+  
+	$r = mysql_fetch_array($query);
+  if($r['0']=='')
+		{
+			echo "<div id='erreur'><img src='./images/access.png' alt='erreur' style='border-style: none' alt='img' /> Merci de vérifier votre code d'inscription.</div>";
+      $www = "./codesubscription.php";
+      echo "<SCRIPT LANGUAGE='JavaScript'>
+							<!--
+							function redirect()
+							{
+							window.location='$www'
+							}
+							setTimeout('redirect()',$rparameters[time_display_msg]);
+							-->
+						</SCRIPT>";
+    } else {
+      $www = "./subscription.php?code=$code";
+      echo "<SCRIPT LANGUAGE='JavaScript'>
+							<!--
+							function redirect()
+							{
+							window.location='$www'
+							}
+							setTimeout('redirect()',$rparameters[time_display_msg]);
+							-->
+						</SCRIPT>";
+    }
+}
+      ?>
 		<center>
 		<div style="width:300px" id="catalogue">
+     
 		<table style="height:300; valign:middle; width:300px; text-align:center;"   style="border-style: none" alt="img" cellpadding="0" cellspacing="0">
 		<tr>
 		<td>
@@ -93,7 +126,7 @@ if ($_SESSION['user_id'])
 						<table>
 							<tr>
 								<td><b>Code d'inscription :</b></td>
-								<td><input type="text" class="textbox" id="login" name="login" /></td>
+								<td><input type="text" class="textbox" id="code" name="code" /></td>
 							</tr>
 							<tr>
 								<td>&nbsp;</td>

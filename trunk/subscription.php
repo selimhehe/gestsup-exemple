@@ -108,7 +108,7 @@ if (isset($_POST['submit'])){
 			<tr>
 			<tr>
 				<td width="200"><label for="mail"><span class="required validate-email">*</span>Adresse mail:</label></td>
-				<td><input name="mail" id="mail" type="text" value="" size="20" /></td>
+				<td><input name="mail" id="mail" type="text" class="required email"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
@@ -122,23 +122,23 @@ if (isset($_POST['submit'])){
 			</tr>
 			<tr>
 				<td><label for="nom"><span class="required validate" required>*</span>Nom:</label></td>
-				<td><input name="nom" id="nom" type="text" value="" size="20" /></td>
+				<td><input name="nom" id="nom" type="text" class="required"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="prenom"><span class="required">*</span>Prénom:</label></td>
-				<td><input name="prenom" id="prenom" type="text" value="" size="20" /></td>
+				<td><input name="prenom" id="prenom" type="text" class="required"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="fixe">Tél. fixe:</label></td>
-				<td><input name="fixe" id="fixe" type="text" value="" size="20" /></td>
+				<td><input name="fixe" id="fixe" type="text"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="mobile"><span class="required">*</span>Tél. mobile:</label></td>
-				<td><input name="mobile" id="mobile" type="text" value="" size="20" /></td>
+				<td><input name="mobile" id="mobile" type="text" class="required"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="ville"><span class="required">*</span>Ville:</label></td>
-				<td><input name="ville" id="ville" type="text" value="" size="20" /></td>
+				<td><input name="ville" id="ville" type="text" class="required"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="cp">Code postal:</label></td>
@@ -146,7 +146,7 @@ if (isset($_POST['submit'])){
 			</tr>
 			<tr>
 				<td><label for="rue">N° rue:</label></td>
-				<td><input name="rue" id="rue" type="text" value="" size="20" /></td>
+				<td><input name="rue" id="rue" type="text"  value="" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="note">Note:</label></td>
@@ -154,7 +154,7 @@ if (isset($_POST['submit'])){
 			</tr>
 			<tr>
 				<td><label for="tva">N° TVA:</label></td>
-				<td><input name="tva" id="tva" type="text" value="" size="20" /></td>
+				<td><input name="tva" id="tva" type="text"  value="" size="20" /></td>
 			</tr>
 		</table>
 
@@ -185,7 +185,7 @@ if (isset($_POST['submit'])){
 	</div>
 
   <script language="javascript">
-    $().ready(function() {
+	$(document).ready(function() {
       $("#myForm").validate();
     });
   </script>

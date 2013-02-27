@@ -43,7 +43,7 @@ if(!isset($_GET['ldap'])) $_GET['ldap'] = '';
 $_POST['firstname'] = str_replace("'","\'",$_POST['firstname']); 
 $_POST['lastname'] = str_replace("'","\'",$_POST['lastname']);
 
-// Si une modification est demandÈ alors on met a jour la table tusers puis on redirige l'utilisateur vers le listing des utilisateurs
+// Si une modification est demand√à alors on met a jour la table tusers puis on redirige l'utilisateur vers le listing des utilisateurs
 if($_POST['Modifier'])
 {
 	//no update already crytped password if no change
@@ -61,10 +61,10 @@ if($_POST['Modifier'])
 	lastname='$_POST[lastname]',
 	password='$_POST[password]',
 	salt='$salt',
-	mail='$_POST[mail]',
 	phone='$_POST[phone]',
+  mobil='$_POST[mobil]',
 	profile='$_POST[profile]',
-	login='$_POST[login]',
+	code='$_POST[code]',
 	fax='$_POST[fax]',
 	company='$_POST[company]',
 	address1='$_POST[address1]',
@@ -89,13 +89,13 @@ if($_POST['Modifier'])
 	</script>';
 }
 
-// Si un ajout est demandÈ alors alors on fait un insert dans la table tusers puis on redirige l'utilisateur vers le listing des utilisateurs
+// Si un ajout est demand√à alors alors on fait un insert dans la table tusers puis on redirige l'utilisateur vers le listing des utilisateurs
 if($_POST['Ajouter']){
 	//crypt password md5 + salt
 	$salt = substr(md5(uniqid(rand(), true)), 0, 5); // Generate a random key
 	$_POST['password']=md5($salt . md5($_POST['password'])); // store in md5, md5 password + salt
 	
-	$requete = "INSERT INTO tusers (firstname,lastname,password,salt,mail,phone,fax,company,address1,address2,zip,city,custom1,custom2,profile,login,chgpwd) VALUES ('$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[mail]','$_POST[phone]','$_POST[fax]','$_POST[company]','$_POST[address1]','$_POST[address2]','$_POST[zip]','$_POST[city]','$_POST[custom1]','$_POST[custom2]','$_POST[profile]','$_POST[login]','$_POST[chgpwd]')";
+	$requete = "INSERT INTO tusers (firstname,lastname,password,salt,mail,phone,mobil,fax,company,address1,address2,zip,city,custom1,custom2,profile,code,chgpwd) VALUES ('$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[mail]','$_POST[phone]','$_POST[mobil]','$_POST[fax]','$_POST[company]','$_POST[address1]','$_POST[address2]','$_POST[zip]','$_POST[city]','$_POST[custom1]','$_POST[custom2]','$_POST[profile]','$_POST[code]','$_POST[chgpwd]')";
 	$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 	//redirection vers la page d'accueil
 	$www = "./index.php?page=admin&subpage=user";
@@ -134,7 +134,7 @@ $exec = mysql_query($query) or die('Erreur SQL !<br /><br />'.mysql_error());
 //Si on demande l'action edition alors on affiche le formulaire  d'edition sinon on affiche la table
 if ($_GET['action']=='edit')
 {
-	//On rÈcupÈre les donnÈes en fonction de l'id utilisateur rÈcupÈrÈ
+	//On r√àcup√àre les donn√àes en fonction de l'id utilisateur r√àcup√àr√à
 	$requser1 = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'"); 
 	$user1 = mysql_fetch_array($requser1);
 	//On affiche le formulaire d'edition
@@ -145,13 +145,13 @@ if ($_GET['action']=='edit')
 				 <th colspan="2" ><img alt="user" src="./images/user.png" sytle="border-style:none;"/>   Fiche utilisateur</th>
 			<tr>
 			<tr>
-				<td><b>PrÈnom:</b></td><td><input name="firstname" type="" value="'.$user1['firstname'].'" size="20" /></td>
+				<td><b>Pr√ànom:</b></td><td><input name="firstname" type="" value="'.$user1['firstname'].'" size="20" /></td>
 			</tr>
 			<tr>
 				<td><b>Nom:</b></td><td><input name="lastname" type="" value="'.$user1['lastname'].'" size="20" /></td>
 			</tr>
 			<tr>
-				<td><b>Identifiant:</b></td><td><input name="login" type="" value="'; if($user1['login']) echo "$user1[login]"; else echo ""; echo'" size="20" /></td>
+				<td><b>Code:</b></td><td><input name="code" type="" value="'; if($user1['code']) echo "$user1[code]"; else echo ""; echo'" size="20" /></td>
 			</tr>
 			<tr>
 				<td><b>Mot de passe:</b></td><td><input name="password" type="password" value="';if($user1['password']=="") echo ""; else echo "$user1[password]"; echo'" size="20" /></td>
@@ -160,7 +160,10 @@ if ($_GET['action']=='edit')
 				<td><b>Adresse mail:</b></td><td><input name="mail" type="" value="'.$user1['mail'].'" size="40" /></td>
 			</tr>
 			<tr>
-				<td><b>TÈlÈphone:</b></td><td><input name="phone" type="" value="'.$user1['phone'].'" size="20" /></td>
+				<td><b>T√àl√àphone:</b></td><td><input name="phone" type="" value="'.$user1['phone'].'" size="20" /></td>
+			</tr>
+      <tr>
+				<td><b>T√©l portable :</b></td><td><input name="mobil" type="" value="'.$user1['mobil'].'" size="20" /></td>
 			</tr>
 			<tr>
 				<td><b>Fax:</b></td><td><input name="fax" type="" value="'.$user1['fax'].'" size="20" /></td>
@@ -170,7 +173,7 @@ if ($_GET['action']=='edit')
 			{
 			echo '
 				<tr>
-					<td><b>SociÈtÈ:</b></td><td><input name="company" type="" value="'.$user1['company'].'" size="20" /></td>
+					<td><b>Soci√àt√à:</b></td><td><input name="company" type="" value="'.$user1['company'].'" size="20" /></td>
 				</tr>
 				<tr>
 					<td><b>Adresse 1:</b></td><td><input name="address1" type="" value="'.$user1['address1'].'" size="30" /></td>
@@ -185,10 +188,10 @@ if ($_GET['action']=='edit')
 					<td><b>Code postal:</b></td><td><input name="zip" type="" value="'.$user1['zip'].'" size="20" /></td>
 				<tr>
 				<tr>
-					<td><b>Champ PersonalisÈ 1:</b></td><td><input name="custom1" type="" value="'.$user1['custom1'].'" size="30" /></td>
+					<td><b>Champ Personalis√à 1:</b></td><td><input name="custom1" type="" value="'.$user1['custom1'].'" size="30" /></td>
 				<tr>
 				<tr>
-					<td><b>Champ PersonalisÈ 2:</b></td><td><input name="custom2" type="" value="'.$user1['custom2'].'" size="30" /></td>
+					<td><b>Champ Personalis√à 2:</b></td><td><input name="custom2" type="" value="'.$user1['custom2'].'" size="30" /></td>
 				<tr>';
 			}
 			echo'
@@ -202,9 +205,9 @@ if ($_GET['action']=='edit')
 					<td><b>Profile:</b></td>
 					<td>
 						<input type="radio" name="profile" value="4" '; if ($user1['profile']=='4')echo "checked"; echo '> Administrateur <i>(Tous)</i> <br />
-						<input type="radio" name="profile" value="0" '; if ($user1['profile']=='0')echo "checked"; echo '> Technicien <i>(crÈation, visualisation, administration)</i> <br />
-						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Superviseur <i>(crÈation, visualisation, accËs aux statistiques)</i> <br />
-						<input type="radio" name="profile" value="1" '; if ($user1['profile']=='1')echo "checked"; echo '> Utilisateur avec pouvoir <i>(crÈation, visualisation)</i> <br />
+						<input type="radio" name="profile" value="0" '; if ($user1['profile']=='0')echo "checked"; echo '> Technicien <i>(cr√àation, visualisation, administration)</i> <br />
+						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Superviseur <i>(cr√àation, visualisation, acc√ãs aux statistiques)</i> <br />
+						<input type="radio" name="profile" value="1" '; if ($user1['profile']=='1')echo "checked"; echo '> Utilisateur avec pouvoir <i>(cr√àation, visualisation)</i> <br />
 						<input type="radio" name="profile" value="2" '; if ($user1['profile']=='2')echo "checked"; echo '> Utilisateur <i>(visualisation)</i> 
 					</td>
 				</tr>
@@ -225,7 +228,7 @@ if ($_GET['action']=='edit')
 			{
 				echo '
 				<tr>
-					<td><b>Vues personnelles</b><br><i>(associe des catÈgories ‡ l\'utilisateur)</i></td>
+					<td><b>Vues personnelles</b><br><i>(associe des cat√àgories ‚Ä° l\'utilisateur)</i></td>
 					<td>';
 					// Check if connected user have view
 					$query = mysql_query("SELECT * FROM `tviews` WHERE uid='$_GET[id]'");
@@ -252,7 +255,7 @@ if ($_GET['action']=='edit')
 					}
 					// Diplay add view form
 					echo '
-						CatÈgorie:
+						Cat√àgorie:
 						<select name="category" onchange="submit()" style="width:100px" >
 							<option value="%"></option>';
 							$query = mysql_query("SELECT * FROM tcategory ORDER BY name");
@@ -263,7 +266,7 @@ if ($_GET['action']=='edit')
 							} 
 							echo '
 						</select>
-						Sous-CatÈgorie:
+						Sous-Cat√àgorie:
 						<select name="subcat" onchange="submit()" style="width:90px">
 							<option value="%"></option>';
 							if($_POST['category']!='%')
@@ -304,7 +307,7 @@ if ($_GET['action']=='edit')
 else if ($_GET['action']=="add")
 {
 	echo "<h2 class=\"sec_head\">Ajout d'un utilisateur</h2>";
-	//On rÈcupÈre les donnÈes en fonction de l'id utilisateur rÈcupÈrÈ
+	//On r√àcup√àre les donn√àes en fonction de l'id utilisateur r√àcup√àr√à
 	$requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'"); 
 	$user = mysql_fetch_array($requser);
 	//On affiche le formulaire d'edition
@@ -312,13 +315,13 @@ else if ($_GET['action']=="add")
 	<form method="post" action="">
 	<table>
 		<tr>
-			<td><b>PrÈnom:</b></td><td><input name="firstname" type="" value="'.$user['firstname'].'" size="10" /></td>
+			<td><b>Pr√ànom:</b></td><td><input name="firstname" type="" value="'.$user['firstname'].'" size="10" /></td>
 		</tr>
 		<tr>
 			<td><b>Nom:</b></td><td><input name="lastname" type="" value="'.$user['lastname'].'" size="10" /></td>
 		</tr>
 		<tr>
-			<td><b>Login:</b></td><td><input name="login" type="" value="'.$user['login'].'" size="10" /></td>
+			<td><b>Code:</b></td><td><input name="code" type="" value="'.$user['code'].'" size="10" /></td>
 		</tr>
 		<tr>
 			<td><b>Mot de passe:</b></td><td><input name="password" type="password" value="'.$user['password'].'" size="10" /></td>
@@ -327,7 +330,10 @@ else if ($_GET['action']=="add")
 			<td><b>Adresse mail:</b></td><td><input name="mail" type="" value="'.$user['mail'].'" size="40" /></td>
 		</tr>
 		<tr>
-			<td><b>TÈlÈphone:</b></td><td><input name="phone" type="" value="'.$user['phone'].'" size="10" /></td>
+			<td><b>T√àl√àphone:</b></td><td><input name="phone" type="" value="'.$user['phone'].'" size="10" /></td>
+		</tr>
+     <tr>
+				<td><b>T√©l portable :</b></td><td><input name="mobil" type="" value="'.$user['mobil'].'" size="20" /></td>
 		</tr>
 		<tr>
 			<td><b>Fax:</b></td><td><input name="fax" type="" value="'.$user['fax'].'" size="20" /></td>
@@ -337,7 +343,7 @@ else if ($_GET['action']=="add")
 		{
 			echo '
 				<tr>
-					<td><b>SociÈtÈ:</b></td><td><input name="company" type="" value="'.$user['company'].'" size="20" /></td>
+					<td><b>Soci√àt√à:</b></td><td><input name="company" type="" value="'.$user['company'].'" size="20" /></td>
 				</tr>
 				<tr>
 					<td><b>Adresse 1:</b></td><td><input name="address1" type="" value="'.$user['address1'].'" size="30" /></td>
@@ -352,10 +358,10 @@ else if ($_GET['action']=="add")
 					<td><b>Code postal:</b></td><td><input name="zip" type="" value="'.$user['zip'].'" size="20" /></td>
 				<tr>
 				<tr>
-					<td><b>Champ PersonalisÈ 1:</b></td><td><input name="custom1" type="" value="'.$user['custom1'].'" size="30" /></td>
+					<td><b>Champ Personalis√à 1:</b></td><td><input name="custom1" type="" value="'.$user['custom1'].'" size="30" /></td>
 				<tr>
 				<tr>
-					<td><b>Champ PersonalisÈ 2:</b></td><td><input name="custom2" type="" value="'.$user['custom2'].'" size="30" /></td>
+					<td><b>Champ Personalis√à 2:</b></td><td><input name="custom2" type="" value="'.$user['custom2'].'" size="30" /></td>
 				<tr>';
 		}
 			echo'
@@ -364,9 +370,9 @@ else if ($_GET['action']=="add")
 		<tr>
 			<td><b>Profile:</b></td>
 			<td>
-				Technicien <i>(crÈation, visualisation, administration) <input type="radio" name="profile" value="0" /><br />
-				Superviseur <i>(crÈation, visualisation) <input type="radio" name="profile" value="3" /><br />
-				Utilisateur avec pouvoir <i>(crÈation, visualisation)</i> <input type="radio" name="profile" value="1" /><br />
+				Technicien <i>(cr√àation, visualisation, administration) <input type="radio" name="profile" value="0" /><br />
+				Superviseur <i>(cr√àation, visualisation) <input type="radio" name="profile" value="3" /><br />
+				Utilisateur avec pouvoir <i>(cr√àation, visualisation)</i> <input type="radio" name="profile" value="1" /><br />
 				Utilisateur <i>(visualisation)</i> <input type="radio" name="profile" value="2" checked />
 			</td>
 		</tr>
@@ -421,6 +427,26 @@ else if ($_GET['action']=="enable")
 {
 $requete = "UPDATE tusers set disable=0 WHERE id = '$_GET[id]'";
 $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+
+        require("components/PHPMailer_v5.1/class.phpmailer.php");
+        $mail = new PHPmailer();
+        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+
+        $mail->IsHTML(true); // Envoi en html
+
+        $mail->From = "$rparameters[mail_from]";
+        $mail->FromName = "$rparameters[mail_from]";
+
+        $mail->AddAddress("sahli28@gmail.cm");
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = "Validation compte";
+        $bodyMSG = "Bonjour , <br />
+         votre compte a √©t√© valid√© <br />
+         ";
+        $mail->Body = "$bodyMSG";
+        $mail->Send();
+
 	//home page redirection
 	$www = "./index.php?page=admin&subpage=user";
 			echo '<script language="Javascript">
@@ -473,21 +499,27 @@ else
 	$r = mysql_fetch_array($q);
 	$q1 = mysql_query("SELECT COUNT(*) FROM tusers where disable='1'");
 	$r2 = mysql_fetch_array($q1);
-	echo "<u>Nombre d'utilisateurs ActivÈ:</u> $r[0] <i>($r2[0] DÈsactivÈs)</i><br /><br />";
+	echo "<u>Nombre d'utilisateurs Activ√à:</u> $r[0] <i>($r2[0] D√àsactiv√às)</i><br /><br />";
 					//Display user table
 					echo "<center>";
 					echo "<table  >";
 					echo "
 						<tr  >
 							<th class=\"th\" >Actions</th>
-							<th class=\"th\">Nom PrÈnom</th>
+							<th class=\"th\">Nom Pr√ànom</th>
 							<th class=\"th\" >Mot de passe</th>
 							<th class=\"th\">Adresse Mail</th>
-							<th class=\"th\">TÈlÈphone</th>
+							<th class=\"th\">T√àl√àphone</th>
+              <th class=\"th\">T√©l portable</th>
 							<th class=\"th\">Profile</th>
 						</tr>
 						";
-				$query = mysql_query("SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]' ORDER BY lastname");
+				if($_GET[profileid] == 'ND'){
+          $query = mysql_query("SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1 ORDER BY lastname");
+        } else {
+          $query = mysql_query("SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]' ORDER BY lastname");
+        }
+
 				while ($row=mysql_fetch_array($query)) 
 				{
 					//find profile name
@@ -499,9 +531,9 @@ else
 								<center>
 									<a title=\"Editer\" href=\"./index.php?page=admin&amp;subpage=user&amp;action=edit&amp;id=$row[id]\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 									if($row['id']!=$uid) echo "<a title=\"Supprimer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=delete\"><img src=\"./images/delete.png\" border=\"0\" /></a>";
-									if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour dÈsactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
+									if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour d√àsactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
 									else
-									{echo "<a title=\"DÈsactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}		
+									{echo "<a title=\"D√àsactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}		
 					echo "
 								</center>
 							</td>
@@ -509,6 +541,7 @@ else
 							<td width=\"100px\" >*******</td>
 							<td >$row[mail]</td>
 							<td >$row[phone]</td>
+              <td >$row[mobil]</td>
 							<td >$r[name]</td>
 						</tr>
 					";

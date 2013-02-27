@@ -25,13 +25,13 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 		<ul>
 			<?php
 			echo '
-			<li '; if ($_GET['subpage']=="parameters") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=parameters">Paramètres</a></li>
+			<li '; if ($_GET['subpage']=="parameters") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=parameters">Paramï¿½tres</a></li>
 			<li '; if ($_GET['subpage']=="user") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=user">Utilisateurs</a></li>
 			<li '; if ($_GET['subpage']=="profile") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=profile">Profiles</a></li>
 			<li '; if ($_GET['subpage']=="list") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=list">Listes</a></li>
 			<li '; if ($_GET['subpage']=="backup") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=backup">Sauvegardes</a></li>
-			<li '; if ($_GET['subpage']=="update") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=update">Mise à jour</a></li>
-			<li '; if ($_GET['subpage']=="system") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=system">Système</a></li>
+			<li '; if ($_GET['subpage']=="update") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=update">Mise ï¿½ jour</a></li>
+			<li '; if ($_GET['subpage']=="system") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=system">Systï¿½me</a></li>
 			<li '; if ($_GET['subpage']=="workflow") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=workflow">Workflow</a></li>
 			<li '; if ($_GET['subpage']=="infos") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=infos">Infos</a></li>
 			';
@@ -41,7 +41,10 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 			<?php
 			if ($_GET['subpage']=='user' || $_GET['subpage']=='profile')
 			{
-				if ($_GET['subpage']=='user') {echo '<li '; if ($_GET['profileid']=='%') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=%">Tous</a></li>';}
+				if ($_GET['subpage']=='user') {
+          echo '<li '; if ($_GET['profileid']=='%') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=%">Tous</a></li>';
+
+          }
 
 				//Display profile table
 				$query = mysql_query("select * FROM tprofiles ORDER BY level");
@@ -49,6 +52,10 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 				{
 					echo '<li '; if ($_GET['profileid']==$row['level']) echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid='.$row['level'].'">'.$row['name'].'</a></li>';
 				}
+        if ($_GET['subpage']=='user') {
+          echo '<li '; if ($_GET['profileid']=='ND') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=ND">Nouveaux inscrits</a></li>';
+
+          }
 			}
 			?>
 		</ul>

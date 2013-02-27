@@ -18,7 +18,8 @@ if(!isset($_GET['viewid'])) $_GET['viewid'] = '';
 if(!isset($newpassword)) $newpassword = '';
 if(!isset($salt)) $salt= '';
 if(!isset($_SESSION['user_id'])) $_SESSION['user_id'] = '';
-if(!isset($_SESSION['login'])) $_SESSION['login'] = ''; 
+//if(!isset($_SESSION['login'])) $_SESSION['login'] = '';
+if(!isset($_SESSION['email'])) $_SESSION['email'] = '';
 if(!isset($_GET['page'])) $_GET['page'] = ''; 
 if(!isset($_GET['state'])) $_GET['state'] = ''; 
 if(!isset($_GET['techread'])) $_GET['techread'] = ''; 
@@ -39,11 +40,11 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		{
 			//no MAJ login
 			$login = strtoupper($login);
-			$nom = strtoupper($row['login']);
+			$nom = strtoupper($row['mail']);
 			//double test for crypted password (transition)
 			if ($nom == $login && ($row['password']==$pass || $row['password']==md5($row['salt'] . md5($pass))) && $row['disable']==0) 
 			{
-				$findnom=$row['login'];
+				$findnom=$row['mail'];
 				$findpwd=$row['password'];
 				$user_id=$row['id'];
 				$profile=$row['profile'];
@@ -63,7 +64,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		}
 		if ($findnom != "") 
 		{
-			$_SESSION['login'] = "$findnom";
+			$_SESSION['email'] = "$findnom";
 			$_SESSION['user_id'] = "$user_id";
 			
 			echo '<div id="valide"><img alt="logo" src="./images/valide.png" style="border-style: none" alt="img" /> Vos identifiants sont corrects.</div>';
@@ -87,14 +88,15 @@ if($_GET['state']=='') $_GET['state'] = '%';
 			include('./core/ldap.php');
 			if ($bind = @ldap_bind($ldap, "$login@$domain", $pass)) 
 			{
-				$_SESSION['login'] = "$login";
-				$q = mysql_query("SELECT id FROM tusers where login='$login'");
+				
+        $_SESSION['email'] = "$login";
+				$q = mysql_query("SELECT id FROM tusers where mail='$login'");
 				$r = mysql_fetch_array($q);
 				$_SESSION['user_id'] = "$r[0]";
 				if($r['0']=='')
 				{
 					// if error with login or password 
-					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore �t� cr�e dans ce logiciel.</div>';
+					echo '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" /> Votre utilisateur n\'a pas encore ÔøΩtÔøΩ crÔøΩe dans ce logiciel.</div>';
 					$www = "./index.php";
 					session_destroy();
 					//web redirection to login page
@@ -158,7 +160,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		}
 	}; 
 	// if user isn't connected then display authentication else display dashboard
-	if ($_SESSION['login'] == '') 
+	if ($_SESSION['email'] == '')
 	{
 		echo '
 		<br /><br /><br /><br /><br /><br /><br /><br />
@@ -260,11 +262,11 @@ if($_GET['state']=='') $_GET['state'] = '%';
 					<h2>Vos demandes</h2>
 					<ul>
 						';
-						echo "<li "; if (($_GET['state']=='%') && ($_GET['techid']==$_SESSION['user_id']) && ($_GET['techread']!='0') && $_GET['page']!='searchengine') echo "class=\"active\""; echo '><a title="Tous les tickets vous �tant attribu�s" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=%">Toutes vos demandes ('.$cnt1[0].')</a></li>';
+						echo "<li "; if (($_GET['state']=='%') && ($_GET['techid']==$_SESSION['user_id']) && ($_GET['techread']!='0') && $_GET['page']!='searchengine') echo "class=\"active\""; echo '><a title="Tous les tickets vous ÔøΩtant attribuÔøΩs" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=%">Toutes vos demandes ('.$cnt1[0].')</a></li>';
 						if ($rright['side_your_not_read']!=0) {
 							echo "<li "; if (($_GET['techread']=='0') && ($_GET['techid']==$_SESSION['user_id'])) echo "class=\"active\""; echo '><a title="Vos tickets non lus" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;techread=0">Non lu ('.$cnt3[0].')'; if ($cnt3[0]!=0) {echo '&nbsp<img style="border-style: none" alt="img" src="./images/wait.png" />';} echo'</a></li> ';
 						}
-						if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non Attribu� ('.$cnt6[0].')</a></li>';}
+						if ($rright['side_your_not_attribute']!=0) {echo "<li "; if (($_GET['techid']=='0') && ($_GET['state']=='5')) echo "class=\"active\""; echo '><a href="./index.php?page=dashboard&amp;techid=0&amp;state=5">Non AttribuÔøΩ ('.$cnt6[0].')</a></li>';}
 						$reqstate = mysql_query("SELECT * FROM `tstates` WHERE id not like 5 ORDER BY number"); 
 						while ($row=mysql_fetch_array($reqstate))
 						{

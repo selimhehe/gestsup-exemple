@@ -72,11 +72,16 @@ if (isset($_POST['submit'])){
   $r = mysql_fetch_array($query);
   if($r['0']=='')
 	{
-	  $requete = "INSERT INTO tusers (code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES ('$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '1')";
+	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES (2, '$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '1')";
 		echo "requette : ".$requete;
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
     if($execution){
+
+        $reqAllEmailsAdminAndTechnicien = mysql_query("select mail from tusers where profile in (4,0)");
+        $allEmailsAdminAndTechnicien = mysql_fetch_array($reqAllEmailsAdminAndTechnicien);
+
+        
         require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
@@ -116,7 +121,7 @@ if (isset($_POST['submit'])){
 
           $msg = "message envoyé";
         }
-        $mail->SmtpClose();
+        
 
     } else {
       $msg = "Un problème est survenue lors de la création de compte";

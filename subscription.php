@@ -46,7 +46,7 @@ if(isset($_GET['code']) || isset($_POST['code'])){
 	$r = mysql_fetch_array($query);
   if($r['0']=='')
 		{
-			echo "<div id='erreur'><img src='./images/access.png' alt='erreur' style='border-style: none' alt='img' /> Merci de vérifier votre code d'inscription.</div>";
+			echo "<div id='erreur'><img src='./images/access.png' alt='erreur' style='border-style: none' alt='img' /> Merci de v√©rifier votre code d'inscription.</div>";
       $www = "./codesubscription.php";
       echo "<SCRIPT LANGUAGE='JavaScript'>
 							<!--
@@ -61,40 +61,69 @@ if(isset($_GET['code']) || isset($_POST['code'])){
 }
 
 if (isset($_POST['submit'])){
-  $_POST['ville']  = str_replace("\\","\\\\",$_POST['ville']);
-  $_POST['ville']  = str_replace("'","\'",$_POST['ville']);
+ 
+  $password = $_POST['password'];
+  $salt = substr(md5(uniqid(rand(), true)), 0, 5); // Generate a random key
+	$_POST['password']=md5($salt . md5($_POST['password'])); // store in md5, md5 password + salt
 
-  $_POST['nom']  = str_replace("\\","\\\\",$_POST['nom']);
-  $_POST['nom']  = str_replace("'","\'",$_POST['nom']);
-
-  $_POST['prenom']  = str_replace("\\","\\\\",$_POST['prenom']);
-  $_POST['prenom']  = str_replace("'","\'",$_POST['prenom']);
-
-  $_POST['note']  = str_replace("\\","\\\\",$_POST['note']);
-  $_POST['note']  = str_replace("'","\'",$_POST['note']);
-
-  $_POST['tva']  = str_replace("\\","\\\\",$_POST['tva']);
-  $_POST['tva']  = str_replace("'","\'",$_POST['tva']);
-
-  $_POST['service']  = str_replace("\\","\\\\",$_POST['service']);
-  $_POST['service']  = str_replace("'","\'",$_POST['service']);
-
-  $_POST['company']  = str_replace("\\","\\\\",$_POST['company']);
-  $_POST['company']  = str_replace("'","\'",$_POST['company']);
-
-  $_POST['company']  = str_replace("\\","\\\\",$_POST['company']);
-  $_POST['company']  = str_replace("'","\'",$_POST['company']);
   $email = $_POST['email'];
 
   $query = mysql_query("SELECT mail FROM tusers where mail='$email'");
   $r = mysql_fetch_array($query);
   if($r['0']=='')
 	{
-	  $requete = "INSERT INTO tusers (code, civility, firstname,lastname,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note) VALUES ('$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]')";
-		echo $requete;
+	  $requete = "INSERT INTO tusers (code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES ('$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '1')";
+		echo "requette : ".$requete;
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+
+    if($execution){
+        require("components/PHPMailer_v5.1/class.phpmailer.php");
+        $mail = new PHPmailer();
+        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+
+        $mail->IsHTML(true); // Envoi en html
+
+        $mail->From = "$rparameters[mail_from]";
+        $mail->FromName = "$rparameters[mail_from]";
+
+        $mail->AddAddress("sahli28@gmail.cm");
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = "Inscription";
+        $bodyMSG = "Bonjour ".$_POST['firstname']. " ".$_POST['lastname'].", <br />
+         Nous allons traitter votre demande <br />
+         Login : $_POST[email]<br />
+         Mot de passe : $password <br />";
+        $mail->Body = "$bodyMSG";
+        if (!$mail->Send()){
+          $msg = '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" />';
+          $msg = $mail->ErrorInfo;
+          $msg = '</div>';
+        }
+    	else {
+//	echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoy�.</div></center>";
+//				echo "
+//				<SCRIPT LANGUAGE='JavaScript'>
+//				<!--
+//				function redirect()
+//				{
+//				window.location='./index.php?page=dashboard&techid=$globalrow[technician]&state=1'
+//				}
+//				setTimeout('redirect()',$rparameters[time_display_msg]);
+//				-->
+//				</SCRIPT>
+//				";
+
+          $msg = "message envoyé";
+        }
+        $mail->SmtpClose();
+
+    } else {
+      $msg = "Un problème est survenue lors de la création de compte";
+    }
+    
 	} else {
-	  $msg = "Adresse email existe déjà";
+	  $msg = "Adresse email existe d√©j√†";
 	}  
 }
 
@@ -103,7 +132,7 @@ if (isset($_POST['submit'])){
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>GestSup | Gestion de Support</title>
 <link rel="shortcut icon" type="image/ico" href="images/favicon.ico" />
 <link href="style.css" rel="stylesheet" type="text/css" />
@@ -160,6 +189,14 @@ if (isset($_POST['submit'])){
 				<td width="200"><label for="mail"><span class="required validate-email">*</span>E-mail:</label></td>
 				<td><input name="email" id="email" type="text" class="required email"  value="<?php echo $_POST['email']; ?>" size="20" /></td>
 			</tr>
+       <tr>
+				<td width="200"><label for="password"><span class="required">*</span>Mot de passe :</label></td>
+				<td><input name="password" id="password" type="password" class="required"  value="<?php echo $password; ?>" size="20" /></td>
+			</tr>
+        <tr>
+				<td width="220"><label for="confirm_password"><span class="required">*</span>Confirmation mot de passe :</label></td>
+				<td><input name="confirm_password" id="confirm_password" type="password" class="required"  value="<?php echo $_POST['confirm_password']; ?>" size="20" /></td>
+			</tr>
 			<tr>
 				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
 				<td>
@@ -173,12 +210,12 @@ if (isset($_POST['submit'])){
 				</td>
 			</tr>
 			<tr>
-				<td><label for="nom"><span class="required validate" required>*</span>Nom:</label></td>
-				<td><input name="nom" id="nom" type="text" class="required"  value="<?php echo $_POST['nom']; ?>" size="20" /></td>
+				<td><label for="firstname"><span class="required validate" required>*</span>Nom:</label></td>
+				<td><input name="firstname" id="firstname" type="text" class="required"  value="<?php echo $_POST['firstname']; ?>" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="prenom"><span class="required">*</span>Prénom:</label></td>
-				<td><input name="prenom" id="prenom" type="text" class="required"  value="<?php echo $_POST['prenom']; ?>" size="20" /></td>
+				<td><label for="lastname"><span class="required">*</span>Pr√©nom:</label></td>
+				<td><input name="lastname" id="lastname" type="text" class="required"  value="<?php echo $_POST['lastname']; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="fixe">Tél. fixe:</label></td>
@@ -256,11 +293,40 @@ if (isset($_POST['submit'])){
   <script language="javascript">
     jQuery.extend(jQuery.validator.messages, {
     required: "Ce champ est obligatoire",
+		equalTo: "Please enter the same password as above",
+    minlength: "Min 5 caractères",
     email: "Adresse email n'est pas valide"
     });
 
 	$(document).ready(function() {
-      $("#myForm").validate();
+    //  $("#myForm").validate();
+      $("#myForm").validate({
+        rules: {
+          password: {
+				required: true,
+				minlength: 5
+			},
+          confirm_password: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			}
+        },
+        messages: {
+			
+			password: {
+				required: "Ce champ est obligatoire",
+				minlength: "Min 5 caractères",
+				equalTo: "Vérifier votre mot de passe"
+			},
+			confirm_password: {
+				required: "Ce champ est obligatoire",
+				minlength: "Min 5 caractères",
+				equalTo: "Vérifier votre mot de passe"
+			}
+			
+		}
+      });
     });
   </script>
 </body>

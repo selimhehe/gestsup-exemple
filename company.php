@@ -8,20 +8,33 @@
 		3=>'Une erreur a été signalée',
 		4=>'Veuillez remplir tous les champs obligatoires.'
 	);
+	
+	// Vérifier que tous les champs obligatoires ne sont pas vide.
+	function validSubmit ($requiredFields){
+		$nullValues = array_keys($_POST, "");
+		foreach($nullValues as $nullValue){
+			if (in_array($nullValue, $requiredFields)) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	if(isset($_POST['add'])){
-		if (!in_array('', $requiredFields)) {
+		if (validSubmit ($requiredFields)) {
 			
-			$query = "INSERT INTO `tcompany` (`code`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`) 
-			VALUES ('". $_POST['code'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."')";
+			$query = "INSERT INTO `tcompany` (`code`, `responsible`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`) 
+			VALUES ('". $_POST['code'] ."', '". $_POST['responsible'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."')";
 			
 			$rst = mysql_query($query);
 			$returnMsg = $rst > 0 ? $returnMsgs[0] : $returnMsgs[3];
+			
 		}else{
 			$returnMsg = $returnMsgs[4];
 		}
 	}elseif(isset($_POST['edit'])){
-		if (!in_array('', $requiredFields)) {
-			$query = "UPDATE `tcompany` SET `code` = '". $_POST['code'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
+		if (validSubmit ($requiredFields)) {
+			$query = "UPDATE `tcompany` SET `code` = '". $_POST['code'] ."',responsible =  '". $_POST['responsible'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
 			$rst = mysql_query($query);
 			$returnMsg = $rst > 0 ? $returnMsgs[1] : $returnMsgs[3];
 		}else{
@@ -36,7 +49,9 @@
 		$item = mysql_fetch_assoc($query);
 	}
 	
-	$query = mysql_query("SELECT * FROM `tcompany` ORDER BY id");
+	$query = mysql_query("SELECT t.*, u.`firstname`, u.`lastname`, u.`mail`, u.`service`, u.`civility` FROM `tcompany` as t LEFT JOIN tusers as u ON t.responsible = u.id ORDER BY id");
+	
+	$query2 = mysql_query("SELECT * FROM `tusers` WHERE `profile` in (4, 0) ORDER BY firstname");
 	
 	if(isset($returnMsg) && $returnMsg != ''){ echo '<br /><div class="msg">'. $returnMsg .'</div><br />'; }
 ?>
@@ -46,8 +61,20 @@
 <center>
 	<table>
 		<tr>
-			 <th colspan="2" >Inscription utilisateur</th>
+			 <th colspan="2" >Gestion des groupes</th>
 		<tr>
+		<tr>
+			<td width="200"><label for="code"><span class="required">*</span>Responsable:</label></td>
+			<td>
+				<select name="responsible">
+					<?php while ($row2 = mysql_fetch_array($query2)) { ?>
+					<option value="<?php echo $row2['id']; ?>" <?php if(isset($item['responsible']) && $item['responsible'] == $row2['id']){ ?> selected="selected"<?php } ?>>
+						<?php echo $row2['civility'].' '.$row2['firstname'].' '.$row2['lastname']; ?>
+					</option>
+					<?php } ?>
+				</select>
+			</td>
+		</tr>
 		<tr>
 			<td width="200"><label for="code"><span class="required">*</span>Code:</label></td>
 			<td><input name="code" id="code" type="text" class="required"  value="<?php echo isset($item['code']) ? $item['code'] : '' ; ?>" size="20" /></td>
@@ -108,13 +135,14 @@
 </center>
 <?php }else{ ?>
 	<br /><br >
-	<center><a href="<?php echo $currentPath ; ?>&action=add"><img src="images/apply2.png" alt=""/> Ajouter</a></center>
+	<center><a href="<?php echo $currentPath ; ?>&action=add" class="positive"><img src="images/apply2.png" alt=""/> Ajouter</a></center>
 	<br /><br >
 <?php } ?>
 <center>
 	<table>
 		<tr>
 			<th>ACTION</th>
+			<th>responsable</th>
 			<th>code</th>
 			<th>Raison social</th>
 			<th>Diminutif</th>
@@ -133,6 +161,7 @@
 				<a title="Editer" href="<?php echo $currentPath ; ?>&action=edit<?php echo '&id='.$row['id'] ; ?>"><img src="./images/edit.png" border="0" /></a>
 				<a title="Supprimer" href="<?php echo $currentPath ; ?>&action=delete<?php echo '&id='.$row['id'] ; ?>"><img src="./images/delete.png" border="0" /></a>
 			</td>
+			<td><?php echo $row['civility'].' '.$row['firstname'].' '.$row['lastname']; ?></td>
 			<td><?php echo $row['code']; ?></td>
 			<td><?php echo $row['raison_social']; ?></td>
 			<td><?php echo $row['diminutif']; ?></td>

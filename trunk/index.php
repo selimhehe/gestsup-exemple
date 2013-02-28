@@ -73,6 +73,7 @@ if ($_SESSION['user_id'])
 <script type="text/javascript" src="./components/lightbox2.05/js/lightbox.js"></script>
 
 <script type="text/javascript" src="js/jquery.js" charset="utf-8"></script>
+<script type="text/javascript" src="js/jquery.validate.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jquery.ata.js" charset="utf-8"></script>
 <script type="text/javascript" src="js/jqModal.js"></script>
 

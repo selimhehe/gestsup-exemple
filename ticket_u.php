@@ -100,7 +100,7 @@ if($_POST['modify']||$_POST['quit']||$_POST['mail']||$save=="1")
 	// -->
 	</script>';
 	}
-	echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardé.</div>";
+	echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardÃ©.</div>";
 	// redirect
 	echo "<SCRIPT LANGUAGE='JavaScript'>
 			<!--
@@ -127,7 +127,7 @@ $previous = mysql_fetch_array($query);
 
 <div id="catalogue">
 	<form name="form" enctype="multipart/form-data" method="post" action="" id="thisform">
-		<h2 class="sec_head"><img src="./images/ticket-icon.png" /> Ticket n°<?php echo $_GET['id'];?> &nbsp;&nbsp;
+		<h2 class="sec_head"><img src="./images/ticket-icon.png" /> Ticket nÂ°<?php echo $_GET['id'];?> &nbsp;&nbsp;
 		<a target="_blank" href="./index.php?page=ticket_u&id=<?php echo $_GET['id']; ?>&print=1"><img align="right" style="margin:0px 10px 0px 0px;" align="left" style="border-style: none" alt="img" src="./images/print.png" title="Imprimer" /></a>
 		</h2>
 		<br />
@@ -153,7 +153,7 @@ $previous = mysql_fetch_array($query);
 			?>
 		<br />
 		<br />
-		<label for="category">Catégorie:</label>
+		<label for="category">CatÃ©gorie:</label>
 		
 		<?php
 			$query= mysql_query("SELECT * FROM `tcategory` where id=$globalrow[category]");
@@ -175,7 +175,7 @@ $previous = mysql_fetch_array($query);
 		<br />
 		<?php include "./attachement.php";?>
 		<br /><br />
-		<label for="resolution">Résolution:</label>
+		<label for="resolution">RÃ©solution:</label>
 		<br />
 		<br />
 		<textarea readonly="readonly" class="textfield" id="description" name="description" cols="100" rows="2" ><?php echo $globalrow['resolution']; ?></textarea>
@@ -185,15 +185,15 @@ $previous = mysql_fetch_array($query);
 		<?php echo $globalrow['date_create']; ?>
 		<br />
 		<br />
-		<label for="date_hope">Date de résolution estimée:</label>
+		<label for="date_hope">Date de rÃ©solution estimÃ©e:</label>
 		<?php echo $globalrow['date_hope']; ?>
 		<br />
 		<br />
-		<label for="time">Temps passé:</label>
+		<label for="time">Temps passÃ©:</label>
 		<?php echo "$globalrow[time] min";?>
 		<br />
 		<br />
-		<label for="priority">Priorité:</label>
+		<label for="priority">PrioritÃ©:</label>
 		   	<?php
 				$query = mysql_query("SELECT * FROM `tpriority` WHERE number LIKE '$globalrow[priority]'");
 				$row=mysql_fetch_array($query);
@@ -201,7 +201,7 @@ $previous = mysql_fetch_array($query);
 			?>
 		<br />
 		<br />
-		<label for="priority">Criticité:</label>
+		<label for="priority">CriticitÃ©:</label>
 		   	<?php
 				$query = mysql_query("SELECT * FROM `tcriticality` WHERE id LIKE '$globalrow[criticality]'");
 				$row=mysql_fetch_array($query);

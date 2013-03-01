@@ -79,9 +79,9 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		//Mail parameters
 		if ($userrow['mail']!='') $from=$userrow['mail']; else $from=$rparameters['mail_cc'];
 		$to=$rparameters['mail_newticket_address'];
-		$object="Un nouvel incident à été déclaré par $userrow[lastname] $userrow[firstname]: $_POST[title]";
+		$object="Un nouvel incident Ã  Ã©tÃ© dÃ©clarÃ© par $userrow[lastname] $userrow[firstname]: $_POST[title]";
 		$message = "
-		L'incident n°$number à été déclaré par l'utilisateur $userrow[lastname] $userrow[firstname].<br />
+		L'incident nÂ°$number Ã  Ã©tÃ© dÃ©clarÃ© par l'utilisateur $userrow[lastname] $userrow[firstname].<br />
 		<br />
 		<u>Objet:</u><br />
 		$_POST[title]<br />		
@@ -95,7 +95,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 	
 	if ($_POST['quit'])
 	{
-		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket n°$number envoyé.</div>";
+		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket nÂ°$number envoyÃ©.</div>";
 			
 		// redirect
 		$www = "./index.php?page=dashboard&techid=$_SESSION[user_id]&state=1";
@@ -113,7 +113,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 ?>
 <div id="catalogue">
 	<form name="thisform" enctype="multipart/form-data" method="post" action="" id="thisform">
-		<h2 class="sec_head"><img src="./images/create-ticket-icon.png" /> Ouverture du ticket n°<?php echo $number; ?></h2>
+		<h2 class="sec_head"><img src="./images/create-ticket-icon.png" /> Ouverture du ticket nÂ°<?php echo $number; ?></h2>
 		<br />
 		<label for="user">Demandeur:</label>
 		<?php echo "$reqfname[lastname] $reqfname[firstname]"; 
@@ -122,7 +122,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		$query = mysql_query("SELECT * FROM `tusers` WHERE id LIKE '$_POST[user]' or  id LIKE '$userreg'");
 		$row=mysql_fetch_array($query);
 		if ($row['phone']!="") echo "&nbsp;&nbsp;&nbsp;&nbsp;<img src=\"./images/tel.png\" border=\"0\" /> <b>$row[phone]</b>&nbsp;";
-		if ($row['mail']!="") echo '<img title="L\'adresse mail est bien renseignée.('.$row['mail'].')" src="./images/mail_min.png" style="border-style: none" alt="img" /> '.$row['mail'].'';
+		if ($row['mail']!="") echo '<img title="L\'adresse mail est bien renseignÃ©e.('.$row['mail'].')" src="./images/mail_min.png" style="border-style: none" alt="img" /> '.$row['mail'].'';
 		
 		//other demands for this user 
 		if($_POST['user'])
@@ -164,7 +164,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		}
 		?>
 		<br />
-		<label for="category">Catégorie:</label>
+		<label for="category">CatÃ©gorie:</label>
 		<select class="textfield" id="category" name="category" onchange="submit();">
 		   	<?php
 			//case for url parameter $category
@@ -212,7 +212,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		<br /><br />
 		<?php 
 		if ($_SESSION['profile_id']==3) {echo '
-		<label for="priority">Priorité:</label>
+		<label for="priority">PrioritÃ©:</label>
 		<select class="textfield" id="priority" name="priority" >';
 		   
 			$query = mysql_query("SELECT * FROM `tpriority` order by number ASC");

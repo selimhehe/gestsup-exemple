@@ -67,7 +67,7 @@ $query = "UPDATE tincidents SET disable='1' WHERE id LIKE '$_GET[id]'";
 $exec = mysql_query($query) or die('Erreur SQL !<br /><br />'.mysql_error());
 
 //redirect
-echo "<div id=\"erreur\"><img src=\"./images/delete_max.png\" border=\"0\" /> Ticket supprimé.</div>";
+echo "<div id=\"erreur\"><img src=\"./images/delete_max.png\" border=\"0\" /> Ticket supprimÃ©.</div>";
 	// redirect
 	echo "<SCRIPT LANGUAGE='JavaScript'>
 			<!--
@@ -105,11 +105,11 @@ if($_POST['modify']||$_POST['quit']||$_POST['mail']||$_POST['upload']||$save=="1
 	$r2=mysql_fetch_array($q2);
 	if ($globalrow['technician']=='0')
 		{
-		$_POST['resolution']="$today: Attribution de l\'incident à $r2[firstname] $r2[lastname].
+		$_POST['resolution']="$today: Attribution de l\'incident Ã  $r2[firstname] $r2[lastname].
 $_POST[resolution]";
 		} else {
 		$_POST['resolution']="$_POST[resolution]
-$today: Transfert de l\'incident de $r1[firstname] $r1[lastname] à $r2[firstname] $r2[lastname]. ";
+$today: Transfert de l\'incident de $r1[firstname] $r1[lastname] Ã  $r2[firstname] $r2[lastname]. ";
 		}
 	}
 	//AUTO modify state from 5 to 1 if technician change
@@ -166,7 +166,7 @@ $today: Transfert de l\'incident de $r1[firstname] $r1[lastname] à $r2[firstname
 		// -->
 		</script>';
 	}
-	echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardé.</div>";
+	echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardÃ©.</div>";
 	
 	// send mail
 	if($_POST['mail'])
@@ -229,21 +229,21 @@ if ($globalrow['time_hope']!=0)
 
 <div id="catalogue">
 	<form name="form" enctype="multipart/form-data" method="post" action="" id="thisform">
-		<h2 class="sec_head"><img src="./images/ticket-icon.png" /> Edition du ticket n°<?php echo "$_GET[id]   $percentage"; ?> &nbsp;&nbsp;
+		<h2 class="sec_head"><img src="./images/ticket-icon.png" /> Edition du ticket nÂ°<?php echo "$_GET[id]   $percentage"; ?> &nbsp;&nbsp;
 		<?php 
 		//Display clock if alarm 
 		$query = mysql_query("SELECT * FROM tevents WHERE incident='$_GET[id]' and disable='0'");
 		$alarm = mysql_fetch_array($query);
-		if($alarm) echo '<img title="Alame activée le '.$alarm['date_start'].'" src="./images/clock2.png" />';
+		if($alarm) echo '<img title="Alame activÃ©e le '.$alarm['date_start'].'" src="./images/clock2.png" />';
 		
-		if($previous[0]!='') echo"		<a href=\"./index.php?page=ticket&amp;id=$previous[0]&amp;state=$state&amp;techid=$techid\"><img border=\"0\" title=\"Ticket précédent\" src=\"./images/left.png\" /></a>&nbsp;"; 
+		if($previous[0]!='') echo"		<a href=\"./index.php?page=ticket&amp;id=$previous[0]&amp;state=$state&amp;techid=$techid\"><img border=\"0\" title=\"Ticket prÃ©cÃ©dent\" src=\"./images/left.png\" /></a>&nbsp;";
 		if($next[0]!='') echo"	<a href=\"./index.php?page=ticket&amp;id=$next[0]&amp;state=$state&amp;techid=$techid \"><img border=\"0\" title=\"Ticket suivant\" src=\"./images/right.png\" /></a>";
 		if ($rright['ticket_delete']!=0) echo '<a href="./index.php?page=ticket&id='.$_GET['id'].'&action=delete"><img align="right" style="margin:2px 10px 0px 0px; border-style: none;" alt="img" src="./images/delete_max.png" title="Supprimer ce ticket" /></a>';
 
 		?>
 		<a target="_blank" href="./index.php?page=ticket&id=<?php echo $_GET['id']; ?>&action=print"><img align="right" style="margin:2px 10px 0px 0px; border-style: none;" alt="img" src="./images/print.png" title="Imprimer" /></a>
 		<?php if (($rright['planning']!=0) && ($rparameters['planning']==1))  echo "<img align=\"right\" style=\"margin:2px 10px 0px 0px; border-style: none;\"  alt=\"img\" src=\"./images/planning.png\" title=\"Planifier une intervention pour ce ticket\" onClick=\"window.open('./event_add.php?id=$_GET[id]&technician=$_SESSION[user_id]&planning=1','useradd','width=400,height=300')\"/></a>"; ?>
-		<img align="right" style="margin:2px 10px 0px 0px; border-style: none;"  alt="img" src="./images/event.png" title="Créer un rappel pour ce ticket" onClick="window.open('./event_add.php?id=<?php echo $_GET['id']; ?>&technician=<?php echo $_SESSION['user_id']; ?>','useradd','width=350,height=300')"/></a>
+		<img align="right" style="margin:2px 10px 0px 0px; border-style: none;"  alt="img" src="./images/event.png" title="CrÃ©er un rappel pour ce ticket" onClick="window.open('./event_add.php?id=<?php echo $_GET['id']; ?>&technician=<?php echo $_SESSION['user_id']; ?>','useradd','width=350,height=300')"/></a>
 		</h2>
 		<br />
 		<label  for="user">Demandeur:</label>
@@ -318,7 +318,7 @@ if ($globalrow['time_hope']!=0)
 		}
 		?>
 		<br />
-		<label for="category">Catégorie:</label>
+		<label for="category">CatÃ©gorie:</label>
 		<select class="textfield" id="category" name="category" onchange="submit();">
 		<?php
 			$query= mysql_query("SELECT * FROM `tcategory` order by name ");
@@ -371,22 +371,22 @@ if ($globalrow['time_hope']!=0)
 		<textarea class="textfield" id="description" name="description" cols="100" rows="2" ><?php if ($_POST['description']) echo $_POST['description']; else echo $globalrow['description']; ?></textarea>
 		<?php include "./attachement.php";?>
 		<br /><br />
-		<label for="resolution">Résolution:</label>
+		<label for="resolution">RÃ©solution:</label>
 		<br />
-		&nbsp;&nbsp;<img title="Insérer la date et l'heure du jour" src="./images/date.png" onclick="insertAtCaret('resolution','<?php if ($uid!=$globalrow['technician'])  echo "$today $reqfname[firstname]:"; else echo "$today: ";?>');" /><br />
+		&nbsp;&nbsp;<img title="InsÃ©rer la date et l'heure du jour" src="./images/date.png" onclick="insertAtCaret('resolution','<?php if ($uid!=$globalrow['technician'])  echo "$today $reqfname[firstname]:"; else echo "$today: ";?>');" /><br />
 		<textarea class="textfield" id="resolution" name="resolution" cols="100" rows="2" ><?php if ($_POST['resolution']) echo $_POST['resolution']; else echo $globalrow['resolution']; ?></textarea>
 		<br />
 		<label for="date_create">Date de la demande:</label>
 		<input style="display: inline;" class="textfield" type='text' name='date_create' value="<?php if ($_POST['date_create']) echo $_POST['date_create']; else echo $globalrow['date_create']; ?>" ><img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=form&elem=date_create','Calendrier','width=400,height=400')">
 		<br />
-		<label for="date_hope">Date de résolution estimée:</label>
+		<label for="date_hope">Date de rÃ©solution estimÃ©e:</label>
 		<input style="display: inline;" class="textfield" type='text' name='date_hope'  value="<?php  if ($_POST['date_hope']) echo $_POST['date_hope']; else echo $globalrow['date_hope']; ?>" ><img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=form&elem=date_hope','Calendrier','width=400,height=400')">
 		<?php
 			//display warning if hope date is passed
 			$date_hope=$globalrow['date_hope'];
 			$querydiff=mysql_query("SELECT DATEDIFF(NOW(), '$date_hope') "); 
 			$resultdiff=mysql_fetch_array($querydiff);
-			if ($resultdiff[0]>0 && ($globalrow['state']!="3" && $globalrow['state']!="4")) echo "<img border=\"0\" title=\"Date de résolution dépassée de $resultdiff[0] jours de retard\" src=\"./images/warning_min.png\" />";
+			if ($resultdiff[0]>0 && ($globalrow['state']!="3" && $globalrow['state']!="4")) echo "<img border=\"0\" title=\"Date de rÃ©solution dÃ©passÃ©e de $resultdiff[0] jours de retard\" src=\"./images/warning_min.png\" />";
 			
 		?>
 		<br />
@@ -394,13 +394,13 @@ if ($globalrow['time_hope']!=0)
 			if ($globalrow['date_res']!="0000-00-00")
 			{
 				echo "
-					<label for=\"date_res\">Date de résolution :</label>
+					<label for=\"date_res\">Date de rÃ©solution :</label>
 					<input style=\"display: inline;\" class=\"textfield\" type='text' name='date_res'  value=".$globalrow['date_res']."  >
 					<br />
 				";
 			}
 		?>
-		<label for="time">Temps passé:</label>
+		<label for="time">Temps passÃ©:</label>
 		<select class="textfield" id="time" name="time" >
 		<?php
 			$query = mysql_query("SELECT * FROM `ttime` order by min ASC");
@@ -412,7 +412,7 @@ if ($globalrow['time_hope']!=0)
 		?>
 		</select>
 		<br />
-		<label for="time">Temps estimé:</label>
+		<label for="time">Temps estimÃ©:</label>
 		<select class="textfield" id="time_hope" name="time_hope" >
 		<?php
 			$query = mysql_query("SELECT * FROM `ttime` order by min ASC");
@@ -426,11 +426,11 @@ if ($globalrow['time_hope']!=0)
 		<?php
 			//display error if time hope < time pass
 		
-			if (($globalrow['time_hope']<$globalrow['time']) && $globalrow['state']!='3') echo "<img border=\"0\" title=\"La durée estimée est inférieur à la durée dèja passé.\" src=\"./images/critical_min.png\" />";
+			if (($globalrow['time_hope']<$globalrow['time']) && $globalrow['state']!='3') echo "<img border=\"0\" title=\"La durÃ©e estimÃ©e est infÃ©rieur Ã  la durÃ©e dÃ©ja passÃ©.\" src=\"./images/critical_min.png\" />";
 			
 		?>
 		<br />
-		<label for="priority">Priorité:</label>
+		<label for="priority">PrioritÃ©:</label>
 		<select class="textfield" id="priority" name="priority" >
 		   	<?php
 			if ($_POST['priority'])
@@ -450,7 +450,7 @@ if ($globalrow['time_hope']!=0)
 			?>			
 		</select>
 		<br />
-		<label for="priority">Criticité:</label>
+		<label for="priority">CriticitÃ©:</label>
 		<select class="textfield" id="criticality" name="criticality" >
 		   	<?php
 			if ($_POST['criticality'])
@@ -476,7 +476,7 @@ if ($globalrow['time_hope']!=0)
 		echo "<img style=\"border-style: none\" alt=\"img\" src=\"./images/critical_$row[color].png\" />";
 		?>
 		<br />
-		<label for="state">État:</label>
+		<label for="state">Ã©tat:</label>
 		<select class="textfield" id="state"  name="state" >
 		   	<?php
 			if ($_POST['state'])

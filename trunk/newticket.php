@@ -93,7 +93,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 	}
 	else if ($_POST['quit'])
 	{
-		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardé.</div>";
+		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardÃ©.</div>";
 		 // redirect
 		$www = "./index.php?page=dashboard&techid=$_SESSION[user_id]&state=1";
 		echo "<SCRIPT LANGUAGE='JavaScript'>
@@ -108,7 +108,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 	}
 	else if ($_POST['save']||$_POST['upload']!='')
 	{
-		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardé.</div>";
+		echo "<div id=\"valide\"><img src=\"./images/save.png\" border=\"0\" /> Ticket sauvegardÃ©.</div>";
 		 // redirect
 		$www = "./index.php?page=ticket&id=$number";
 		echo "<SCRIPT LANGUAGE='JavaScript'>
@@ -126,8 +126,8 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 <div id="catalogue">
 	<form name="thisform" enctype="multipart/form-data" method="post" action="" id="thisform">
 		<h2 class="sec_head"><img src="./images/create-ticket-icon.png" />
-			Ouverture du ticket n°<?php echo $number; ?>
-			<img align="right" title="Créer ce ticket à partir d'un modèle d'incident" src="./images/template.png" style="border-style: none" alt="img" value='useradd' onClick="window.open('./newticket_template.php?id=<?php echo $number; ?>&uid=<?php echo $_SESSION['user_id']; ?>','useradd','width=400,height=130')" />
+			Ouverture du ticket nÂ°<?php echo $number; ?>
+			<img align="right" title="CrÃ©er ce ticket Ã  partir d'un modÃ¨le d'incident" src="./images/template.png" style="border-style: none" alt="img" value='useradd' onClick="window.open('./newticket_template.php?id=<?php echo $number; ?>&uid=<?php echo $_SESSION['user_id']; ?>','useradd','width=400,height=130')" />
 		</h2>
 		<br />
 		<label for="user">Demandeur:</label>
@@ -156,7 +156,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 		$query = mysql_query("SELECT * FROM `tusers` WHERE id LIKE '$post_user' or  id LIKE '$userreg'");
 		$row=mysql_fetch_array($query);
 		if ($row['phone']!="") echo "&nbsp;&nbsp;&nbsp;&nbsp;<img src=\"./images/tel.png\" border=\"0\" /> <b>$row[phone]</b>&nbsp;";
-		if ($row['mail']!="") echo '<img title="L\'adresse mail est bien renseignée.('.$row['mail'].')" src="./images/mail_min.png" style="border-style: none" alt="img" />';
+		if ($row['mail']!="") echo '<img title="L\'adresse mail est bien renseignÃ©e.('.$row['mail'].')" src="./images/mail_min.png" style="border-style: none" alt="img" />';
 		
 		//other demands for this user 
 		if($_POST['user'])
@@ -196,7 +196,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 			?>
 		</select>
 		<br />
-		<label for="category">Catégorie:</label>
+		<label for="category">CatÃ©gorie:</label>
 		<select class="textfield" id="category" name="category" onchange="submit();">
 		   	<?php
 			//case for url parameter $category for reload list
@@ -244,19 +244,19 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 		<textarea class="textfield" id="description" name="description" cols="100" rows="2"  ><?php echo $_POST['description']; ?></textarea>
 		<?php include "./attachement.php"; ?>
 		<br /><br />
-		<label for="resolution">Résolution:</label>
-		<br />&nbsp;&nbsp;<img title="Insérer la date et l'heure du jour" src="./images/date.png" onclick="insertAtCaret('resolution','<?php echo $today; ?>');" />
+		<label for="resolution">RÃ©solution:</label>
+		<br />&nbsp;&nbsp;<img title="InsÃ©rer la date et l'heure du jour" src="./images/date.png" onclick="insertAtCaret('resolution','<?php echo $today; ?>');" />
 		<textarea class="textfield" id="resolution" name="resolution" cols="100" rows="2"><?php echo $_POST['resolution']; ?></textarea>
 		<br />
 		<label for="date_create">Date de la demande:</label>
 		<input style="display:inline;" class="textfield" type='text' name='date_create'  value="<?php echo date("Y-m-d");?>" />
 		<img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=thisform&amp;elem=date_create','Calendrier','width=400,height=400')" />
 		<br />
-		<label for="date_hope">Date de résolution estimée:</label>
+		<label for="date_hope">Date de rÃ©solution estimÃ©e:</label>
 		<input style="display: inline;" class="textfield" type='text' name='date_hope'  value="<?php echo $_POST['date_hope']; ?>" />
 		<img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=thisform&amp;elem=date_hope','Calendrier','width=400,height=400')" />
 		<br />
-		<label for="time">Temps passé:</label>
+		<label for="time">Temps passÃ©:</label>
 		<select class="textfield" id="time" name="time" > 
 			<?php
 			$query = mysql_query("SELECT * FROM `ttime` order by min ASC");
@@ -267,7 +267,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 			?>
 		</select>
 		<br />
-		<label for="time">Temps estimé:</label>
+		<label for="time">Temps estimÃ©:</label>
 		<select class="textfield" id="time_hope" name="time_hope" > 
 			<?php
 			$query = mysql_query("SELECT * FROM `ttime` order by min ASC");
@@ -278,7 +278,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 			?>
 		</select>
 		<br />
-		<label for="priority">Priorité:</label>
+		<label for="priority">PrioritÃ©:</label>
 		<select class="textfield" id="priority" name="priority" >
 		   	<?php
 			$query = mysql_query("SELECT * FROM `tpriority` order by number ASC");
@@ -292,7 +292,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit']||$_POST['upload'])
 			?>		
 		</select>
 		<br />
-		<label for="criticality">Criticité:</label>
+		<label for="criticality">CriticitÃ©:</label>
 		<select class="textfield" id="criticality" name="criticality" >
 		   	<?php
 			$query = mysql_query("SELECT * FROM `tcriticality` order by number ASC");

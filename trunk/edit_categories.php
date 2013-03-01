@@ -17,7 +17,7 @@ if(!isset($subcatname)) $subcatname = '';
 ?>
 
 <link href="style2.css" rel="stylesheet" type="text/css" />
-<?php if ($_GET['id']) echo "Modifier une sous categorie"; else  echo "<title>Ajouter une sous catégorie</title>"; ?>
+<?php if ($_GET['id']) echo "Modifier une sous categorie"; else  echo "<title>Ajouter une sous catÃ©gorie</title>"; ?>
 
 <div id="content">
 	<?php
@@ -49,10 +49,10 @@ if(!isset($subcatname)) $subcatname = '';
 	if ($_GET['subcat']=="")
 	{
 	echo "
-	<center><b>Ajout d'une sous-catégorie</b></center> 
+	<center><b>Ajout d'une sous-catÃ©gories</b></center>
 	<br />
 	<form method=\"POST\" action=\"\" id=\"chgmodele\">
-		<label for=\"cat\">Catégorie:</label>
+		<label for=\"cat\">catÃ©gories:</label>
 		<select class=\"textfield\" id=\"cat\" name=\"cat\">
 			";
 			$query= mysql_query("SELECT * FROM `tcategory` order by name ASC");
@@ -67,7 +67,7 @@ if(!isset($subcatname)) $subcatname = '';
 		</select>
 		<br />
 		<br />
-		<label for=\"subcat\"> Sous-catégorie:</label>
+		<label for=\"subcat\"> Sous-catÃ©gories:</label>
 		<input class=\"textfield\" name=\"subcatname\" type=\"text\" value=\"$subcatname\" size=\"26\">
 		<br />
 			<div  class=\"buttons2\">
@@ -94,7 +94,7 @@ if(!isset($subcatname)) $subcatname = '';
 	<br />
 	<form method=\"POST\" action=\"\" id=\"chgmodele\">
 		<br />
-		Catégorie:
+		catÃ©gories:
 		<select class=\"textfield\" id=\"cat\" name=\"cat\">
 		";
 		$query= mysql_query("SELECT * FROM `tcategory` order by name ASC");
@@ -109,7 +109,7 @@ if(!isset($subcatname)) $subcatname = '';
 		echo "
 		</select>
 		<br />
-		Sous-Catégorie:
+		Sous-catÃ©gories:
 		<input class=\"textfield\" name=\"name\" type=\"text\" size=\"26\" value=\"$row[name]\">
 		<br /><br />
 			<div  class=\"buttons2\">

@@ -80,12 +80,12 @@ if ($_GET['action']=="add")
 				<legend class="h2">Liste Disponible: </legend>
 				<table style="border-style: none" alt="img">
 					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=ttime">Temps</a><br />
-					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tpriority">Priorité</a><br />
-					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tcriticality">Criticité</a><br />
+					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tpriority">PrioritÃ©</a><br />
+					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tcriticality">CriticitÃ©</a><br />
 					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tstates">Etats</a><br />
-					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tcategory">Catégories</a><br />
-					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tsubcat">Sous-Catégorie</a><br />
-					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=ttemplates">Modèles</a><br />
+					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tcategory">CatÃ©gories</a><br />
+					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=tsubcat">Sous-CatÃ©gorie</a><br />
+					- <a href="./index.php?page=admin&amp;subpage=list&amp;table=ttemplates">ModÃ¨les</a><br />
 				</table>
 			</fieldset>
 		</td>
@@ -116,7 +116,7 @@ if ($_GET['action']=="add")
 		</td>
 		<td valign="top">
 			<fieldset style="width:250px">
-				<legend class="h2"><?php if ($_GET['action']!="edit") echo "Ajouter une entrée"; else echo "Modifier une entrée"; ?></legend>
+				<legend class="h2"><?php if ($_GET['action']!="edit") echo "Ajouter une entrÃ©e"; else echo "Modifier une entrÃ©e"; ?></legend>
 				<br />
 				<form method="post" action="<?php echo $_SERVER['REQUEST_URI']; if ($_GET['action']=="edit") {echo "&amp;action=update";} else {echo "&amp;action=add";} ?>" >
 					<?php

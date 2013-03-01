@@ -31,7 +31,17 @@ $daydate=date('Y-m-d');
 //if user is connected
 if ($_SESSION['user_id'])
 {
-  // #TODO redirection 
+      echo "
+				<SCRIPT LANGUAGE='JavaScript'>
+				<!--
+				function redirect()
+				{
+				window.location='./index.php'
+				}
+				setTimeout('redirect()',$rparameters[time_display_msg]);
+				-->
+				</SCRIPT>
+				";
 }
 
 

@@ -47,7 +47,7 @@ $saturday=strtotime('First Saturday January '.$year.' +'.($week).' Week');
 $sunday=strtotime('First Sunday January '.$year.' +'.($week).' Week');
 
 $frday = array ('Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi');
-$frmonth = array ('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Décembre');
+$frmonth = array ('Janvier', 'FÃ©vrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'DÃ©cembre');
 
 
 //Delete events
@@ -75,7 +75,7 @@ echo'
 		</ul>
 		</div>
 		&nbsp;&nbsp;
-		<a href="./index.php?page=planning&view=week&cursor='.$cursor.'&previous=1"><img alt="img" src="./images/left.png" title="Semaine précédente" /></a>
+		<a href="./index.php?page=planning&view=week&cursor='.$cursor.'&previous=1"><img alt="img" src="./images/left.png" title="Semaine prÃ©cÃ©dente" /></a>
 		<a href="./index.php?page=planning&view=week&cursor='.$cursor.'&next=1"><img alt="img" src="./images/right.png" title="Semaine suivante" /></a>
 
 ';
@@ -167,7 +167,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 				}
 			echo '
 			</td>
@@ -182,7 +182,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 
 				}
 			echo '
@@ -198,7 +198,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 
 				}
 			echo '
@@ -214,7 +214,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 
 				}
 			echo '
@@ -230,7 +230,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 
 				}
 			echo '
@@ -246,7 +246,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 				}
 			echo '
 			</td>
@@ -261,7 +261,7 @@ if ($_GET['view']=='week')
 					$query= mysql_query( "SELECT * FROM `tincidents` WHERE id=$row[incident] ");
 					$row = mysql_fetch_array($query);
 					echo '<a title="Voir le ticket '.$row['id'].'" href="./index.php?page=ticket&id='.$row['id'].'">'.$type.' '.$row['title'].'</a>';
-					echo '<a title="Supprimer cet évenement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
+					echo '<a title="Supprimer cet Ã©venement" href="./index.php?page=planning&view='.$_GET['view'].'&cursor='.$_GET['cursor'].'&next='.$_GET['next'].'&delete='.$row['id'].'"><img src="./images/delete.png" /></a>';
 
 				}
 			echo '

@@ -44,7 +44,7 @@ if ($_POST['tech6']=="") $_POST['tech6']='%';
 
 //month name and day nametable 
 $mois = array();
-$mois = array("01" => "Janvier", "02"=> "Février", "03"=> "Mars", "04"=> "Avril", "05"=> "Mai", "06"=> "Juin", "07"=> "Juillet", "08"=> "Aout", "09"=> "Septembre", "10"=> "Octobre", "11"=> "Novembre", "12"=> "Décembre");
+$mois = array("01" => "Janvier", "02"=> "FÃ©vrier", "03"=> "Mars", "04"=> "Avril", "05"=> "Mai", "06"=> "Juin", "07"=> "Juillet", "08"=> "Aout", "09"=> "Septembre", "10"=> "Octobre", "11"=> "Novembre", "12"=> "DÃ©cembre");
 	
 $jour= array();
 $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=> "8", 9=> "9", 10=> "10", 11=> "11", 12=> "12", 13=> "13", 14=> "14", 15=> "15", 16=> "16", 17=> "17", 18=> "18", 19=> "19", 20=> "20", 21=> "21", 22=> "22", 23=> "23", 24=> "24", 25=> "25", 26=> "26", 27=> "27", 28=> "28", 29=> "29", 30=> "30", 31=> "31");
@@ -61,7 +61,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	$res = mysql_fetch_array($req);
 	$count=$res[0];
 	
-	//Table déclaration
+	//Table dï¿½claration
 	$values = array();
 	$xnom = array();
 	
@@ -96,7 +96,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	{
 	$values = array();
 	$xnom = array();
-		$libchart="Nombre de tickets ouvert sur toutes les années";
+		$libchart="Nombre de tickets ouvert sur toutes les annÃ©es";
 		$sql= "SELECT year(date_create) as x,count(*) as y FROM `tincidents` WHERE technician LIKE '$_POST[tech]' and criticality like '$_POST[criticality]' and date_create not like '0000-00-00'  and date_create like '$_POST[year]-$_POST[month]-%' AND disable='0' group by year(date_create) ";
 		$result = mysql_query($sql) or die('Erreur SQL !<br />'.$sql.'<br />'.mysql_error());
 		// push data in table
@@ -140,13 +140,13 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					echo "<option value=\"$row[id]\" $selected2>$row[name]</option>"; 
 					$selected2="";
 				} 
-				echo "<option "; if ($_POST['criticality']=='%') echo "selected"; echo" value=\"%\" >Toutes les criticités</option>";										
+				echo "<option "; if ($_POST['criticality']=='%') echo "selected"; echo" value=\"%\" >Toutes les criticitÃ©s</option>";
 				?>
 			</select> 
 			<select name="month" onchange=submit()>
 				<option value="%" <?php if ($_POST['month'] == '%')echo "selected" ?>>Tous les mois</option>
 				<option value="01"<?php if ($_POST['month'] == '1')echo "selected" ?>>Janvier</option>
-				<option value="02"<?php if ($_POST['month'] == '2')echo "selected" ?>>Février</option>
+				<option value="02"<?php if ($_POST['month'] == '2')echo "selected" ?>>FÃ©vrier</option>
 				<option value="03"<?php if ($_POST['month'] == '3')echo "selected" ?>>Mars</option>
 				<option value="04"<?php if ($_POST['month'] == '4')echo "selected" ?>>Avril</option>
 				<option value="05"<?php if ($_POST['month'] == '5')echo "selected" ?>>Mai</option>
@@ -156,7 +156,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 				<option value="09"<?php if ($_POST['month'] == '9')echo "selected" ?>>Septembre</option>
 				<option value="10"<?php if ($_POST['month'] == '10')echo "selected" ?>>Octobre</option>
 				<option value="11"<?php if ($_POST['month'] == '11')echo "selected" ?>>Novembre</option>	
-				<option value="12"<?php if ($_POST['month'] == '12')echo "selected" ?>>Décembre</option>	
+				<option value="12"<?php if ($_POST['month'] == '12')echo "selected" ?>>DÃ©cembre</option>
 			</select>
 
 			<select name="year" onchange=submit()>
@@ -170,7 +170,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					echo "<option value=$row[year] $selected>$row[year]</option>";
 				}
 				?>
-				<option value="%" <?php if ($_POST['year'] == '%')echo "selected" ?>>Toutes les années</option>
+				<option value="%" <?php if ($_POST['year'] == '%')echo "selected" ?>>Toutes les annÃ©es</option>
 			</select>
 		</form>
 	</center>
@@ -244,8 +244,8 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	<div  style="min-width: 200px; height: 230px; margin: 0 auto; margin-left:50px; float:left; ">
 		<br /><br /><br /><br /><br /><br /><br />
 		<form method="post" action="#cam2" name="category">
-			<u>Critères:</u><br /><br />
-			<label for="category">Catégorie</label>
+			<u>CritÃ¨res:</u><br /><br />
+			<label for="category">CatÃ©gorie</label>
 			<select name="category" onchange=submit()>
 				<?php
 				$query = mysql_query("SELECT * FROM tcategory ORDER BY name");				
@@ -255,8 +255,8 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					echo "<option value=\"$row[id]\" $selected>$row[name]</option>"; 
 					$selected="";
 				} 
-				echo "<option value=\"%\" >Toutes les catégories</option>";	
-				if ($find!="1") echo "<option value=\"%\" selected>Toutes les catégories</option>";					
+				echo "<option value=\"%\" >Toutes les catÃ©gories</option>";
+				if ($find!="1") echo "<option value=\"%\" selected>Toutes les catÃ©gories</option>";
 				?>
 			</select> 
 		</form>
@@ -314,7 +314,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	<a name="chart6"></a>
 	<div  style="min-width: 200px; height: 230px; margin: 0 auto; margin-left:50px; float:left; ">
 			<br /><br /><br /><br /><br />
-			<u>Critères:</u><br><br>
+			<u>CritÃ¨res:</u><br><br>
 			<form method="post" action="#chart6" name="chart6">
 				<label for="tech6">Technicien:</label>
 				<select name="tech6" onchange=submit()>
@@ -331,7 +331,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					?>
 				</select> 
 				<br />
-				<label for="cat6">Catégorie:</label>
+				<label for="cat6">CatÃ©gorie:</label>
 				<select name="cat6" onchange=submit()>
 					<?php
 					$query = mysql_query("SELECT * FROM tcategory ORDER BY name");				
@@ -341,8 +341,8 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 						echo "<option value=\"$row[id]\" $selected>$row[name]</option>"; 
 						$selected="";
 					} 
-					echo "<option value=\"%\" >Toutes les catégories</option>";	
-					if ($find!="1") echo "<option value=\"%\" selected>Toutes les catégories</option>";					
+					echo "<option value=\"%\" >Toutes les catÃ©gories</option>";
+					if ($find!="1") echo "<option value=\"%\" selected>Toutes les catÃ©gories</option>";
 					?>
 				</select> 
 				<br />
@@ -351,7 +351,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					<option value="current"<?php if ($_POST['month6'] == 'current')echo "selected" ?>>En cours</option>
 					<option value="%"<?php if ($_POST['month6'] == '%')echo "selected" ?>>Tous</option>
 					<option value="01"<?php if ($_POST['month6'] == '1')echo "selected" ?>>Janvier</option>
-					<option value="02"<?php if ($_POST['month6'] == '2')echo "selected" ?>>Février</option>
+					<option value="02"<?php if ($_POST['month6'] == '2')echo "selected" ?>>FÃ©vrier</option>
 					<option value="03"<?php if ($_POST['month6'] == '3')echo "selected" ?>>Mars</option>
 					<option value="04"<?php if ($_POST['month6'] == '4')echo "selected" ?>>Avril</option>
 					<option value="05"<?php if ($_POST['month6'] == '5')echo "selected" ?>>Mai</option>
@@ -361,10 +361,10 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 					<option value="09"<?php if ($_POST['month6'] == '9')echo "selected" ?>>Septembre</option>
 					<option value="10"<?php if ($_POST['month6'] == '10')echo "selected" ?>>Octobre</option>
 					<option value="11"<?php if ($_POST['month6'] == '11')echo "selected" ?>>Novembre</option>	
-					<option value="12"<?php if ($_POST['month6'] == '12')echo "selected" ?>>Décembre</option>	
+					<option value="12"<?php if ($_POST['month6'] == '12')echo "selected" ?>>DÃ©cembre</option>
 				</select>
 				<br />
-				<label for="year6">Année:</label>
+				<label for="year6">AnnÃ©e:</label>
 				<select name="year6" onchange=submit()>
 					<?php
 					$qyear6= mysql_query("SELECT distinct year(date_create) as year FROM `tincidents` WHERE date_create not like '0000-00-00' AND disable='0'");
@@ -516,7 +516,7 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	echo "</table>";	
 	
 	echo "<table  border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
-	echo "<tr><th colspan=\"2\">délais moyen de résolution</th></tr>";
+	echo "<tr><th colspan=\"2\">dÃ©lais moyen de rÃ©solution</th></tr>";
 	$query = mysql_query("select tusers.firstname, AVG(TO_DAYS(date_res) - TO_DAYS(date_create)) as jour from tincidents INNER JOIN tusers ON (tincidents.technician=tusers.id )where tincidents.technician NOT LIKE '0' AND tincidents.date_res NOT LIKE '0000-00-00' AND tincidents.date_create NOT LIKE '0000-00-00' AND tusers.disable='0' group by tincidents.technician ORDER BY jour ASC");
 	while ($row=mysql_fetch_array($query)) {echo "<tr><td>$row[0]</td><td>$row[1]j</td></tr>";} 
 	echo "</table>";
@@ -525,13 +525,13 @@ $jour = array(1 => "1", 2=> "2", 3=> "3", 4=> "4", 5=> "5", 6=> "6", 7=> "7", 8=
 	echo "<td>";
 	
 	echo "<table  width=\"180\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
-	echo "<tr><th colspan=\"2\">Demandes par criticité</th></tr>";
+	echo "<tr><th colspan=\"2\">Demandes par criticitÃ©</th></tr>";
 	$query = mysql_query("select tcriticality.name, count(*) as number FROM tincidents INNER JOIN tcriticality ON (tincidents.criticality=tcriticality.id ) WHERE tincidents.disable='0' group by tincidents.criticality  order by tcriticality.number ASC");
 	while ($row=mysql_fetch_array($query)) {echo "<tr><td>$row[0]</td><td>$row[1]</td></tr>";} 
 	echo "</table>";
 	
 	echo "<table  width=\"180\" border=\"1\" cellspacing=\"0\" cellpadding=\"0\">";
-	echo "<tr><th colspan=\"2\">Demandes par priorité</th></tr>";
+	echo "<tr><th colspan=\"2\">Demandes par prioritÃ©</th></tr>";
 	$query = mysql_query("select tpriority.name, count(*) as number FROM tincidents INNER JOIN tpriority ON (tincidents.priority=tpriority.id ) WHERE tincidents.disable='0' group by tincidents.priority order by tpriority.number ASC");
 	while ($row=mysql_fetch_array($query)) {echo "<tr><td>$row[0]</td><td>$row[1]</td></tr>";} 
 	echo "</table>";

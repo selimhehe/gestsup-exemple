@@ -31,7 +31,17 @@ $msg = "";
 //if user is connected
 if ($_SESSION['user_id'])
 {
-  // #TODO redirection
+     echo "
+				<SCRIPT LANGUAGE='JavaScript'>
+				<!--
+				function redirect()
+				{
+				window.location='./index.php'
+				}
+				setTimeout('redirect()',$rparameters[time_display_msg]);
+				-->
+				</SCRIPT>
+				";
 }
 
 if(isset($_GET['code']) || isset($_POST['code'])){
@@ -73,7 +83,7 @@ if (isset($_POST['submit'])){
   if($r['0']=='')
 	{
 	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES (2, '$_POST[code]','$_POST[civility]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[vile]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '1')";
-		echo "requette : ".$requete;
+		
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
     if($execution){
@@ -85,7 +95,16 @@ if (isset($_POST['submit'])){
         require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-       // $mail->IsMail();
+        $mail->IsSMTP();
+        $mail->Host = "$rparameters[mail_smtp]";
+        $mail->SMTPAuth = $rparameters['mail_auth'];
+        if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
+        if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
+        if ($rparameters['mail_secure']=='465') $mail->Port = 465;
+        if ($rparameters['mail_secure']=='587') $mail->Port = 587;
+        $mail->Username = "$rparameters[mail_username]";
+        $mail->Password = "$rparameters[mail_password]";
+
 
         $mail->IsHTML(true); // Envoi en html
 
@@ -94,11 +113,13 @@ if (isset($_POST['submit'])){
 
         $mail->AddAddress("sahli28@gmail.cm");
 	      $mail->AddReplyTo("$rparameters[mail_from]");
-        $mail->Subject = "Inscription";
-        $bodyMSG = "Bonjour ".$_POST['firstname']. " ".$_POST['lastname'].", <br />
-         Nous allons traitter votre demande <br />
-         Login : $_POST[email]<br />
-         Mot de passe : $password <br />";
+        $mail->Subject = "Nouvelle entrée dans le système.";
+        $bodyMSG = "Bonjour , <br /><br />
+         Nous vous remercions pour votre nouvelle demande dans le système.<br />
+         Celle-ci sera prise en compte dans les prochaines heures.<br /><br />
+         Voila votre nom d'utilisateur et mot de passe pour accéder à la plateforme <br />
+         <b>Login </b> : $_POST[email]<br />
+         <b>Mot de passe </b> : $password <br />";
         $mail->Body = "$bodyMSG";
         if (!$mail->Send()){
           $msg = '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" />';
@@ -106,18 +127,29 @@ if (isset($_POST['submit'])){
           $msg = '</div>';
         }
     	else {
-//	echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoy�.</div></center>";
-//				echo "
-//				<SCRIPT LANGUAGE='JavaScript'>
-//				<!--
-//				function redirect()
-//				{
-//				window.location='./index.php?page=dashboard&techid=$globalrow[technician]&state=1'
-//				}
-//				setTimeout('redirect()',$rparameters[time_display_msg]);
-//				-->
-//				</SCRIPT>
-//				";
+
+        $mail->AddAddress("sahli28@gmail.cm");
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = "Nouvelle entrée dans le système.";
+        $bodyMSG = "Bonjour , <br /><br />
+         L’utilisateur : $_POST[email] a déposé une nouvelle demande dans le système.<br /><br />
+         Vous pouvez valider ou réfuser son compte sur le lien suivant : <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND\">http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND</a> <br />";        
+        
+        $mail->Body = "$bodyMSG";
+        $mail->Send();
+
+      echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoyé.</div></center>";
+				echo "
+				<SCRIPT LANGUAGE='JavaScript'>
+				<!--
+				function redirect()
+				{
+				window.location='./index.php'
+				}
+				setTimeout('redirect()',$rparameters[time_display_msg]);
+				-->
+				</SCRIPT>
+				";
 
           $msg = "message envoyé";
         }
@@ -128,7 +160,7 @@ if (isset($_POST['submit'])){
     }
     
 	} else {
-	  $msg = "Adresse email existe d√©j√†";
+	  $msg = "Adresse email existe déjà";
 	}  
 }
 
@@ -219,7 +251,7 @@ if (isset($_POST['submit'])){
 				<td><input name="firstname" id="firstname" type="text" class="required"  value="<?php echo $_POST['firstname']; ?>" size="20" /></td>
 			</tr>
 			<tr>
-				<td><label for="lastname"><span class="required">*</span>Pr√©nom:</label></td>
+				<td><label for="lastname"><span class="required">*</span>Prénom:</label></td>
 				<td><input name="lastname" id="lastname" type="text" class="required"  value="<?php echo $_POST['lastname']; ?>" size="20" /></td>
 			</tr>
 			<tr>

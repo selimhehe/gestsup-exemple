@@ -63,7 +63,7 @@ if($_POST['Valider'])
 		if (move_uploaded_file($_FILES['logo']['tmp_name'], $repertoireDestination.$_FILES['logo']['name'])   ) 
 		{
 		} else {
-		echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+		echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 	}
 	else $filename="$rparameters[logo]";
@@ -114,7 +114,7 @@ if($_POST['Valider'])
 ?>
 
 <form enctype="multipart/form-data" method="post" action="">
-	<b>Société:</b><br />
+	<b>SociÃ©tÃ©:</b><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Nom de l'entreprise: <input name="company" type="" value="<?php echo $rparameters['company']; ?>" size="20" /><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Logo:
 	<?php
@@ -128,19 +128,19 @@ if($_POST['Valider'])
 	?>
 	<br /><br />
 	<b>Affichage:</b><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Lignes par page <i>(Tâches)</i>: <input name="maxline" type="" value="<?php echo $rparameters['maxline']; ?>" size="1" />  <img src="./images/info.png" alt="info" title="Si cette valeur est trop grande cela peut ralentir l'application" /><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Ticket ancien <i>(Tâches)</i>: <input name="lign_yellow" type="" value="<?php echo $rparameters['lign_yellow']; ?>" size="1" /> jours  <img src="./images/question.png" alt="question" title="Détermine, la couleur jaune des tickets dans les tâches" /><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Ticket très ancien <i>(Tâches)</i>: <input name="lign_orange" type="" value="<?php echo $rparameters['lign_orange']; ?>" size="1" /> jours <img src="./images/question.png" alt="question" title="Détermine, la couleur orange des tickets dans les tâches" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Lignes par page <i>(TÃ¢ches)</i>: <input name="maxline" type="" value="<?php echo $rparameters['maxline']; ?>" size="1" />  <img src="./images/info.png" alt="info" title="Si cette valeur est trop grande cela peut ralentir l'application" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Ticket ancien <i>(TÃ¢ches)</i>: <input name="lign_yellow" type="" value="<?php echo $rparameters['lign_yellow']; ?>" size="1" /> jours  <img src="./images/question.png" alt="question" title="DÃ©termine, la couleur jaune des tickets dans les TÃ¢ches" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Ticket trÃ©s ancien <i>(TÃ¢ches)</i>: <input name="lign_orange" type="" value="<?php echo $rparameters['lign_orange']; ?>" size="1" /> jours <img src="./images/question.png" alt="question" title="DÃ©termine, la couleur orange des tickets dans les TÃ¢ches" /><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Temps d'affichage des messages d'actions : <input name="time_display_msg" type="" value="<?php echo $rparameters['time_display_msg']; ?>" size="1" /> ms<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Actualisation automatique <i>(Tâches)</i>: <input name="auto_refresh" type="" value="<?php echo $rparameters['auto_refresh']; ?>" size="1" /> s <img src="./images/info.png" alt="info" title="Si la valeur est à 0, alors l'actualisation automatique est désactivée. Attention, cette fonction peut faire clignoter l'écran selon les navigateurs." /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Actualisation automatique <i>(TÃ¢ches)</i>: <input name="auto_refresh" type="" value="<?php echo $rparameters['auto_refresh']; ?>" size="1" /> s <img src="./images/info.png" alt="info" title="Si la valeur est Ã  0, alors l'actualisation automatique est dÃ©sactivÃ©e. Attention, cette fonction peut faire clignoter l'Ã©cran selon les navigateurs." /><br />
 	<br />
 	<b>Utilisateurs:</b><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Utiliser les propriétés utilisateur avancés: <input type="checkbox" <?php if ($rparameters['user_advanced']==1) echo "checked"; ?> name="user_advanced" value="1"> <img  src="./images/question.png" alt="question" title="Ajoute des champs suplémentaire aux propriétés utilisateurs, Société, FAX, Adresses... " /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Utiliser les propriÃ©tÃ©s utilisateur avancÃ©s: <input type="checkbox" <?php if ($rparameters['user_advanced']==1) echo "checked"; ?> name="user_advanced" value="1"> <img  src="./images/question.png" alt="question" title="Ajoute des champs suplÃ©mentaire aux propriÃ©tÃ©s utilisateurs, SociÃ©tÃ©, FAX, Adresses... " /><br />
 	<br />
 	<b>Messages:</b><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Serveur SMTP: <input name="mail_smtp" type="" value="<?php echo $rparameters['mail_smtp']; ?>" size="20" /> <img src="./images/question.png" alt="question" title="Adresse IP ou Nom de votre serveur de messagerie (Exemple: 192.168.0.1 ou SRVMSG ou smtp.free.fr ou auth.smtp.1and1.fr) " /><br />
 	<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Serveur SMTP Authentifié: <input type="checkbox" <?php if ($rparameters['mail_auth']==1) echo "checked"; ?> name="mail_auth" value="1"> <img src="./images/question.png" alt="question" title="Cochez cette case si votre serveur de messagerie nécessite un identifiant et mot de passe pour envoyer des messages." /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Serveur SMTP AuthentifiÃ©: <input type="checkbox" <?php if ($rparameters['mail_auth']==1) echo "checked"; ?> name="mail_auth" value="1"> <img src="./images/question.png" alt="question" title="Cochez cette case si votre serveur de messagerie nÃ©cessite un identifiant et mot de passe pour envoyer des messages." /><br />
 	<?php if ($rparameters['mail_auth']=='1') {
 		echo "
 		<br />
@@ -148,20 +148,20 @@ if($_POST['Valider'])
 		<br />
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mot de passe: <input name=\"mail_password\" type=\"password\" value=\"$rparameters[mail_password]\" size=\"30\" />
 		<br />
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serveur SMTP sécurisé: 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Serveur SMTP sÃ©curisÃ©:
 		<select class=\"textfield\" id=\"mail_secure\" name=\"mail_secure\" >
-			<option ";if ($rparameters['mail_secure']==0) echo "selected "; echo" value=\"0\">Désactivé</option>
+			<option ";if ($rparameters['mail_secure']==0) echo "selected "; echo" value=\"0\">DÃ©sactivÃ©</option>
 			<option ";if ($rparameters['mail_secure']==465) echo "selected "; echo" value=\"465\">SSL (port: 465)</option>
 			<option ";if ($rparameters['mail_secure']==587) echo "selected "; echo"value=\"587\">TLS (port: 587)</option>
 		</select>
-		";if ($rparameters['mail_secure']!=0) {echo"<i><font color=\"red\">(Attention l'extension php_openssl doit être activée)</font></i>";} else {echo"<img src=\"./images/question.png\" alt=\"question\" title=\"Si votre serveur de messagerie est sécurisé alors selectionner le protocole SSL ou TLS (Exemple: Gmail utilise TLS).\" />";} echo "
+		";if ($rparameters['mail_secure']!=0) {echo"<i><font color=\"red\">(Attention l'extension php_openssl doit Ãªtre activÃ©e)</font></i>";} else {echo"<img src=\"./images/question.png\" alt=\"question\" title=\"Si votre serveur de messagerie est sÃ©curisÃ© alors selectionner le protocole SSL ou TLS (Exemple: Gmail utilise TLS).\" />";} echo "
 		<br />
 		";
 	}
 	?>
 	<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Envoi de mail automatique à l'utilisateur lors de l'ouverture ou fermeture d'un ticket par un technicien: <input type="checkbox" <?php if ($rparameters['mail_auto']==1) echo "checked"; ?> name="mail_auto" value="1"><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Envoi de mail automatique à l'administrateur lors de l'ouverture d'un ticket par un utilisateur: <input type="checkbox" <?php if ($rparameters['mail_newticket']==1) echo "checked"; ?> name="mail_newticket" value="1"><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Envoi de mail automatique Ã  l'utilisateur lors de l'ouverture ou fermeture d'un ticket par un technicien: <input type="checkbox" <?php if ($rparameters['mail_auto']==1) echo "checked"; ?> name="mail_auto" value="1"><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Envoi de mail automatique Ã  l'administrateur lors de l'ouverture d'un ticket par un utilisateur: <input type="checkbox" <?php if ($rparameters['mail_newticket']==1) echo "checked"; ?> name="mail_newticket" value="1"><br />
 	<?php if ($rparameters['mail_newticket']=='1') 
 	{
 		echo "
@@ -171,10 +171,10 @@ if($_POST['Valider'])
 	}
 	?>
 	<br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Texte début du mail: <input name="mail_txt" type="" value="<?php echo $rparameters['mail_txt']; ?>" size="80" /> <img src="./images/info.png" alt="info" title="Vous pouvez utiliser du code HTML (Exemple: <br />, <b></b>...)" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;Texte dÃ©but du mail: <input name="mail_txt" type="" value="<?php echo $rparameters['mail_txt']; ?>" size="80" /> <img src="./images/info.png" alt="info" title="Vous pouvez utiliser du code HTML (Exemple: <br />, <b></b>...)" /><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Adresse en copie: <input name="mail_cc" type="" value="<?php echo $rparameters['mail_cc']; ?>" size="30" /><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Intitulé de l'émetteur: <input name="mail_from" type="" value="<?php echo $rparameters['mail_from']; ?>" size="30" /><br />
-	&nbsp;&nbsp;&nbsp;&nbsp;Intégrer un lien vers GestSup: <input type="checkbox" <?php if ($rparameters['mail_link']==1) echo "checked"; ?> name="mail_link" value="1"><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;IntitulÃ© de l'Ã©metteur: <input name="mail_from" type="" value="<?php echo $rparameters['mail_from']; ?>" size="30" /><br />
+	&nbsp;&nbsp;&nbsp;&nbsp;IntÃ©grer un lien vers GestSup: <input type="checkbox" <?php if ($rparameters['mail_link']==1) echo "checked"; ?> name="mail_link" value="1"><br />
 	<br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Couleur du titre: #<input  style="background-color: <?php echo "#$rparameters[mail_color_title]"; ?>;" name="mail_color_title" type="" value="<?php echo $rparameters['mail_color_title']; ?>" size="6" /><br />
 	&nbsp;&nbsp;&nbsp;&nbsp;Couleur du fond: #<input  style="background-color: <?php echo "#$rparameters[mail_color_bg]"; ?>;" name="mail_color_bg" type="" value="<?php echo $rparameters['mail_color_bg']; ?>" size="6" /><br />
@@ -184,11 +184,11 @@ if($_POST['Valider'])
 	&nbsp;&nbsp;&nbsp;&nbsp;Activer la fonction LDAP: <input type="checkbox" <?php if ($rparameters['ldap']==1) echo "checked"; ?> name="ldap" value="1"> <img src="./images/question.png" alt="question" title="Active la liaison entre GestSup et l'annuaire utilisateurs de l'entreprise (Exemple: Active Directory pour Windows Server)" /><br />
 	<?php if ($rparameters['ldap']=='1') 
 	{
-		echo "&nbsp;&nbsp;&nbsp;&nbsp;Activer l'authentification GestSup avec LDAP: <input type=\"checkbox\""; if ($rparameters['ldap_auth']==1) echo "checked"; echo " name=\"ldap_auth\" value=\"1\"> <img src=\"./images/question.png\" alt=\"question\" title=\"Active l'authentification des utilisateurs dans GesStup, avec les identifiants présents dans l'annuaire LDAP. Cela ne désactive pas l'authentification avec la base utilisateurs de GestSup. \" /><br />";
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;Activer l'authentification GestSup avec LDAP: <input type=\"checkbox\""; if ($rparameters['ldap_auth']==1) echo "checked"; echo " name=\"ldap_auth\" value=\"1\"> <img src=\"./images/question.png\" alt=\"question\" title=\"Active l'authentification des utilisateurs dans GesStup, avec les identifiants prÃ©sents dans l'annuaire LDAP. Cela ne dÃ©sactive pas l'authentification avec la base utilisateurs de GestSup. \" /><br />";
 		echo "&nbsp;&nbsp;&nbsp;&nbsp;Serveur LDAP: <input name=\"ldap_server\" type=\"\" value=\"$rparameters[ldap_server]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Nom Netbios du serveur d'annuaire, sans suffixe DNS (Exemple: SVRAD). \" /><br />";
 		echo "&nbsp;&nbsp;&nbsp;&nbsp;Domaine: <input name=\"ldap_domain\" type=\"\" value=\"$rparameters[ldap_domain]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Nom du domaine FQDN (Exemple: exemple.local). \" /><br />";
-		echo "&nbsp;&nbsp;&nbsp;&nbsp;Emplacement des utilisateurs: <input name=\"ldap_url\" type=\"\" value=\"$rparameters[ldap_url]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Emplacement dans l'annuaire des utilisateurs. Par défaut pour active directory cn=users, si vous utiliser des unités d'organisation alors ou=ouname2,ou=ouname1... \" /><br />";
-		echo "&nbsp;&nbsp;&nbsp;&nbsp;Utilisateur: <input name=\"ldap_user\" type=\"\" value=\"$rparameters[ldap_user]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Utilisateur présent dans l'annuaire LDAP\" /><br />";
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;Emplacement des utilisateurs: <input name=\"ldap_url\" type=\"\" value=\"$rparameters[ldap_url]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Emplacement dans l'annuaire des utilisateurs. Par dÃ©faut pour active directory cn=users, si vous utiliser des unitÃ©s d'organisation alors ou=ouname2,ou=ouname1... \" /><br />";
+		echo "&nbsp;&nbsp;&nbsp;&nbsp;Utilisateur: <input name=\"ldap_user\" type=\"\" value=\"$rparameters[ldap_user]\" size=\"20\" /> <img src=\"./images/question.png\" alt=\"question\" title=\"Utilisateur prÃ©sent dans l'annuaire LDAP\" /><br />";
 		echo "&nbsp;&nbsp;&nbsp;&nbsp;Mot de passe: <input name=\"ldap_password\" type=\"password\" value=\"$rparameters[ldap_password]\" size=\"20\" /><br />";
 
 		//check LDAP parameters

@@ -25,13 +25,13 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 		<ul>
 			<?php
 			echo '
-			<li '; if ($_GET['subpage']=="parameters") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=parameters">Param�tres</a></li>
+			<li '; if ($_GET['subpage']=="parameters") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=parameters">Paramètres</a></li>
 			<li '; if ($_GET['subpage']=="user") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=user">Utilisateurs</a></li>
 			<li '; if ($_GET['subpage']=="profile") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=profile">Profiles</a></li>
 			<li '; if ($_GET['subpage']=="list") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=list">Listes</a></li>
 			<li '; if ($_GET['subpage']=="backup") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=backup">Sauvegardes</a></li>
-			<li '; if ($_GET['subpage']=="update") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=update">Mise � jour</a></li>
-			<li '; if ($_GET['subpage']=="system") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=system">Syst�me</a></li>
+			<li '; if ($_GET['subpage']=="update") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=update">Mise à jour</a></li>
+			<li '; if ($_GET['subpage']=="system") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=system">Système</a></li>
 			<li '; if ($_GET['subpage']=="workflow") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=workflow">Workflow</a></li>
 			<li '; if ($_GET['subpage']=="infos") echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage=infos">Infos</a></li>
 			';

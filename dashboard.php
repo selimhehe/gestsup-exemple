@@ -148,7 +148,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 		<?php //*********************** FIRST LIGN *********************** ?>
 		<tr class="list">
 			<th scope="col" <?php if ($_GET['order']=='id') echo 'class="active"'; ?> >
-				<a title="Numéro du ticket" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=id&amp;way=<?php echo $_GET['way']; ?>">
+				<a title="NumÃ©ro du ticket" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=id&amp;way=<?php echo $_GET['way']; ?>">
 				Ticket
 				<?php
 				//Display way arrows
@@ -195,8 +195,8 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			?>
 
 			<th scope="col" <?php if ($_GET['order']=='category') echo 'class="active"'; ?> >
-				<a title="Catégorie" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=category&amp;way=<?php echo $_GET['way']; ?>">
-				Catégorie
+				<a title="CatÃ©gorie" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=category&amp;way=<?php echo $_GET['way']; ?>">
+				CatÃ©gorie
 				<?php
 				//Display arrows
 				if ($_GET['order']=='category'){
@@ -207,8 +207,8 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				</a>
 			</th>
 			<th scope="col" <?php if ($_GET['order']=='subcat') echo 'class="active"'; ?> >
-				<a title="Sous-Catégorie" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=subcat&amp;way=<?php echo $_GET['way']; ?>">
-				S-Catégorie
+				<a title="Sous-CatÃ©gorie" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=subcat&amp;way=<?php echo $_GET['way']; ?>">
+				S-CatÃ©gorie
 				<?php
 				//Display arrows
 				if ($_GET['order']=='subcat'){
@@ -231,7 +231,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				</a>
 			</th>
 			<th scope="col" <?php if ($_GET['order']=='date_create') echo 'class="active"'; ?> >
-				<a title="Date de création la demande" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=date_create&amp;way=<?php echo $_GET['way']; ?>">
+				<a title="Date de crÃ©ation la demande" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=date_create&amp;way=<?php echo $_GET['way']; ?>">
 				Date				
 				<?php
 				//Display arrows
@@ -243,7 +243,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				</a>
 			</th>
 			<th scope="col" <?php if ($_GET['order']=='state') echo 'class="active"'; ?> >
-				<a title="État" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=state&amp;way=<?php echo $_GET['way']; ?>">
+				<a title="Ã©tat" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=state&amp;way=<?php echo $_GET['way']; ?>">
 				E
 				<?php
 				//Display arrows
@@ -255,7 +255,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				</a>
 			</th>
 			<th scope="col" <?php if ($_GET['order']=='priority') echo 'class="active"'; ?> >
-				<a title="Priorité 0=Urgent et 5=Très basse" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=priority&amp;way=<?php echo $_GET['way']; ?>">
+				<a title="PrioritÃ© 0=Urgent et 5=TrÃ©s basse" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=priority&amp;way=<?php echo $_GET['way']; ?>">
 				P
 				<?php
 				//Display arrows
@@ -267,7 +267,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				</a>
 			</th>
 			<th scope="col" <?php if ($_GET['order']=='criticality') echo 'class="active"'; ?> >
-				<a title="Criticité" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=criticality&amp;way=<?php echo $_GET['way']; ?>">
+				<a title="CriticitÃ©" class="th" href="./index.php?page=dashboard&amp;techid=<?php echo $_GET['techid']; ?>&amp;state=<?php echo $_GET['state']; ?>&amp;order=criticality&amp;way=<?php echo $_GET['way']; ?>">
 				C
 				<?php
 				//Display arrows
@@ -522,7 +522,7 @@ while ($event=mysql_fetch_array($q))
 		$eventhour=explode(" ",$event['date_start']);
 		if ($currenthour>$eventhour[1])
 		{
-			$displayevent= "<a title=\"Planifié aujourd'hui à $devent[1]\" href=\"./index.php?page=ticket&id=$event[incident]\"><img  src=\"./images/event.png\" /> <font color=\"FFFFFF\">Rappel ticket: $event[incident]</font></a>";
+			$displayevent= "<a title=\"PlanifiÃ© aujourd'hui Ã© $devent[1]\" href=\"./index.php?page=ticket&id=$event[incident]\"><img  src=\"./images/event.png\" /> <font color=\"FFFFFF\">Rappel ticket: $event[incident]</font></a>";
 			$eventincident=$event['incident'];
 			$eventtime=$devent[1];
 			$eventid=$event['id'];

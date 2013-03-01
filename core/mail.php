@@ -53,7 +53,7 @@ $date_res = date_cnv("$globalrow[date_res]");
 //Mail object for states
 $qobject = mysql_query("SELECT * FROM tstates WHERE id LIKE '$globalrow[state]'");
 $robject=mysql_fetch_array($qobject);
-$objet="$robject[mail_object] pour le ticket n°$_GET[id]: $globalrow[title]";
+$objet="$robject[mail_object] pour le ticket nï¿½$_GET[id]: $globalrow[title]";
 
 $destinataire="$userrow[mail]";
 $emetteur="$creatorrow[mail]";
@@ -82,7 +82,7 @@ $msg="
 						<table  border=\"1\" bordercolor=\"0075A4\" cellspacing=\"0\" width=\800px\">
 							<tr>
 								<td><font color=\"$rparameters[mail_color_text]\"><b>Titre:</b></b> $globalrow[title]</font></td>
-								<td><font color=\"$rparameters[mail_color_text]\"><b>Catégorie:</b></b> $catrow[1] - $subcatrow[2]</td>
+								<td><font color=\"$rparameters[mail_color_text]\"><b>CatÃ©gorie:</b></b> $catrow[1] - $subcatrow[2]</td>
 							</tr>
 							<tr>
 								<td width=\"400px\"><font color=\"$rparameters[mail_color_text]\"><b>Demandeur:</b></b> $userrow[lastname] $userrow[firstname]</font></td>
@@ -97,16 +97,16 @@ $msg="
 								
 							</tr>
 							<tr>
-								<td colspan=\"2\"><font color=\"$rparameters[mail_color_text]\"><b>Résolution:</b><br /> $resolution</font></td>
+								<td colspan=\"2\"><font color=\"$rparameters[mail_color_text]\"><b>RÃ©solution:</b><br /> $resolution</font></td>
 							</tr>
 							<tr>
-								<td width=\"400px\"><font color=\"$rparameters[mail_color_text]\"><b>Date estimée de résolution:</b></b> $date_hope</font></td>
-								<td width=\"400px\"><font color=\"$rparameters[mail_color_text]\"><b>Date de résolution:</b> $date_res</font></td>
+								<td width=\"400px\"><font color=\"$rparameters[mail_color_text]\"><b>Date estimÃ©e de rÃ©solution:</b></b> $date_hope</font></td>
+								<td width=\"400px\"><font color=\"$rparameters[mail_color_text]\"><b>Date de rÃ©solution:</b> $date_res</font></td>
 							</tr>
 						</table>
 						<br /><br /><br /><br />
 						<hr />
-						Pour toutes informations complémentaires sur votre ticket, vous pouvez joindre $techrow[firstname] $techrow[lastname] au $techrow[phone]
+						Pour toutes informations complÃ©mentaires sur votre ticket, vous pouvez joindre $techrow[firstname] $techrow[lastname] au $techrow[phone]
 						$link
 						<hr />
 					  </td>
@@ -155,7 +155,7 @@ if ($send==1)
 	echo '</div>';
 	}
 	else {
-	echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoyé.</div></center>";
+	echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoyÃ©.</div></center>";
 				echo "
 				<SCRIPT LANGUAGE='JavaScript'>
 				<!--

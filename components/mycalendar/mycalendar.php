@@ -3,24 +3,24 @@
 
   $bgcolor="ffffff" ;        // Couleur de fond
   $daybgcolor="aaaaaa" ;     // Couleur des jours de la semaine
-  $dombgcolor="#FFDEAB" ;     // Couleur du jour sélectionné
+  $dombgcolor="#FFDEAB" ;     // Couleur du jour sï¿½lectionnï¿½
   $dayholcolor="aaaaaa" ;     // Couleur des WE
 
   // Mois
   $month[0] = "Janvier" ;
-  $month[1] = "Février" ;
+  $month[1] = "FÃ©vrier" ;
   $month[2] = "Mars" ;
   $month[3] = "Avril" ;
   $month[4] = "Mai" ;
   $month[5] = "Juin" ;
   $month[6] = "Juillet" ;
-  $month[7] = "Août" ;
+  $month[7] = "AoÃ»t" ;
   $month[8] = "Septembre" ;
   $month[9] = "Octobre" ;
   $month[10] = "Novembre" ;
-  $month[11] = "Décembre" ;
+  $month[11] = "DÃ©cembre" ;
 
-  // Première lettre des jours de la semaine
+  // Premiï¿½re lettre des jours de la semaine
   $day[0] = "D" ;
   $day[1] = "L" ;
   $day[2] = "M" ;
@@ -75,7 +75,7 @@
    $_GET['annee'] = date("Y") ;
   }
 
-  // Calcul du jour julien et du numéro du jour
+  // Calcul du jour julien et du numï¿½ro du jour
   $HR = 0;
   $GGG = 1;
   if( $_GET['annee'] < 1582 ) $GGG = 0;
@@ -105,7 +105,7 @@
   echo "<center><form name='MyCalendar'>\n" ;
   echo "<table width='170' cellspacing='0' cellspading='0' border='0'><tr>\n" ;
 
-  // Affichage de la sélection du mois et de l'année
+  // Affichage de la sï¿½lection du mois et de l'annï¿½e
   echo "<td><select name='month' onChange=\"modifier($_GET[jour])\">\n" ;
 
   for ($i=0;$i<12;$i++)
@@ -136,7 +136,7 @@
 
   echo "</tr>\n<tr><td colspan='7'> </td></tr>\n<tr>\n" ;
 
-  // Première ligne des jours
+  // Premiï¿½re ligne des jours
   $j = $jj ;//date ("w", mktime (0,0,0,$_GET['mois'],1,$_GET['annee'])) ;
   $dom = 1 ;
   for ($i=0;$i<7;$i++)

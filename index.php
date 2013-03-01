@@ -169,23 +169,23 @@ if ($_SESSION['user_id'])
 					echo '
 					<div class="postbottom">
 						<img  style="border-style: none" alt="img" src="./images/admin.png" /><font color="#FFFFFF"><b><a href="./index.php?page=admin/user&amp;action=edit&amp;id='.$_SESSION['user_id'].'"> '.$reqfname['firstname'].' '.$reqfname['lastname'].'</a></b></font>&nbsp;&nbsp;
-						<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> R�solues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
+						<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Résolues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
 						<img  style="border-style: none" alt="img" src="./images/ico_more.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=1"> A traiter: <b>'.$nbatt[0].'</b></a>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/ico_date.png" /><font color="#FFFFFF"> Aujourd\'hui: <b>'.$nbday[0].'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/warning_min.png" /><font color="#FFFFFF"> Anciennes: <b>'.$nb15[0].'</b></font>&nbsp;&nbsp;
-						<img style="border-style: none" alt="img" src="./images/critical_min.png" /><font color="#FFFFFF"> Tr�s anciennes: <b>'.$nb30[0].'</b></font>&nbsp;&nbsp;
+						<img style="border-style: none" alt="img" src="./images/critical_min.png" /><font color="#FFFFFF"> Trés anciennes: <b>'.$nb30[0].'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/calc.png" /><font color="#FFFFFF"> Ratio du jour: <b>'.$ratio.'</b></font>&nbsp;&nbsp;
 						<img style="border-style: none" alt="img" src="./images/chronometer.png" /><font color="#FFFFFF"> Charge: <b>'.$nbtps.'h</b></font>&nbsp;&nbsp;
-						<a  href="./index.php?action=logout"><img title="D�connexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
+						<a  href="./index.php?action=logout"><img title="Déconnexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
 					</div>
 					';
 				} else {
 					echo '
 					<div class="postbottom">
 							<img  style="border-style: none" alt="img" src="./images/admin.png" /><font color="#FFFFFF"><b><a href="./index.php?page=admin/user&amp;action=edit&amp;id='.$_SESSION['user_id'].'"> '.$reqfname['firstname'].' '.$reqfname['lastname'].'</a></b></font>&nbsp;&nbsp;
-								<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> R�solues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
+								<img  style="border-style: none" alt="img" src="./images/ico_cat.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=3"> Résolues: <b>'.$nbres[0].'</b></a>&nbsp;&nbsp;
 								<img  style="border-style: none" alt="img" src="./images/ico_more.png" /><a href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state=1"> En cours de traitement: <b>'.$nbatt[0].'</b></a>&nbsp;&nbsp;
-								<a  href="./index.php?action=logout"><img title="D�connexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
+								<a  href="./index.php?action=logout"><img title="Déconnexion" align="right" style="border-style: none" alt="img" src="./images/logoff.png" />&nbsp;</a>
 					</div>
 					';
 				}

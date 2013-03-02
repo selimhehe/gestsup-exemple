@@ -215,7 +215,7 @@ if (isset($_POST['submit'])){
    echo "<div class='error'>$msg</div>";
  }
 ?>
-<div id="catalogue" style="width:530px;">
+<div id="catalogue" style="width:535px;">
   
 	<form id="myForm" name="myForm" method="post"  action="">
 		<table width="100%">
@@ -224,7 +224,7 @@ if (isset($_POST['submit'])){
 			<tr>
 			<tr>
 				<td width="200"><label for="mail"><span class="required validate-email">*</span>E-mail:</label></td>
-				<td><input name="email" id="email" type="text" class="required email"  value="<?php echo $_POST['email']; ?>" size="20" /></td>
+				<td><input name="email" id="email" type="text" class="required email"  value="<?php echo isset($_POST['email']) ? $_POST['email'] : '' ;  ?>" size="20" /></td>
 			</tr>
        <tr>
 				<td width="200"><label for="password"><span class="required">*</span>Mot de passe :</label></td>
@@ -232,7 +232,7 @@ if (isset($_POST['submit'])){
 			</tr>
         <tr>
 				<td width="220"><label for="confirm_password"><span class="required">*</span>Confirmation mot de passe :</label></td>
-				<td><input name="confirm_password" id="confirm_password" type="password" class="required"  value="<?php echo $_POST['confirm_password']; ?>" size="20" /></td>
+				<td><input name="confirm_password" id="confirm_password" type="password" class="required"  value="<?php isset($_POST['confirm_password']) ? $_POST['confirm_password'] : '' ;  ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="civilite"><span class="required">*</span>Civilité:</label></td>
@@ -248,54 +248,54 @@ if (isset($_POST['submit'])){
 			</tr>
 			<tr>
 				<td><label for="firstname"><span class="required validate" required>*</span>Nom:</label></td>
-				<td><input name="firstname" id="firstname" type="text" class="required"  value="<?php echo $_POST['firstname']; ?>" size="20" /></td>
+				<td><input name="firstname" id="firstname" type="text" class="required"  value="<?php echo isset($_POST['firstname']) ? $_POST['firstname'] : '' ; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="lastname"><span class="required">*</span>Prénom:</label></td>
-				<td><input name="lastname" id="lastname" type="text" class="required"  value="<?php echo $_POST['lastname']; ?>" size="20" /></td>
+				<td><input name="lastname" id="lastname" type="text" class="required"  value="<?php echo isset($_POST['lastname']) ? $_POST['lastname'] : '' ; ?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="fixe">Tél. fixe:</label></td>
-				<td><input name="fixe" id="fixe" type="text"  value="<?php echo $_POST['fixe']; ?>" size="20" /></td>
+				<td><input name="fixe" id="fixe" type="text"  value="<?php echo isset($_POST['fixe']) ? $_POST['fixe'] : '' ;?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="mobile"><span class="required">*</span>Tél. mobile:</label></td>
-				<td><input name="mobile" id="mobile" type="text" class="required"  value="<?php echo $_POST['mobile']; ?>" size="20" /></td>
+				<td><input name="mobile" id="mobile" type="text" class="required"  value="<?php echo  isset($_POST['mobile']) ? $_POST['mobile'] : '' ;?>" size="20" /></td>
 			</tr>
 			<tr>
 				<td><label for="ville"><span class="required">*</span>Ville:</label></td>
-				<td><input name="ville" id="ville" type="text" class="required"  value="<?php echo $_POST['ville']; ?>" size="20" /></td>
+				<td><input name="ville" id="ville" type="text" class="required"  value="<?php echo isset($_POST['ville']) ? $_POST['ville'] : '' ;?>" size="20" /></td>
 			</tr>
         <tr>
 				<td><label for="rue">N° rue :</label></td>
-				<td><input name="rue" id="rue" type="text" size="20" value="<?php echo $_POST['rue']; ?>" /></td>
+				<td><input name="rue" id="rue" type="text" size="20" value="<?php echo isset($_POST['rue']) ? $_POST['rue'] : '' ;?>" /></td>
 			</tr>
         <tr>
 				<td><label for="Adresse">Adresse :</label></td>
-				<td><input name="address1" id="address1" type="text" size="20" value="<?php echo $_POST['address1']; ?>" /></td>
+				<td><input name="address1" id="address1" type="text" size="20" value="<?php echo isset($_POST['address1']) ? $_POST['address1'] : '' ; ?>" /></td>
 			</tr>
 			<tr>
 				<td><label for="cp">Code postal :</label></td>
-				<td><input name="zip" id="zip" type="text"  size="20" value="<?php echo $_POST['zip']; ?>" /></td>
+				<td><input name="zip" id="zip" type="text"  size="20" value="<?php echo  isset($_POST['zip']) ? $_POST['zip'] : '' ; ?>"  /></td>
 			</tr>
 			
 			<tr>
 				<td><label for="note">Note:</label></td>
-				<td><input name="note" id="note" type="text"  size="20" value="<?php echo $_POST['note']; ?>" /></td>
+				<td><input name="note" id="note" type="text"  size="20" value="<?php echo  isset($_POST['note']) ? $_POST['note'] : '' ;?>" /></td>
 			</tr>
 			<tr>
 				<td><label for="tva">N° TVA :</label></td>
-				<td><input name="tva" id="tva" type="text"   size="20" value="<?php echo $_POST['tva']; ?>" /></td>
+				<td><input name="tva" id="tva" type="text"   size="20" value="<?php echo isset($_POST['tva']) ? $_POST['tva'] : '' ; ?>" /></td>
 			</tr>
 
         <tr>
 				<td><label for="societe">Société :</label></td>
-				<td><input name="company" id="company" type="text" size="20" value="<?php echo $_POST['company']; ?>" /></td>
+				<td><input name="company" id="company" type="text" size="20" value="<?php isset($_POST['company']) ? $_POST['company'] : '' ; ?>" /></td>
 			</tr>
 
         <tr>
 				<td><label for="service">Service :</label></td>
-				<td><input name="service" id="service" type="text" size="20" value="<?php echo $_POST['service']; ?>" /></td>
+				<td><input name="service" id="service" type="text" size="20" value="<?php echo  isset($_POST['service']) ? $_POST['service'] : '' ; ?>" /></td>
 			</tr>
 
 		</table>

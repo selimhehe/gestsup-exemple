@@ -87,31 +87,18 @@ if (isset($_POST['submit'])){
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
     if($execution){
-
-        $reqAllEmailsAdminAndTechnicien = mysql_query("select mail from tusers where profile in (4,0)");
-        $allEmailsAdminAndTechnicien = mysql_fetch_array($reqAllEmailsAdminAndTechnicien);
-
-        
+       
         require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-        $mail->IsSMTP();
-        $mail->Host = "$rparameters[mail_smtp]";
-        $mail->SMTPAuth = $rparameters['mail_auth'];
-        if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
-        if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
-        if ($rparameters['mail_secure']=='465') $mail->Port = 465;
-        if ($rparameters['mail_secure']=='587') $mail->Port = 587;
-        $mail->Username = "$rparameters[mail_username]";
-        $mail->Password = "$rparameters[mail_password]";
-
+        $mail->IsSendmail();
 
         $mail->IsHTML(true); // Envoi en html
 
         $mail->From = "$rparameters[mail_from]";
         $mail->FromName = "$rparameters[mail_from]";
 
-        $mail->AddAddress("sahli28@gmail.cm");
+        $mail->AddAddress($email);
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Nouvelle entrée dans le système.";
         $bodyMSG = "Bonjour , <br /><br />
@@ -127,18 +114,27 @@ if (isset($_POST['submit'])){
           $msg = '</div>';
         }
     	else {
-
-        $mail->AddAddress("sahli28@gmail.cm");
-	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->ClearAddresses();
+        $reqAllEmailsAdminAndTechnicien = mysql_query("select mail  from tusers where profile in (4,0)");
+        $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Nouvelle entrée dans le système.";
         $bodyMSG = "Bonjour , <br /><br />
          L’utilisateur : $_POST[email] a déposé une nouvelle demande dans le système.<br /><br />
-         Vous pouvez valider ou réfuser son compte sur le lien suivant : <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND\">http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND</a> <br />";        
-        
-        $mail->Body = "$bodyMSG";
-        $mail->Send();
+         Vous pouvez valider ou réfuser son compte sur le lien suivant : <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND\">http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND</a> <br />";
 
-      echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Message envoyé.</div></center>";
+        $mail->Body = "$bodyMSG";
+
+
+        while ($emailAddress = mysql_fetch_array($reqAllEmailsAdminAndTechnicien))
+        {
+          $mail->AddAddress($emailAddress[mail]);
+	        $mail->Send();
+        }
+       
+
+        
+
+      echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Votre demande a été bien envoyé.</div></center>";
 				echo "
 				<SCRIPT LANGUAGE='JavaScript'>
 				<!--
@@ -151,7 +147,7 @@ if (isset($_POST['submit'])){
 				</SCRIPT>
 				";
 
-          $msg = "message envoyé";
+          $msg = "Votre demande d'inscription a été bien envoyé";
         }
         
 

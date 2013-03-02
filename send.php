@@ -2,27 +2,27 @@
 require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-        $mail->IsSMTP();
-        $mail->Host = "owa.bersay-associes.com";
-        $mail->SMTPAuth = true;
+        $mail->IsSendmail();
+//        $mail->Host = "owa.bersay-associes.com";
+//        $mail->SMTPAuth = true;
         // $mail->SMTPSecure = 'ssl';
        // $mail->Port = 465;
-        $mail->Username = "voeux2013";
-        $mail->Password = "s9ejejatrufR";
+//        $mail->Username = "voeux2013";
+//        $mail->Password = "s9ejejatrufR";
 
 
         $mail->IsHTML(true); // Envoi en html
 
-        $mail->From = "voeux2013@bersay-associes.com";
+        $mail->From = "sahli28@gmail.com";
         $mail->FromName = utf8_decode("Bersay Associ√©s");
 
-        $mail->AddAddress("mahmoud.nb@gmail.com");
+        $mail->AddAddress("sahli28@gmail.com");
 	    //$mail->AddReplyTo("$rparameters[mail_from]");
-        $mail->Subject = "Nouvelle entrÈe dans le systËme.";
+        $mail->Subject = "Nouvelle entr√©e dans le syst√®me.";
         $bodyMSG = "Bonjour , <br /><br />
-         Nous vous remercions pour votre nouvelle demande dans le systËme.<br />
+         Nous vous remercions pour votre nouvelle demande dans le syst√®me.<br />
          Celle-ci sera prise en compte dans les prochaines heures.<br /><br />
-         Voila votre nom d'utilisateur et mot de passe pour accÈder ‡ la plateforme <br />";
+         Voila votre nom d'utilisateur et mot de passe pour acc√©der √† la plateforme <br />";
         $mail->Body = "$bodyMSG";
         if (!$mail->Send()){
           $msg = '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" />';

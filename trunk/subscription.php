@@ -301,7 +301,7 @@ if (isset($_POST['submit'])){
 		</table>
 
     <div class="buttons1">
-      <input type="hidden" class="textbox" id="code" name="code" value="<?php echo $_GET['code']; ?>" />
+      <input type="hidden" class="textbox" id="code" name="code" value="<?php echo isset($_GET['code']) ? $_GET['code'] : '' ; ?>" />
 										<button name="submit" value="Enregistrer" type="submit"  class="positive"  id="submit">
 											<img src="images/apply2.png" alt=""/>
 											Valider

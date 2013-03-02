@@ -487,21 +487,24 @@ else if ($_GET['ldap']=="1")
 }
 else if($_GET['action']=="reject"){
 
-  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
-  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+  
   $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
   $user_to_send_email = mysql_fetch_array($requser);
+  $email_to_send = $user_to_send_email[mail];
+  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+  
    require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
        // $mail->IsMail();
-
+        $mail->IsSendmail();
         $mail->IsHTML(true); // Envoi en html
 
         $mail->From = "$rparameters[mail_from]";
         $mail->FromName = "$rparameters[mail_from]";
 
-        $mail->AddAddress($user_to_send_email[mail]);
+        $mail->AddAddress($email_to_send);
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Compte rejeter";
         $bodyMSG = "Bonjour , <br /><br />

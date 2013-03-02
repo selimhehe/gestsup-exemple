@@ -56,7 +56,8 @@ if($_POST['Modifier'])
 	$salt=$r['salt'];
 	}
 	
-	$requete = "UPDATE tusers SET
+	$requete = "UPDATE tusers SET 
+  group_id='$_POST[group_id]',
 	firstname='$_POST[firstname]',
 	lastname='$_POST[lastname]',
 	password='$_POST[password]',
@@ -74,6 +75,9 @@ if($_POST['Modifier'])
 	custom1='$_POST[custom1]',
 	custom2='$_POST[custom2]',
 	chgpwd='$_POST[chgpwd]' WHERE id LIKE '$_GET[id]'";
+
+  //echo "reqette : ".$requete;
+  //die;
 	
 	$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 	
@@ -206,7 +210,7 @@ if ($_GET['action']=='edit')
 					<td>
 						<input type="radio" name="profile" value="4" '; if ($user1['profile']=='4')echo "checked"; echo '> Administrateur <i>(Tous)</i> <br />
 						<input type="radio" name="profile" value="0" '; if ($user1['profile']=='0')echo "checked"; echo '> Technicien <i>(création, visualisation, administration)</i> <br />
-						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Superviseur <i>(création, visualisation, accËs aux statistiques)</i> <br />
+						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Superviseur <i>(création, visualisation, accés aux statistiques)</i> <br />
 						<input type="radio" name="profile" value="1" '; if ($user1['profile']=='1')echo "checked"; echo '> Utilisateur avec pouvoir <i>(création, visualisation)</i> <br />
 						<input type="radio" name="profile" value="2" '; if ($user1['profile']=='2')echo "checked"; echo '> Utilisateur <i>(visualisation)</i> 
 					</td>
@@ -218,6 +222,19 @@ if ($_GET['action']=='edit')
 						<input type="radio" name="chgpwd" value="1" '; if ($user1['chgpwd']=='1')echo "checked"; echo '> Oui<br />
 					</td>
 				</tr>';
+        $query2 = mysql_query("SELECT * FROM `tcompany` order by nom");
+       echo '<tr>
+					<td><b>Groupe :</b></td>
+					<td><select name="group_id">';
+					 while ($row2 = mysql_fetch_array($query2)) {
+            echo '<option value="'.$row2[id].'"';
+            if(isset($user1['group_id']) && $user1['group_id'] == $row2['id']){ echo  'selected="selected"'; }
+            echo ">";
+            echo $row2['nom'];
+            echo '</option>';
+           }
+					  echo '</select></td></tr>';
+
 			}
 			else
 			{
@@ -550,6 +567,7 @@ else
 							<th class=\"th\">Adresse Mail</th>
 							<th class=\"th\">Téléphone</th>
               <th class=\"th\">Tél portable</th>
+              <th class=\"th\">Code</th>
 							<th class=\"th\">Profile</th>
 						</tr>
 						";
@@ -582,6 +600,7 @@ else
 							<td >$row[mail]</td>
 							<td >$row[phone]</td>
               <td >$row[mobil]</td>
+              <td >$row[code]</td>
 							<td >$r[name]</td>
 						</tr>
 					";

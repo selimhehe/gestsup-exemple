@@ -5,3 +5,4 @@ ALTER TABLE  `tusers` ADD  `mobil` VARCHAR( 20 ) NULL;
 ALTER TABLE  `tusers` ADD  `civility` VARCHAR( 4 ) NULL;
 ALTER TABLE  `tusers` ADD  `code_tva` VARCHAR( 20 ) NULL ,
 ADD  `note` TEXT NULL;
+ALTER TABLE  `tusers` ADD  `group_id` INT NOT NULL COMMENT  'il pointe sur company'

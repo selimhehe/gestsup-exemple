@@ -10,9 +10,20 @@ h1, h2, h3 {font-family:"Trebuchet MS", Verdana, sans-serif;}
 h1 {font-size:26px;}
 h2 {font-size:18px;}
 h3 {font-size:16px;}
-body {background:url(images/bg2.jpg) fixed center top; background-color:#ccc; font:12px Verdana, Arial, Helvetica, sans-serif;}
+body {background:url(images/bg2.jpg) fixed center top; background-color:#ccc; font:11px Verdana, Arial, Helvetica, sans-serif;}
 textarea { font-family: Tahoma, sans-serif; font-size:14px;}
 input { font-family: Tahoma, sans-serif}
+
+
+::-webkit-input-placeholder { color:#B5B5B5;}
+::-moz-placeholder { color:#B5B5B5; } /* firefox 19+ */
+:-ms-input-placeholder { color:#B5B5B5;  } /* ie */
+input:-moz-placeholder { color:#B5B5B5; }
+
+input:focus::-webkit-input-placeholder { color:#fff;}
+input:focus::-moz-placeholder { color:#fff; } /* firefox 19+ */
+input:focus:-ms-input-placeholder { color:#fff; } /* ie */
+input:focus:-moz-placeholder { color:#fff; }
 
 
 #wrap {width:1200px; margin:0 auto 0 auto;}

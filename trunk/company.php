@@ -1,6 +1,6 @@
 ﻿<?php
 	$currentPath = 'index.php?page=company';
-	$requiredFields = array('code','raison_social','diminutif','rue','code_postal','ville','telephone','gsm','tva','compte_ban');
+	$requiredFields = array('nom','code','raison_social','diminutif','rue','code_postal','ville','telephone','gsm','tva','compte_ban');
 	$returnMsgs = array(
 		0=>'L\'enregistrement a été bien ajouté',
 		1=>'L\'enregistrement a été bien modifié',
@@ -23,8 +23,8 @@
 	if(isset($_POST['add'])){
 		if (validSubmit ($requiredFields)) {
 			
-			$query = "INSERT INTO `tcompany` (`code`, `responsible`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`) 
-			VALUES ('". $_POST['code'] ."', '". $_POST['responsible'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."')";
+			$query = "INSERT INTO `tcompany` (`nom`, `code`, `responsible`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`)
+			VALUES ('". $_POST['nom'] ."', '". $_POST['code'] ."', '". $_POST['responsible'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."')";
 			
 			$rst = mysql_query($query);
 			$returnMsg = $rst > 0 ? $returnMsgs[0] : $returnMsgs[3];
@@ -34,7 +34,7 @@
 		}
 	}elseif(isset($_POST['edit'])){
 		if (validSubmit ($requiredFields)) {
-			$query = "UPDATE `tcompany` SET `code` = '". $_POST['code'] ."',responsible =  '". $_POST['responsible'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
+			$query = "UPDATE `tcompany` SET `nom` = '". $_POST['nom'] ."', `code` = '". $_POST['code'] ."',responsible =  '". $_POST['responsible'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
 			$rst = mysql_query($query);
 			$returnMsg = $rst > 0 ? $returnMsgs[1] : $returnMsgs[3];
 		}else{
@@ -78,6 +78,10 @@
 		<tr>
 			<td width="200"><label for="code"><span class="required">*</span>Code:</label></td>
 			<td><input name="code" id="code" type="text" class="required"  value="<?php echo isset($item['code']) ? $item['code'] : '' ; ?>" size="20" /></td>
+		</tr>
+    <tr>
+			<td width="200"><label for="nom"><span class="required">*</span>Nom:</label></td>
+				<td><input name="nom" id="nom" type="text" class="required"  value="<?php echo isset($item['nom']) ? $item['nom'] : '' ; ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200"><label for="raison_social"><span class="required">*</span>Raison social :</label></td>
@@ -144,6 +148,7 @@
 			<th>ACTION</th>
 			<th>responsable</th>
 			<th>code</th>
+      <th>nom</th>
 			<th>Raison social</th>
 			<th>Diminutif</th>
 			<th>Rue</th>
@@ -163,6 +168,7 @@
 			</td>
 			<td><?php echo $row['civility'].' '.$row['firstname'].' '.$row['lastname']; ?></td>
 			<td><?php echo $row['code']; ?></td>
+      <td><?php echo $row['nom']; ?></td>
 			<td><?php echo $row['raison_social']; ?></td>
 			<td><?php echo $row['diminutif']; ?></td>
 			<td><?php echo $row['rue']; ?></td>

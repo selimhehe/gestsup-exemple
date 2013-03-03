@@ -92,7 +92,7 @@
 				<?php $type = getFieldValue($item, 'type_groupe', 'e'); ?>
 				<label>Vous êtes un : </label>
 				<input type="radio" <?php if($type == 'e'){ ?>checked="checked"<?php } ?> name="type_groupe" id="type_groupe_e" value="e" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_e">Entreprise</label>
-				<input type="radio" <?php if($type == 'p'){ ?>checked="checked"<?php } ?> name="type_groupe" value="p" id="type_groupe_p" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_p">Privé</label>
+				<input type="radio" <?php if($type == 'p'){ ?>checked="checked"<?php } ?> name="type_groupe" value="p" id="type_groupe_p" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_p">Groupe</label>
 				<br /><br />
 			 </td>
 		<tr>
@@ -107,6 +107,10 @@
 					<?php } ?>
 				</select>
 			</td>
+		</tr>
+    <tr>
+			<td width="200"><label for="nom"><span class="required">*</span>Nom:</label></td>
+			<td><input name="nom" id="nom" type="text" class="required"  value="<?php echo getFieldValue($item, 'nom'); ; ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200"><label for="code"><span class="required">*</span>Code:</label></td>

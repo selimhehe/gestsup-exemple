@@ -227,7 +227,7 @@ if ($_GET['action']=='edit')
 					<td><b>Groupe :</b></td>
 					<td><select name="group_id">';
 					 while ($row2 = mysql_fetch_array($query2)) {
-            echo '<option value="'.$row2[id].'"';
+            echo '<option value="'.$row2['id'].'"';
             if(isset($user1['group_id']) && $user1['group_id'] == $row2['id']){ echo  'selected="selected"'; }
             echo ">";
             echo $row2['nom'];

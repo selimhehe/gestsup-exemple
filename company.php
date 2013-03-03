@@ -109,7 +109,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="200"><label for="nom_groupe"><span class="required">*</span>Nom du grooupe:</label></td>
+			<td width="200"><label for="nom_groupe"><span class="required">*</span>Nom du groupe:</label></td>
 			<td><input name="nom_groupe" id="nom_groupe" type="text" class="required"  value="<?php echo getFieldValue($item, 'nom_groupe') ; ?>" size="20" /></td>
 		</tr>
 		<tr>

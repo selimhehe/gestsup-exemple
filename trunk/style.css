@@ -25,6 +25,37 @@ input:focus::-moz-placeholder { color:#fff; } /* firefox 19+ */
 input:focus:-ms-input-placeholder { color:#fff; } /* ie */
 input:focus:-moz-placeholder { color:#fff; }
 
+.info, .success, .warning, .errorMsg, .validation {
+	border: 1px solid;
+	margin: 10px 0px;
+	padding:15px 10px 15px 50px;
+	font-weight: bold;
+	border-radius: 2px;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+.info {
+	color: #00529B;
+	background-color: #BDE5F8;
+	background-image: url('images/help-icon.png');
+}
+.success {
+	color: #4F8A10;
+	background-color: #DFF2BF;
+	background-image:url('images/valid-icon.png');
+}
+.warning {
+	color: #9F6000;
+	background-color: #FEEFB3;
+	background-image: url('images/warning-icon.png');
+}
+.errorMsg {
+	color: #D8000C;
+	background-color: #FFBABA;
+	background-image: url('images/error-icon.png');
+}
+
+input.error{border:1px solid #CA1111;}
 
 #wrap {width:1200px; margin:0 auto 0 auto;}
 #header {background:url(images/header.png) no-repeat; height:174px;}

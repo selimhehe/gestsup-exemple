@@ -6,7 +6,7 @@
 	$showForm = true ;
 	$currentPath = 'index.php?page=company';
 	if(isset($_POST['type_groupe']) && $_POST['type_groupe'] == 'e'){
-		$requiredFields = array('nom_groupe','service','code','raison_social','diminutif','rue','code_postal','ville','gsm','tva');
+		$requiredFields = array('nom_groupe','code','diminutif','rue','code_postal','ville','gsm','tva','raison_social');
 	}else{
 		$requiredFields = array('nom_groupe','code','diminutif','rue','code_postal','ville','gsm',);
 	}

@@ -67,7 +67,7 @@ input.error{border:1px solid #CA1111;}
 #right a.td:hover {border-bottom: none; color:#0EA2CC;}
 #right a.th {border-bottom: none; color:#FFF; }
 #right a:visited, active {border:none;}
-#right a:hover {color:#FFF; border-bottom:none;}
+#right a:hover {color:#CDCDCD; border-bottom:none;}
 h1 a, h2 a, h3 a, h4 a {text-decoration:none; border:none!important;}
 .clear {clear:both;}
 #sidebar {float:left; width:250px; background:url(images/sb2.jpg) left repeat-y;}

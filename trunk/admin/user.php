@@ -534,7 +534,7 @@ else
 		$rows = mysql_query($sql); 
 	?>
 	<div>
-		<form name="add" method="post" action="index.php?page=admin&subpage=user&profileid=2&filtre"  id="groupesForm">
+		<form name="add" method="post" action=""  id="groupesForm">
 		<select name="groupesCode" onchange='submit()'> 
 			<option value="">Tous les groupes</option>
 			<?php while($row = mysql_fetch_assoc($rows)){ ?>

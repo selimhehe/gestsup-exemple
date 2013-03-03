@@ -146,7 +146,7 @@
 		</tr>
 		<tr>
 			<td width="200"><label for="service">Service:</label></td>
-			<td><input name="service" id="service" type="text" class="required"  value="<?php echo getFieldValue($item, 'service'); ?>" size="20" /></td>
+			<td><input name="service" id="service" type="text" value="<?php echo getFieldValue($item, 'service'); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200"><label for="tva">N° de TVA:</label></td>

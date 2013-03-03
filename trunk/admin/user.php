@@ -602,13 +602,20 @@ else
 			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
 			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
 			$sql .= " ORDER BY lastname";
-          $query = mysql_query($sql);
+			$query = mysql_query($sql);
+		}elseif(isset($_GET['profileid']) && $_GET['profileid'] == 'RES'){
+			$sql = "SELECT * FROM `tusers`";
+			$sql .= " WHERE id in(Select responsible From tcompany)";
+			//  disable = 1 And
+			$sql .= " ORDER BY lastname";
+			$query = mysql_query($sql);
         } else {
 			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]'";
 			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
 			$sql .= " ORDER BY lastname";
           $query = mysql_query($sql);
         }
+		echo $sql ;
 
 				while ($row=mysql_fetch_array($query)) 
 				{

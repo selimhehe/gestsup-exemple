@@ -539,7 +539,7 @@ else
 			<option value="">Tous les groupes</option>
 			<?php while($row = mysql_fetch_assoc($rows)){ ?>
 			<option <?php if(isset($_POST['groupesCode']) && $_POST['groupesCode'] == $row['code']){ ?>selected="selected"<?php } ?> value="<?php echo $row['code']; ?>">
-			<?php echo $row['civilite'].' '.$row['prenom'].' '.$row['nom']; echo $row['raison_social'] != '' ? ' ['.$row['raison_social'].']' : '' ?>
+			<?php echo $row['nom_groupe'] ; ?>
 			</option>
 			<?php } ?>
 		</select>

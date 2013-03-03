@@ -6,9 +6,9 @@
 	$showForm = true ;
 	$currentPath = 'index.php?page=company';
 	if(isset($_POST['type_groupe']) && $_POST['type_groupe'] == 'e'){
-		$requiredFields = array('civilite','prenom','nom','email','service','code','raison_social','diminutif','rue','code_postal','ville','gsm','tva','compte_ban');
+		$requiredFields = array('nom_groupe','service','code','raison_social','diminutif','rue','code_postal','ville','gsm','tva');
 	}else{
-		$requiredFields = array('civilite','prenom','nom','email','code','diminutif','rue','code_postal','ville','gsm','compte_ban');
+		$requiredFields = array('nom_groupe','code','diminutif','rue','code_postal','ville','gsm',);
 	}
 	$returnMsgs = array(
 		0=>'<div class="success">L\'enregistrement a été bien ajouté</div>',
@@ -36,8 +36,8 @@
 					$_POST['service'] = '';
 					$_POST['tva'] = '';
 				}
-				$query = "INSERT INTO `tcompany` ('type_groupe',`civilite`,`prenom`,`nom`,`email`, `code`, `responsible`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`, `service`)
-				VALUES ('". $_POST['type_groupe'] ."','". $_POST['civilite'] ."','". $_POST['prenom'] ."','". $_POST['nom'] ."','". $_POST['email'] ."', '". $_POST['code'] ."', '". $_POST['responsible'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."', '". $_POST['service'] ."')";
+				$query = "INSERT INTO `tcompany` (`type_groupe`,`nom_groupe`,`civilite`,`prenom`,`nom`,`email`, `code`, `responsible`, `raison_social`, `diminutif`, `rue`, `code_postal`, `ville`, `telephone`, `gsm`, `tva`, `compte_ban`, `service`)
+				VALUES ('". $_POST['type_groupe'] ."','". $_POST['nom_groupe'] ."','". $_POST['civilite'] ."','". $_POST['prenom'] ."','". $_POST['nom'] ."','". $_POST['email'] ."', '". $_POST['code'] ."', '". $_POST['responsible'] ."', '". addslashes($_POST['raison_social']) ."', '". $_POST['diminutif'] ."', '". addslashes ($_POST['rue']) ." ', '". $_POST['code_postal'] ."', '". addslashes ($_POST['ville']) ."', '". $_POST['telephone'] ."', '". $_POST['gsm'] ."', '". $_POST['tva'] ."', '". $_POST['compte_ban'] ."', '". $_POST['service'] ."')";
 				
 				$rst = mysql_query($query);
 				$showForm = false;
@@ -47,13 +47,13 @@
 			}
 		}else{$returnMsg = $returnMsgs[4];}
 	}elseif(isset($_POST['edit'])){
-		if(isExistCode($_POST['code'])){
+		if(isExistCode($_POST['code'], $_GET['id'])){
 			if($_POST['type_groupe'] == 'p'){
 				$_POST['raison_social'] = '';
 				$_POST['service'] = '';
 				$_POST['tva'] = '';
 			}
-			$query = "UPDATE `tcompany` SET `type_groupe` = '". $_POST['type_groupe'] ."',`civilite` = '". $_POST['civilite'] ."',`prenom` = '". $_POST['prenom'] ."',`nom` = '". $_POST['nom'] ."',`email` = '". $_POST['email'] ."', `code` = '". $_POST['code'] ."',responsible =  '". $_POST['responsible'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."',`service`= '". $_POST['service'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
+			$query = "UPDATE `tcompany` SET `type_groupe` = '". $_POST['type_groupe'] ."', `nom_groupe` = '". $_POST['nom_groupe'] ."',`civilite` = '". $_POST['civilite'] ."',`prenom` = '". $_POST['prenom'] ."',`nom` = '". $_POST['nom'] ."',`email` = '". $_POST['email'] ."', `code` = '". $_POST['code'] ."',responsible =  '". $_POST['responsible'] ."',`raison_social`= '". addslashes ($_POST['raison_social']) ."',`diminutif`= '". $_POST['diminutif'] ."',`rue`= '". addslashes ($_POST['rue']) ."',`code_postal`= '". $_POST['code_postal'] ."',`ville`= '". addslashes ($_POST['ville']) ."',`telephone`= '". $_POST['telephone'] ."',`gsm`= '". $_POST['gsm'] ."',`tva`= '". $_POST['tva'] ."',`compte_ban`= '". $_POST['compte_ban'] ."',`service`= '". $_POST['service'] ."' WHERE `tcompany`.`id` =". $_GET['id'];
 			$rst = mysql_query($query);
 			$showForm = false;
 			$returnMsg = $rst > 0 ? $returnMsgs[1] : $returnMsgs[3];
@@ -89,7 +89,7 @@
 		<tr>
 			 <td colspan="2" >
 				<br />
-				<?php $type = getFieldValue($item, 'type_groupe', 'e'); ?>
+				<?php $type = getFieldValue($item, 'type_groupe', 'e'); $type = $type != '' ? $type : 'e'; ?>
 				<label>Vous êtes un : </label>
 				<input type="radio" <?php if($type == 'e'){ ?>checked="checked"<?php } ?> name="type_groupe" id="type_groupe_e" value="e" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_e">Entreprise</label>
 				<input type="radio" <?php if($type == 'p'){ ?>checked="checked"<?php } ?> name="type_groupe" value="p" id="type_groupe_p" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_p">Groupe</label>
@@ -108,17 +108,17 @@
 				</select>
 			</td>
 		</tr>
-    <tr>
-			<td width="200"><label for="nom"><span class="required">*</span>Nom:</label></td>
-			<td><input name="nom" id="nom" type="text" class="required"  value="<?php echo getFieldValue($item, 'nom'); ; ?>" size="20" /></td>
+		<tr>
+			<td width="200"><label for="nom_groupe"><span class="required">*</span>Nom du grooupe:</label></td>
+			<td><input name="nom_groupe" id="nom_groupe" type="text" class="required"  value="<?php echo getFieldValue($item, 'nom_groupe') ; ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200"><label for="code"><span class="required">*</span>Code:</label></td>
-			<td><input name="code" id="code" type="text" <?php if($_GET['action'] == 'edit'){ ?>readonly="true"<?php } ?> class="required"  value="<?php echo @getFieldValue($item, 'code', generateRandomString(6)); ?>" size="20" /></td>
+			<td><input name="code" id="code" type="text" class="required"  value="<?php echo getFieldValue($item, 'code', generateRandomString(6)); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200">
-				<label for="nom"><span class="required">*</span>Contact:</label>
+				<label for="nom">Contact:</label>
 			</td>
 			<td>
 				<select name="civilite">
@@ -126,8 +126,8 @@
 					<option <?php if(getFieldValue($item, 'civilite') == 'Mme'){ ?>checked="checked"<?php } ?> value="Mme">Mme</option>
 					<option <?php if(getFieldValue($item, 'civilite') == 'Mlle'){ ?>checked="checked"<?php } ?> value="Mlle">Mlle</option>
 				</select>
-				<input name="prenom" id="prenom" type="text" class="required"  value="<?php echo getFieldValue($item, 'prenom'); ?>" size="20" placeholder="Prénom" />
-				<input name="nom" id="nom" type="text" class="required"  value="<?php echo getFieldValue($item, 'nom') ; ?>" size="20" placeholder="Nom" />
+				<input name="prenom" id="prenom" type="text" value="<?php echo getFieldValue($item, 'prenom'); ?>" size="20" placeholder="Prénom" />
+				<input name="nom" id="nom" type="text" value="<?php echo getFieldValue($item, 'nom') ; ?>" size="20" placeholder="Nom" />
 			</td>
 		</tr>
 		<tr>
@@ -135,8 +135,8 @@
 			<td><input name="email" id="email" type="text" class="required"  value="<?php echo getFieldValue($item, 'email'); ?>" size="20" /></td>
 		</tr>
 		<tr>
-			<td width="200"><label for="compte_ban"><span class="required">*</span>Compte bancaire:</label></td>
-			<td><input name="compte_ban" id="compte_ban" type="text" class="required"  value="<?php echo getFieldValue($item, 'compte_ban'); ; ?>" size="20" /></td>
+			<td width="200"><label for="compte_ban">Compte bancaire:</label></td>
+			<td><input name="compte_ban" id="compte_ban" type="text" value="<?php echo getFieldValue($item, 'compte_ban'); ; ?>" size="20" /></td>
 		</tr>
 	</table>
 	<table id="GroupeFields" align="center" width="700" style="margin-bottom:0;margin-top:-1px;<?php if($type != 'e'){ ?>display:none;<?php } ?>">
@@ -204,7 +204,7 @@
 			<th>ACTION</th>
 			<th>responsable</th>
 			<th>code</th>
-      <th>nom</th>
+			<th>Nom du groupe</th>
 			<th>Raison social</th>
 			<th>Contact</th>
 <!--			<th>service</th>-->
@@ -223,7 +223,7 @@
 			</td>
 			<td><?php echo $row['civility'].' '.$row['firstname'].' '.$row['lastname']; ?></td>
 			<td><?php echo $row['code']; ?></td>
-      <td><?php echo $row['nom']; ?></td>
+			<td><?php echo $row['nom_groupe']; ?></td>
 			<td><?php echo $row['raison_social']; ?></td>
 			<td><?php echo '<strong>'.$row['civilite'].' '.$row['prenom'].' '.$row['nom'].'</strong> <br />'.$row['email']; ?></td>
 			

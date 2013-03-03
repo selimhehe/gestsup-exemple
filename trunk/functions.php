@@ -1,6 +1,6 @@
 <?php
 	/**
-	 * Génération d'une chaine aléatoire.
+	 * GÃ©nÃ©ration d'une chaine alÃ©atoire.
 	 */
 	function generateRandomString($length = 10) {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -11,7 +11,7 @@
 		return $randomString;
 	}
 	/**
-	 * Vérifier si le code est unique
+	 * VÃ©rifier si le code est unique
 	 */
 	function isExistCode($c){
 		$sql = "SELECT count(*) as nbr FROM `tcompany` Where code = '". $c ."'";
@@ -20,8 +20,8 @@
 		return $row['nbr'] == 0 ? true : false ;
 	}
 	/**
-	 * Vérifier et retourner si la valaeur passer en POST si la valeur passer en paramètre
-	 * Utilise dans le cas d'un submit bloqué par msg d'erreur. cette fonction permet de récupérer les valeurs passer en POST
+	 * VÃ©rifier et retourner si la valaeur passer en POST si la valeur passer en paramÃ©tre
+	 * Utilise dans le cas d'un submit bloquÃ© par msg d'erreur. cette fonction permet de rÃ©cupÃ©rer les valeurs passer en POST
 	 */
 	function getFieldValue($item, $key, $defaultValue = ''){
 		return isset($_POST[$key]) ? $_POST[$key]  : (isset($item[$key]) ? $item[$key] : $defaultValue );

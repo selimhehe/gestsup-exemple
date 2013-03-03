@@ -1,3 +1,4 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 ﻿<?php
 	include 'functions.php' ;
 	
@@ -89,8 +90,8 @@
 			 <td colspan="2" >
 				<br />
 				<?php $type = getFieldValue($item, 'type_groupe', 'e'); ?>
-				<label>Vous etes un : </label>
-				<input type="radio" <?php if($type == 'e'){ ?>checked="checked"<?php } ?> name="type_groupe" id="type_groupe_e" value="e" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_e">Entrprise</label>
+				<label>Vous êtes un : </label>
+				<input type="radio" <?php if($type == 'e'){ ?>checked="checked"<?php } ?> name="type_groupe" id="type_groupe_e" value="e" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_e">Entreprise</label>
 				<input type="radio" <?php if($type == 'p'){ ?>checked="checked"<?php } ?> name="type_groupe" value="p" id="type_groupe_p" onclick="getTypeGroupeForm(this)" /> <label for="type_groupe_p">Privé</label>
 				<br /><br />
 			 </td>
@@ -199,14 +200,15 @@
 			<th>ACTION</th>
 			<th>responsable</th>
 			<th>code</th>
+      <th>nom</th>
 			<th>Raison social</th>
 			<th>Contact</th>
-			<th>service</th>
+<!--			<th>service</th>-->
 			<th>Diminutif</th>
 			<th>Adresse</th>
-			<th>Tél/GSM</th>
-			<th>TVA</th>
-			<th>Compte bancaire</th>
+			<th>GSM</th>
+<!--			<th>TVA</th>-->
+<!--			<th>Compte bancaire</th>-->
 			<th>id</th>
 		<tr>
 		<?php while ($row = mysql_fetch_array($query)) { ?>
@@ -217,15 +219,14 @@
 			</td>
 			<td><?php echo $row['civility'].' '.$row['firstname'].' '.$row['lastname']; ?></td>
 			<td><?php echo $row['code']; ?></td>
+      <td><?php echo $row['nom']; ?></td>
 			<td><?php echo $row['raison_social']; ?></td>
 			<td><?php echo '<strong>'.$row['civilite'].' '.$row['prenom'].' '.$row['nom'].'</strong> <br />'.$row['email']; ?></td>
 			
-			<td><?php echo $row['service']; ?></td>
+			
 			<td><?php echo $row['diminutif']; ?></td>
 			<td><?php echo $row['rue'].' - <em>'.$row['code_postal'].'</em> '.$row['ville']; ?></td>
-			<td><?php echo '<strong>Tél. :</strong> '.$row['telephone'].' <br /><strong>GSM :</strong> '.$row['gsm']; ?></td>
-			<td><?php echo $row['tva']; ?></td>
-			<td><?php echo $row['compte_ban']; ?></td>
+			<td><?php echo ' '.$row['gsm']; ?></td>			
 			<td><?php echo $row['id']; ?></td>
 		</tr>
 		<?php } ?>

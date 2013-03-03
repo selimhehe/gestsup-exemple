@@ -131,7 +131,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="200"><label for="email"><span class="required email">*</span>Email:</label></td>
+			<td width="200"><label for="email"><span class="required email">*</span>Email du contact:</label></td>
 			<td><input name="email" id="email" type="text" class="required"  value="<?php echo getFieldValue($item, 'email'); ?>" size="20" /></td>
 		</tr>
 		<tr>
@@ -168,7 +168,7 @@
 		</tr>
 		<tr>
 			<td width="200"><label for="telephone">Telephone:</label></td>
-			<td><input name="telephone" id="telephone" type="text" class="required"  value="<?php echo getFieldValue($item, 'telephone'); ?>" size="20" /></td>
+			<td><input name="telephone" id="telephone" type="text" value="<?php echo getFieldValue($item, 'telephone'); ?>" size="20" /></td>
 		</tr>
 		<tr>
 			<td width="200"><label for="gsm"><span class="required">*</span>GSM:</label></td>

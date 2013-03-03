@@ -528,7 +528,25 @@ else if($_GET['action']=="reject"){
 // Else display users
 else
 {
+?>
+	<?php
+		$sql = "Select * From `tcompany`";
+		$rows = mysql_query($sql); 
+	?>
+	<div>
+		<form name="add" method="post" action="index.php?page=admin&subpage=user&profileid=2&filtre"  id="groupesForm">
+		<select name="groupesCode" onchange='submit()'> 
+			<option value="">Tous les groupes</option>
+			<?php while($row = mysql_fetch_assoc($rows)){ ?>
+			<option <?php if(isset($_POST['groupesCode']) && $_POST['groupesCode'] == $row['code']){ ?>selected="selected"<?php } ?> value="<?php echo $row['code']; ?>">
+			<?php echo $row['civilite'].' '.$row['prenom'].' '.$row['nom']; echo $row['raison_social'] != '' ? ' ['.$row['raison_social'].']' : '' ?>
+			</option>
+			<?php } ?>
+		</select>
+		</form>
+	</div>
 	
+<?php
 	//Display Buttons
 		if($rparameters['ldap']==1)	echo"<div  class=\"buttons2\">"; else echo"<div  class=\"buttons1\">";
 		echo'<br />
@@ -556,10 +574,8 @@ else
 				
 				';
 			}
-	echo'
-	
-	<br />
-	';
+	echo'<br />';
+
 	//Count user 
 	$q = mysql_query("SELECT COUNT(*) FROM tusers where disable='0'");
 	$r = mysql_fetch_array($q);
@@ -581,10 +597,17 @@ else
 							<th class=\"th\">Profile</th>
 						</tr>
 						";
-				if($_GET[profileid] == 'ND'){
-          $query = mysql_query("SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1 ORDER BY lastname");
+		// 				
+		if(isset($_GET['profileid']) && $_GET['profileid'] == 'ND'){
+			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
+			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
+			$sql .= " ORDER BY lastname";
+          $query = mysql_query($sql);
         } else {
-          $query = mysql_query("SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]' ORDER BY lastname");
+			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]'";
+			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
+			$sql .= " ORDER BY lastname";
+          $query = mysql_query($sql);
         }
 
 				while ($row=mysql_fetch_array($query)) 
@@ -601,7 +624,7 @@ else
 									if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour désactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
 									else
 									{echo "<a title=\"Désactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;profileid=$_GET[profileid]&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}
-                   if($_GET[profileid]=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
+                   if($_GET['profileid']=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
 					echo "
 								</center>
 							</td>

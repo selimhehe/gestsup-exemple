@@ -159,9 +159,9 @@ h1 a, h2 a, h3 a, h4 a {text-decoration:none; border:none!important;}
 #topmenu a:hover {background:url(images/nav3.png) repeat-x; color:#fff;}
 
 #downmenu { height:30px; font:bold 12px "Trebuchet MS", Verdana, sans-serif; }
-#downmenu ul {list-style:none; }
+#downmenu ul {list-style:none; overflow:hidden;}
 #downmenu li {display:inline; }
-#downmenu a , #downmenu a:visited {display:block; float:left; background:url(images/nav22.png) repeat-x; text-align:center; padding:2px 20px 0 20px; height:25px; color:#999999;}
+#downmenu a , #downmenu a:visited {display:block; float:left; background:url(images/nav22.png) repeat-x; text-align:center; padding:2px 14px 0 14px; height:25px; color:#999999;}
 #downmenu .active a {background:url(images/nav21.png) repeat-x; color:#333;}
 #downmenu .active a:hover {background:url(images/nav24.png) repeat-x; color:#333;}
 #downmenu a:hover {background:url(images/nav23.png) repeat-x; color:#fff;}

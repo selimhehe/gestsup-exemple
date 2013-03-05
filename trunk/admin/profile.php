@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 /*
 Author: Flox
 File name: profile.php
@@ -97,7 +97,7 @@ else
 						<td>'.$row[0].'</td>
 						<td >
 							<select name="'.$row[0].'">
-								<option '; if($rv[$row[0]]=='0') echo 'selected'; echo ' value="0" >Pas d\'acc�s</option>
+								<option '; if($rv[$row[0]]=='0') echo 'selected'; echo ' value="0" >Pas d\'accès</option>
 								<option '; if($rv[$row[0]]=='1') echo 'selected'; echo ' value="1" >Visualisation</option>
 								<option '; if($rv[$row[0]]=='2') echo 'selected'; echo ' value="2" >Modification</option>
 							<select>
@@ -106,10 +106,7 @@ else
 					';
 				}
 			}
-			
-
-			echo '
-			
+			echo '			
 		</table>
 	</form>
 	';

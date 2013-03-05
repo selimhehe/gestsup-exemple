@@ -115,8 +115,9 @@ if ($_SESSION['user_id'])
 							if ($rright['task']!=0) {echo'<li ';if (isset($_GET['page']) && ($_GET['page']=="dashboard" || $_GET['page']=="ticket" || $_GET['page']=="newticket" || $_GET['page']=="newticket_u")) {echo "class=\"active\"";}echo '><a href="./index.php?page=dashboard&amp;techid='; echo $_SESSION['user_id']; echo '&amp;state=1"><img style="border-style: none" alt="tache" src="./images/check.png" />  Tâches</a></li>';}
 							// TODO :: gestion d'acces sur la page Groupes
 							//if (isset($rright['company']) && isset($rparameters['company']) && ($rright['company']!=0) && ($rparameters['company']==1)) {
+							if (isset($rright['company']) && ($rright['company']!=0)) {
 							echo'<li '; if (isset($_GET['page']) && $_GET['page']=="company") echo "class=\"active\""; echo '><a href="./index.php?page=company"><img style="border-style: none" alt="groupes" src="./images/check.png" />  Groupes</a></li>';
-							//}
+							}
 							if (($rright['planning']!=0) && ($rparameters['planning']==1)) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="planning") echo "class=\"active\""; echo '><a href="./index.php?page=planning"><img style="border-style: none" alt="stat" src="./images/planning.png" />  Planning</a></li>';}
 							if ($rright['stat']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="stat") echo "class=\"active\""; echo '><a href="./index.php?page=stat"><img style="border-style: none" alt="stat" src="./images/stat.png" />  Statistiques</a></li>';}
 							if ($rright['admin']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="admin") echo "class=\"active\""; echo '><a href="./index.php?page=admin"><img style="border-style: none" alt="administration" src="./images/parametre.png" />  Administration</a></li>';}

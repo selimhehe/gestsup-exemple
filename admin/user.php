@@ -615,7 +615,6 @@ else
 			$sql .= " ORDER BY lastname";
           $query = mysql_query($sql);
         }
-		echo $sql ;
 
 				while ($row=mysql_fetch_array($query)) 
 				{

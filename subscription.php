@@ -82,7 +82,7 @@ if (isset($_POST['submit'])){
   $r = mysql_fetch_array($query);
   if($r['0']=='')
 	{
-	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES (2, '$_POST[code]','$_POST[civilite]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[ville]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '1')";
+	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES (2, '$_POST[code]','$_POST[civilite]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[ville]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '0')";
 		
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
@@ -132,6 +132,11 @@ if (isset($_POST['submit'])){
         }
        
 
+        $_SESSION['email'] = $email;
+				$q = mysql_query("SELECT id FROM tusers where mail='$email' and password='$_POST[password]'");        
+				$r = mysql_fetch_array($q);
+				$_SESSION['user_id'] = "$r[0]";
+        
         
 
       echo "<center><div id=\"valide\"><img src=\"./images/mail.png\" border=\"0\" /> Votre demande a été bien envoyé.</div></center>";
@@ -140,14 +145,14 @@ if (isset($_POST['submit'])){
 				<!--
 				function redirect()
 				{
-				window.location='./index.php'
+				window.location='./index.php?page=dashboard'
 				}
 				setTimeout('redirect()',$rparameters[time_display_msg]);
 				-->
 				</SCRIPT>
 				";
 
-          $msg = "Votre demande d'inscription a été bien envoyé";
+          $msg = "Votre demande a été bien envoyé";
         }
         
 
@@ -211,7 +216,7 @@ if (isset($_POST['submit'])){
    echo "<div class='error'>$msg</div>";
  }
 ?>
-<div id="catalogue" style="width:535px;">
+<div id="catalogue" style="width:600px;" class="fromcatalogue">
   
 	<form id="myForm" name="myForm" method="post"  action="">
 		<table width="100%">

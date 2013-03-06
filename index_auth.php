@@ -165,8 +165,8 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		echo '
 		<br /><br /><br /><br /><br /><br /><br /><br />
 		<center>
-		<div style="width:300px" id="catalogue">
-		<table style="height:300; valign:middle; width:300px; text-align:center;"   style="border-style: none" alt="img" cellpadding="0" cellspacing="0"> 
+		<div style="width:370px" id="catalogue" class="fromcatalogue">
+		<table style="height:300; valign:middle; width:370px; text-align:center;"   style="border-style: none" alt="img" cellpadding="0" cellspacing="0">
 		<tr> 
 		<td> 
 			<center>

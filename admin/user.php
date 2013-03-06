@@ -230,7 +230,7 @@ if ($_GET['action']=='edit')
             echo '<option value="'.$row2['id'].'"';
             if(isset($user1['group_id']) && $user1['group_id'] == $row2['id']){ echo  'selected="selected"'; }
             echo ">";
-            echo $row2['nom'];
+            echo $row2['nom_groupe'];
             echo '</option>';
            }
 					  echo '</select></td></tr>';
@@ -421,24 +421,86 @@ else if ($_GET['action']=="delete")
 $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
 $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 	//redirection vers la page d'accueil
-	$www = "./index.php?page=admin&subpage=user";
+
+ $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
+  $user_to_send_email = mysql_fetch_array($requser);
+  $email_to_send = $user_to_send_email[mail];
+  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+
+   require("components/PHPMailer_v5.1/class.phpmailer.php");
+        $mail = new PHPmailer();
+        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+        $mail->IsSendmail();
+        $mail->IsHTML(true); // Envoi en html
+
+        $mail->From = "$rparameters[mail_from]";
+        $mail->FromName = "$rparameters[mail_from]";
+
+        $mail->AddAddress($email_to_send);
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = "Compte rejeter";
+        $bodyMSG = "Bonjour , <br /><br />
+         Votre compte a été supprimé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
+         Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
+         Bien à vous
+         ";
+        $mail->Body = "$bodyMSG";
+        $mail->Send();
+        $mail->ClearAddresses();
+
+
+  $www = "./index.php?page=admin&subpage=user&profileid=ND";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
+
 }
 else if ($_GET['action']=="disable")
 {
 $requete = "UPDATE tusers set disable=1 WHERE id = '$_GET[id]'";
 $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
-	//redirection vers la page d'accueil
-	$www = "./index.php?page=admin&subpage=user";
+
+ $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
+  $user_to_send_email = mysql_fetch_array($requser);
+  $email_to_send = $user_to_send_email[mail];
+  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+
+   require("components/PHPMailer_v5.1/class.phpmailer.php");
+        $mail = new PHPmailer();
+        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+        $mail->IsSendmail();
+        $mail->IsHTML(true); // Envoi en html
+
+        $mail->From = "$rparameters[mail_from]";
+        $mail->FromName = "$rparameters[mail_from]";
+
+        $mail->AddAddress($email_to_send);
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = "Compte rejeter";
+        $bodyMSG = "Bonjour , <br /><br />
+         Votre compte a été désactivé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
+         Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
+         Bien à vous
+         ";
+        $mail->Body = "$bodyMSG";
+        $mail->Send();
+        $mail->ClearAddresses();
+
+
+  $www = "./index.php?page=admin&subpage=user&profileid=ND";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
+
+	
 }
 else if ($_GET['action']=="enable")
 {
@@ -508,7 +570,7 @@ else if($_GET['action']=="reject"){
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Compte rejeter";
         $bodyMSG = "Bonjour , <br /><br />
-         Votre compte n’a pas été validé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
+         Votre compte a été supprimé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
          Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
          Bien à vous
          ";
@@ -626,11 +688,13 @@ else
 							<td width=\"75px\">
 								<center>
 									<a title=\"Editer\" href=\"./index.php?page=admin&amp;subpage=user&amp;profileid=$_GET[profileid]&amp;action=edit&amp;id=$row[id]\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-									if($row['id']!=$uid) echo "<a title=\"Supprimer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=delete\"><img src=\"./images/delete.png\" border=\"0\" /></a>";                 
+									if($row['id']!=$uid) {                                      
+                      echo "<a title=\"Supprimer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=delete\"><img src=\"./images/delete.png\" border=\"0\" /></a>";
+                  }
 									if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour désactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
 									else
 									{echo "<a title=\"Désactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;profileid=$_GET[profileid]&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}
-                   if($_GET['profileid']=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
+//                   if($_GET['profileid']=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
 					echo "
 								</center>
 							</td>

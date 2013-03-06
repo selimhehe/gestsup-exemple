@@ -35,12 +35,12 @@ if($_POST['Valider'])
 	// check old password
 	else if ($oldpassword!='1')
 	{
-		echo "<div id=\"erreur\"><img src=\"./images/critical.png\" border=\"0\" /> Ancien mot de passe éronné.</div><br /><br />";
+		echo "<div id=\"erreur\"><img src=\"./images/critical.png\" border=\"0\" /> Ancien mot de passe Ã©ronnÃ©.</div><br /><br />";
 	}
 	// check new passwords
 	else if ($_POST['newpwd1']!=$_POST['newpwd2'])
 	{
-		echo "<div id=\"erreur\"><img src=\"./images/critical.png\" border=\"0\" /> Vos nouveaux mots de passes sont différents.</div><br /><br />";
+		echo "<div id=\"erreur\"><img src=\"./images/critical.png\" border=\"0\" /> Vos nouveaux mots de passes sont diffÃ©rents.</div><br /><br />";
 	}
 	else
 	{
@@ -64,7 +64,7 @@ if($_POST['Valider'])
 }
 if ($updated==1)
 {
-	echo "<div id=\"valide\"><img src=\"./images/valide.png\" border=\"0\" /> Le mot de passe à été changé.</div><br /><br />
+	echo "<div id=\"valide\"><img src=\"./images/valide.png\" border=\"0\" /> Le mot de passe a Ã©tÃ© changÃ©.</div><br /><br />
 	<div class=\"buttons1\">
 		<button name=\"Fermer\" value=\"Fermer\" type=\"submit\"  class=\"jqmClose\"  id=\"jqmCloseBtn\">
 			<img src=\"images/apply2.png\" alt=\"\"/>

@@ -1,5 +1,13 @@
 <?php
 	/**
+	 * print_r pre
+	 */
+	function pr($array, $die = false){
+		echo'<pre>'; print_r($array); echo'</pre>';
+		if($die) die;
+	}
+	 
+	/**
 	 * Génération d'une chaine aléatoire.
 	 */
 	function generateRandomString($length = 10) {
@@ -28,3 +36,21 @@
 	function getFieldValue($item, $key, $defaultValue = ''){
 		return isset($_POST[$key]) ? $_POST[$key]  : (isset($item[$key]) ? $item[$key] : $defaultValue );
 	}
+	
+	
+	/**
+	 *
+		0 - Pas d'accès
+		5 - visualisation limité => il peut voir que ses tickets
+		6 - visualisation etendu => il peut voir que ses tickets et ceux de son service
+		1 - visualisation => il peut voir tous les tickets
+
+		7 - Modification limité  => il peut modifier que ses tickets
+		8 - Modification etendu  => il peut modifier que ses tickets et ceux de son service
+		2 - Modification  => il peut voir tous les tickets
+	 */
+	 function isHasAccess($userId, $fct, $fctValue){
+		// 10 $rright['company']  => task, 5
+		
+	 }
+	

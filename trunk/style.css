@@ -215,7 +215,22 @@ padding: 4px 25px 2px 50px;
 .post .leftalign {display:block; padding:5px; background:#eee; margin:8px; float:left; border:solid 1px #ddd;}
 .post .rightalign {display:block; padding:5px; background:#eee; margin:8px; float:right;border:solid 1px #ddd;}
 
+/**/
+#filtreTask{margin:0; padding:0;position:relative;}
+#filtreTask legend{font-size:11px;font-weight:bold; background:#FFF; padding:0 4px;}
+#filtreTask fieldset{padding:8px;}
+#right #filtreTask table {margin:0;}
+#right #filtreTask table td{border:none;}
+#filtreTask .filterFields{margin:0;}
+#filtreTask .filterFields li{border-bottom: 1px dashed #EEE; color: #666; font-size: 12px;  list-style: none outside none;overflow: hidden;  padding: 3px 0;}
+#filtreTask .filterFields li select{background: #E9F2F5; border: 1px solid #CBE0E7; font-size: 12px; min-width: 160px;  padding: 2px;}
+#filtreTask .filterFields li label{width:120px;}
+.filterBtn{background: #E9F2F5; border: 1px solid #CBE0E7; font-size: 12px; padding:2px 12px;}
 
+.toggleFilter{background: papayawhip;
+    font-size: 10px; font-weight: bold;
+    padding: 2px 5px; position: absolute;
+    right: 5px; top: 10px;}
 /*tables and Forms */
 #right th.active {
 		background: #1c6ddc url(./images/sec_head_sel2.gif) repeat-x ;

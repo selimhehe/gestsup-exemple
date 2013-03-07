@@ -108,7 +108,21 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 		{
 			include "./searchengine.php";
 		} else {
-			$from="
+			$userIds = array();
+			if(isset($_POST['demandeure']) && $_POST['demandeure'] != ''){
+				$userIds[] = $_POST['demandeure'];
+				$from .=" AND tincidents.user = ".$_POST['demandeure'];
+			}
+			if(isset($_POST['res']) && $_POST['res'] != ''){
+				$userIds[] = $_POST['res'];
+				$from .=" AND tincidents.user = ".$_POST['res'];
+			}
+			if(isset($_POST['groupe']) && $_POST['groupe'] != ''){
+				$userIds[] = $_POST['groupe'];
+				
+			}
+		
+			$from ="
 			FROM tincidents
 			WHERE 
 			tincidents.$profile LIKE '$_GET[techid]'
@@ -126,6 +140,18 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			AND	tincidents.criticality LIKE '$_POST[criticality]'
 			AND	tincidents.title LIKE '%$_POST[title]%'
 			";
+			if(count($userIds) > 0){
+				$from .=" AND tincidents.user in (". implode(",", $userIds) .")";
+			}
+			if( isset($_POST['date_1']) && isset($_POST['date_2']) && $_POST['date_1'] != '' && $_POST['date_2'] != ''){
+				$from .=" AND tincidents.date_create BETWEEN '".$_POST['date_1']."' AND '".$_POST['date_2']."'";
+			}elseif( isset($_POST['date_1']) && isset($_POST['date_2']) && $_POST['date_1'] != '' && $_POST['date_2'] == ''){
+				$from .=" AND tincidents.date_create >= '".$_POST['date_1']."'";
+			}elseif( isset($_POST['date_1']) && isset($_POST['date_2']) && $_POST['date_1'] == '' && $_POST['date_2'] != ''){
+				$from .=" AND tincidents.date_create <= '".$_POST['date_2']."'";
+			}
+			
+			
 		}
 		$mastercount = mysql_query("SELECT COUNT(*) $from"); 
 		$resultcount=mysql_fetch_array($mastercount);
@@ -139,6 +165,73 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 		$rparameters[maxline]
 		"); 
 ?>
+<div id="filtre">
+<form name="thisform" enctype="multipart/form-data" method="post" action="" id="filtreTask">
+<fieldset> <legend>Filtre</legend>
+				
+				<?php if(isset($_POST['filterBtn'])){ ?>
+					<a href="javascript:void(0)" class="toggleFilter">[-] Masquer le filtre</a>
+				<?php }else{ ?>
+					<a href="javascript:void(0)" class="toggleFilter">[-] Afficher le filtre</a>
+				<?php } ?>
+				<ul class="filterFields" <?php if(isset($_POST['filterBtn'])){ ?>style="display:block;"<?php }else{ ?> style="display:none;"<?php } ?>>
+					<li>
+						<?php
+							$sql = "SELECT * FROM `tusers` where id in (Select responsible From tcompany) Order by firstname";
+							$data = mysql_query($sql);
+		
+						?>
+						<label>Responsables des groupes</label>
+						<select name="res">
+							<option value=""> ... </option>
+							<?php while($row = mysql_fetch_array($data)){ ?>
+							<option <?php if(isset($_POST['res']) && $_POST['res'] == $row['id']){ ?>selected="selected"<?php } ?> value="<?php echo $row['id']; ?>"><?php echo $row['firstname'].' '.$row['lastname']; ?></option>
+							<?php } ?>
+						</select>
+					</li>
+					<li>
+						<?php
+							$sql = "Select * From tcompany Order by nom_groupe";
+							$data = mysql_query($sql);
+						?>
+						<label>Groupes</label>
+						<select name="groupe">	
+							<option value=""> ... </option>
+							<?php while($row = mysql_fetch_array($data)){ ?>
+								<option <?php if(isset($_POST['groupe']) && $_POST['groupe'] == $row['responsible']){ ?>selected="selected"<?php } ?> value="<?php echo $row['responsible']; ?>"><?php echo $row['nom_groupe']; ?></option>
+							<?php } ?>
+						</select>
+					</li>
+					<li>
+						<?php
+							$sql = "SELECT * FROM `tusers` where id in (Select user From tincidents) Order by firstname";
+							$data = mysql_query($sql);
+						?>
+						<label>Les Demandeures</label>
+						<select name="demandeure">
+							<option value=""> ... </option>
+							<?php while($row = mysql_fetch_array($data)){ ?>
+							<option <?php if(isset($_POST['demandeure']) && $_POST['demandeure'] == $row['id']){ ?>selected="selected"<?php } ?> value="<?php echo $row['id']; ?>"><?php echo $row['firstname'].' '.$row['lastname']; ?></option>
+							<?php } ?>
+						</select>
+					</li>
+					<li>
+						<label>Date 1 : </label>
+						<input style="display: inline;" class="textfield" type='text' name='date_1'  value="<?php if(isset($_POST['date_1'])){ echo $_POST['date_1']; } ?>" />
+						<img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=thisform&amp;elem=date_1','Calendrier','width=400,height=400')" />
+						
+						<label>Date 2 : </label>
+						<input style="display: inline;" class="textfield" type='text' name='date_2'  value="<?php if(isset($_POST['date_2'])){ echo $_POST['date_2']; } ?>" />
+						<img src="./images/calendar.png" value='Calendrier' onClick="window.open('components/mycalendar/mycalendar.php?form=thisform&amp;elem=date_2','Calendrier','width=400,height=400')" />
+					</li>
+					<li style="text-align:right">
+						<input type="submit" name="filterBtn" class="filterBtn" value="Appliquer" />
+					</li>
+				</ul>
+	
+</fieldset> 
+</form>
+</div>
 <div class="post">
 <h2>
 <?php if ($_GET['searchengine']=='1') echo "Recherche: $keywords[0] "; else  echo "Liste des demandes";?> 
@@ -567,3 +660,33 @@ if ($r['chgpwd']=='1')
 		";
 }
 ?>
+<script type="text/javascript">
+        // jQuery en action
+        jQuery.noConflict();
+		jQuery(document).ready(function(){
+		// ------------------------------ //
+			jQuery('.toggleFilter').toggle(
+				<?php if(isset($_POST['filterBtn'])){ ?>
+					
+					function(){
+						jQuery('.filterFields').hide();
+						jQuery(this).text('[+] Afficher le filtre.');
+					},function(){
+						jQuery('.filterFields').show();
+						jQuery(this).text('[-] Masquer le filtre.');
+					}
+				<?php }else{ ?>
+					function(){
+						jQuery('.filterFields').show();
+						jQuery(this).text('[-] Masquer le filtre.');
+					},function(){
+						jQuery('.filterFields').hide();
+						jQuery(this).text('[+] Afficher le filtre.');
+					}
+				<?php } ?>
+				
+			);
+		// ------------------------------ //
+		});
+</script>
+

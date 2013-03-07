@@ -363,7 +363,7 @@ $('textarea').ata();
         $('prototype').addClassName('prototype');
 </script>
 
-<SCRIPT type="text/javascript">
+<script type="text/javascript">
 function insertAtCaret(areaId,text) {
 	var txtarea = document.getElementById(areaId);
 	var scrollPos = txtarea.scrollTop;
@@ -397,4 +397,4 @@ function insertAtCaret(areaId,text) {
 	}
 	txtarea.scrollTop = scrollPos;
 }
-</SCRIPT>
+</script>

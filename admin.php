@@ -57,10 +57,7 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 
           }
 		  
-		  if ($_GET['subpage']=='user') {
-          echo '<li '; if ($_GET['profileid']=='RES') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=RES">Les responsables</a></li>';
-
-          }
+		  
 		  
 			}
 			?>

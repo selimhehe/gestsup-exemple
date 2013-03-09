@@ -71,7 +71,8 @@
 	
 	$query = mysql_query("SELECT t.*, u.`firstname`, u.`lastname`, u.`mail`, u.`service`, u.`civility` FROM `tcompany` as t LEFT JOIN tusers as u ON t.responsible = u.id ORDER BY id");
 	
-	$query2 = mysql_query("SELECT * FROM `tusers` WHERE `profile` in (4, 0) ORDER BY firstname");
+	/* technicien - 0 # utilisateur avec pouvoir - 1 # utilisateur - 2 # superviseur - 3 # administrateur - 4 */
+	$query2 = mysql_query("SELECT * FROM `tusers` WHERE `profile` in (4, 1, 0) ORDER BY firstname");
 	
 	if(isset($returnMsg) && $returnMsg != ''){ echo '<br />'. $returnMsg .'<br />'; }
 ?>

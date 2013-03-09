@@ -596,15 +596,30 @@ else
 		$rows = mysql_query($sql); 
 	?>
 	<div>
-		<form name="add" method="post" action=""  id="groupesForm">
-		<select name="groupesCode" onchange='submit()'> 
-			<option value="">Tous les groupes</option>
-			<?php while($row = mysql_fetch_assoc($rows)){ ?>
-			<option <?php if(isset($_POST['groupesCode']) && $_POST['groupesCode'] == $row['code']){ ?>selected="selected"<?php } ?> value="<?php echo $row['code']; ?>">
-			<?php echo $row['nom_groupe'] ; ?>
-			</option>
-			<?php } ?>
-		</select>
+		<form name="add" method="post" action=""  id="filtreTask">
+			<fieldset> <legend>Filtre</legend>
+				<ul class="filterFields" style="display:block;">
+					<li>
+						<label>Groures</label>
+						<select name="groupesCode" onchange='submit()'> 
+							<option value=""> Tous </option>
+							<?php while($row = mysql_fetch_assoc($rows)){ ?>
+							<option <?php if(isset($_POST['groupesCode']) && $_POST['groupesCode'] == $row['code']){ ?>selected="selected"<?php } ?> value="<?php echo $row['code']; ?>">
+							<?php echo $row['nom_groupe'] ; ?>
+							</option>
+							<?php } ?>
+						</select>
+					</li>
+					<li>
+						<label>Type utilisateur</label>
+						<select name="typeUser" onchange='submit()'>
+							<option value=""> Tous </option>
+							<option <?php if(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){ ?>selected="selected"<?php } ?> value="RES">Les responsables</option>
+							<option <?php if(isset($_POST['typeUser']) && $_POST['typeUser'] == 'DEM'){ ?>selected="selected"<?php } ?> value="DEM">Les demandeurs</option>
+						</select>
+					</li>
+				</ul>
+			</fieldset>
 		</form>
 	</div>
 	
@@ -665,10 +680,16 @@ else
 			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
 			$sql .= " ORDER BY lastname";
 			$query = mysql_query($sql);
-		}elseif(isset($_GET['profileid']) && $_GET['profileid'] == 'RES'){
+		}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){
 			$sql = "SELECT * FROM `tusers`";
 			$sql .= " WHERE id in(Select responsible From tcompany)";
-			//  disable = 1 And
+			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
+			$sql .= " ORDER BY lastname";
+			$query = mysql_query($sql);
+        }elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'DEM'){
+			$sql = "SELECT * FROM `tusers`";
+			$sql .= " WHERE id in(Select user From tincidents)";
+			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
 			$sql .= " ORDER BY lastname";
 			$query = mysql_query($sql);
         } else {

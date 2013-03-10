@@ -408,9 +408,9 @@ else if ($_GET['action']=="add")
 		<tr>
 			<td><b>Profile:</b></td>
 			<td>
-				Technicien <i>(création, visualisation, administration) <input type="radio" name="profile" value="0" /><br />
-				Superviseur <i>(création, visualisation) <input type="radio" name="profile" value="3" /><br />
-				Utilisateur avec pouvoir <i>(création, visualisation)</i> <input type="radio" name="profile" value="1" /><br />
+				Intervenants <i>(création, visualisation, administration) <input type="radio" name="profile" value="0" /><br />
+				Responsalble <i>(création, visualisation) <input type="radio" name="profile" value="3" /><br />
+				Demandeur <i>(création, visualisation)</i> <input type="radio" name="profile" value="1" /><br />
 				Utilisateur <i>(visualisation)</i> <input type="radio" name="profile" value="2" checked />
 			</td>
 		</tr>

@@ -53,8 +53,9 @@ if ($_SESSION['user_id'])
 	$_SESSION['profile_id'] = $_SESSION['profile_id'][0];
 
 	//Load rights table
+	//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
 	$qright = mysql_query("SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]");
-		//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
+	//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
 	$rright= mysql_fetch_array($qright);
 }
 

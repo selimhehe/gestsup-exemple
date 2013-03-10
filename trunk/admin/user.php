@@ -479,15 +479,13 @@ $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error
 			// -->
 			</script>';
 
-}
-else if ($_GET['action']=="disable")
-{
+}else if ($_GET['action']=="disable"){
 $requete = "UPDATE tusers set disable=1 WHERE id = '$_GET[id]'";
 $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
  $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
   $user_to_send_email = mysql_fetch_array($requser);
-  $email_to_send = $user_to_send_email[mail];
+  $email_to_send = $user_to_send_email['mail'];
   $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
   $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
@@ -745,15 +743,20 @@ else
 					
 					echo "<tr class=\"blue\">
 							<td width=\"75px\">
-								<center>
-									<a title=\"Editer\" href=\"./index.php?page=admin&amp;subpage=user&amp;profileid=$_GET[profileid]&amp;action=edit&amp;id=$row[id]\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
-									if($row['id']!=$uid) {                                      
-                      echo "<a title=\"Supprimer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=delete\"><img src=\"./images/delete.png\" border=\"0\" /></a>";
-                  }
-									if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour désactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
-									else
-									{echo "<a title=\"Désactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;profileid=$_GET[profileid]&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}
-//                   if($_GET['profileid']=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
+								<center>";
+						if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){
+							// Edit
+							echo"<a title=\"Editer\" href=\"./index.php?page=admin&amp;subpage=user&amp;profileid=$_GET[profileid]&amp;action=edit&amp;id=$row[id]\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
+							// Delete
+							if($row['id']!=$uid) {echo "<a title=\"Supprimer\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=delete\"><img src=\"./images/delete.png\" border=\"0\" /></a>";}
+						}
+						if((isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3) && $_SESSION['user_id'] != $row['id']){
+						// disable
+						if ($row['disable']!=1){echo "<a title=\"Activer, cliquez pour désactiver\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=disable\"><img src=\"./images/valide_min.png\" border=\"0\" /></a>";}
+						else {echo "<a title=\"Désactiver cliquez pour Activer\" href=\"./index.php?page=admin&amp;profileid=$_GET[profileid]&amp;subpage=user&amp;id=$row[id]&amp;action=enable\"><img src=\"./images/access_min.png\" border=\"0\" /></a>";}
+						}
+						//                   if($_GET['profileid']=='ND') echo "<a title=\"Rejeter\" href=\"./index.php?page=admin&amp;subpage=user&amp;id=$row[id]&amp;action=reject\"><img src=\"./images/ico-validate.png\" border=\"0\" /></a>";
+					
 					echo "
 								</center>
 							</td>

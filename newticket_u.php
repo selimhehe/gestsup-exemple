@@ -144,7 +144,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		?>
 		<br />
 		<?php 
-		if ($_SESSION['profile_id']==3) 
+		if ($_SESSION['profile_id']==0 || $_SESSION['profile_id']==4)
 		{
 			echo "<label for=\"technician\">Technicien:</label>
 			<select class=\"textfield\" id=\"technician\" name=\"technician\">";

@@ -133,9 +133,10 @@ if (isset($_POST['submit'])){
        
 
         $_SESSION['email'] = $email;
-				$q = mysql_query("SELECT id FROM tusers where mail='$email' and password='$_POST[password]'");        
+				$q = mysql_query("SELECT id, profile FROM tusers where mail='$email' and password='$_POST[password]'");
 				$r = mysql_fetch_array($q);
 				$_SESSION['user_id'] = "$r[0]";
+        $_SESSION['profile'] = "$r[1]";
         
         
 

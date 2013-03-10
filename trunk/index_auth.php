@@ -20,6 +20,7 @@ if(!isset($salt)) $salt= '';
 if(!isset($_SESSION['user_id'])) $_SESSION['user_id'] = '';
 //if(!isset($_SESSION['login'])) $_SESSION['login'] = '';
 if(!isset($_SESSION['email'])) $_SESSION['email'] = '';
+if(!isset($_SESSION['profile'])) $_SESSION['profile'] = '';
 if(!isset($_GET['page'])) $_GET['page'] = ''; 
 if(!isset($_GET['state'])) $_GET['state'] = ''; 
 if(!isset($_GET['techread'])) $_GET['techread'] = ''; 
@@ -66,6 +67,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 		{
 			$_SESSION['email'] = "$findnom";
 			$_SESSION['user_id'] = "$user_id";
+      $_SESSION['profile'] = "$profile";
 			
 			echo '<div id="valide"><img alt="logo" src="./images/valide.png" style="border-style: none" alt="img" /> Vos identifiants sont corrects.</div>';
 			
@@ -90,9 +92,10 @@ if($_GET['state']=='') $_GET['state'] = '%';
 			{
 				
         $_SESSION['email'] = "$login";
-				$q = mysql_query("SELECT id FROM tusers where mail='$login'");
+				$q = mysql_query("SELECT id, profile FROM tusers where mail='$login'");
 				$r = mysql_fetch_array($q);
 				$_SESSION['user_id'] = "$r[0]";
+        $_SESSION['profile'] = "$r[1]";
 				if($r['0']=='')
 				{
 					// if error with login or password 

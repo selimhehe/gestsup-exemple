@@ -105,6 +105,7 @@
 	if(isset($returnMsg) && $returnMsg != ''){ echo '<br />'. $returnMsg .'<br />'; }
 ?>
 <form name="myForm" method="post" action="" id="myForm">
+<?php if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 <?php if($showForm && isset($_GET['action']) && ($_GET['action'] == 'add' || $_GET['action'] == 'edit')){ ?>
 <?php
 	
@@ -226,10 +227,13 @@
 	<center><a href="<?php echo $currentPath ; ?>&action=add" class="positive"><img src="images/apply2.png" alt=""/> Ajouter</a></center>
 	<br /><br >
 <?php } ?>
+<?php } ?>
 <center>
 	<table>
 		<tr>
+			<?php if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 			<th>ACTION</th>
+			<?php } ?>
 			<th>responsable</th>
 			<th>code</th>
 			<th>Nom du groupe</th>
@@ -245,10 +249,12 @@
 		<tr>
 		<?php while ($row = mysql_fetch_array($query)) { ?>
 		<tr>
+			<?php if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 			<td>
 				<a title="Editer" href="<?php echo $currentPath ; ?>&action=edit<?php echo '&id='.$row['id'] ; ?>"><img src="./images/edit.png" border="0" /></a>
 				<a title="Supprimer" href="<?php echo $currentPath ; ?>&action=delete<?php echo '&id='.$row['id'] ; ?>"><img src="./images/delete.png" border="0" /></a>
 			</td>
+			<?php } ?>
 			<td><?php echo $row['civility'].' '.$row['firstname'].' '.$row['lastname']; ?></td>
 			<td><?php echo $row['code']; ?></td>
 			<td><?php echo $row['nom_groupe']; ?></td>

@@ -92,24 +92,15 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		Pour plus d'informations vous pouvez consulter le ticket sur <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=ticket&id=$number\">http://$_SERVER[SERVER_NAME]/index.php?page=ticket&id=$number</a>. ";
 	//	require('./core/message.php');
        require("components/PHPMailer_v5.1/class.phpmailer.php");
-    // Send mail to intervenants
+       
       $reqAllEmailsAdminAndTechnicien = "SELECT mail FROM tusers WHERE profile in (4,0)";
-   //   echo "intervenants : ".$reqAllEmailsAdminAndTechnicien;
       $intervenantsquery = mysql_query($reqAllEmailsAdminAndTechnicien);
-      
-		 // $queryIntervenantsrow=mysql_fetch_array($intervenantsquery);
-     // if($queryIntervenantsrow != "")
-     // {
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-       // $mail->IsMail();
         $mail->IsSendmail();
         $mail->IsHTML(true); // Envoi en html
-
         $mail->From = "$rparameters[mail_from]";
         $mail->FromName = "$rparameters[mail_from]";
-
-
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = $object;
         $bodyMSG = $message;
@@ -122,16 +113,19 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 
 
         $mail->ClearAddresses();
-     // }
+     
     // Send mail au responsable
     if($_SESSION['profile'] == '1'){
-      $queryResponsable = "SELECT * FROM tusers as u, tcompany as c WHERE u.id = c.responsible and u.code ='$userrow[code]'";
-     // echo $queryResponsable;
+      $queryResponsable = "SELECT * FROM tusers as u, tcompany as c WHERE u.id = c.responsible and u.group_id ='$userrow[group_id]'";
+      echo $queryResponsable;
       $responsablequery = mysql_query($queryResponsable);
 		  $resposanblerow=mysql_fetch_array($responsablequery);
+      //   echo "resp row : ".$resposanblerow;
       if($resposanblerow != "")
       {
-
+//         echo $queryResponsable;
+//         echo "<br />";
+//         echo $resposanblerow;
         $email_to_send = $resposanblerow['mail'];
      //   echo "email : ".$email_to_send;
         $mail2 = new PHPmailer();

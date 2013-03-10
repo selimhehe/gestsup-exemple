@@ -10,5 +10,10 @@ ADD  `type_groupe` VARCHAR( 10 ) NOT NULL AFTER  `code`;
 -- 03/03/2013
 ALTER TABLE  `tcompany` ADD  `nom_groupe` VARCHAR( 255 ) NOT NULL AFTER  `responsible`
 
--- -- --> Last Query By Mahmoud : 05/03/2013
+-- 05/03/2013
 ALTER TABLE  `trights` ADD  `company` INT( 1 ) NOT NULL AFTER  `task`;
+
+-- -- --> Last Query By Mahmoud : 10/03/2013
+UPDATE  `tprofiles` SET  `name` =  'Intervenants' WHERE  `tprofiles`.`id` =1;
+UPDATE  `tprofiles` SET  `name` =  'Demandeur' WHERE  `tprofiles`.`id` =2;
+UPDATE  `tprofiles` SET  `name` =  'Responsalble' WHERE  `tprofiles`.`id` =4;

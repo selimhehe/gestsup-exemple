@@ -21,6 +21,7 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 
 <h2 class="sec_head">Administration</h2>
 <div id="catalogue">
+	<?php 	if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 	<div id="downmenu">
 		<ul>
 			<?php
@@ -39,32 +40,26 @@ if ($_GET['subpage']=='profile' && $_GET['profileid']=='') $_GET['profileid']=0;
 		</ul>
 		<ul>
 			<?php
-			if ($_GET['subpage']=='user' || $_GET['subpage']=='profile')
-			{
+			if ($_GET['subpage']=='user' || $_GET['subpage']=='profile'){
 				if ($_GET['subpage']=='user') {
-          echo '<li '; if ($_GET['profileid']=='%') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=%">Tous</a></li>';
-
-          }
-
+					echo '<li '; if ($_GET['profileid']=='%') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=%">Tous</a></li>';
+				}
 				//Display profile table
 				$query = mysql_query("select * FROM tprofiles ORDER BY level");
-				while ($row=mysql_fetch_array($query)) 
-				{
+				while ($row=mysql_fetch_array($query)) {
 					echo '<li '; if ($_GET['profileid']==$row['level']) echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid='.$row['level'].'">'.$row['name'].'</a></li>';
 				}
         if ($_GET['subpage']=='user') {
           echo '<li '; if ($_GET['profileid']=='ND') echo "class=\"active\""; echo '><a href="./index.php?page=admin&amp;subpage='.$_GET['subpage'].'&amp;profileid=ND">Nouveaux inscrits</a></li>';
 
           }
-		  
-		  
-		  
 			}
 			?>
 		</ul>
 	</div>
-		
 	<br />
 	<br />
+	<?php } ?>
+
 	<?php include "./admin/$_GET[subpage].php"; ?>
 </div>

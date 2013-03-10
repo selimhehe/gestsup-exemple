@@ -53,7 +53,8 @@ if ($_SESSION['user_id'])
 	$_SESSION['profile_id'] = $_SESSION['profile_id'][0];
 
 	//Load rights table
-	$qright = mysql_query("SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"); 
+	$qright = mysql_query("SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]");
+		//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
 	$rright= mysql_fetch_array($qright);
 }
 
@@ -121,6 +122,9 @@ if ($_SESSION['user_id'])
 							if (($rright['planning']!=0) && ($rparameters['planning']==1)) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="planning") echo "class=\"active\""; echo '><a href="./index.php?page=planning"><img style="border-style: none" alt="stat" src="./images/planning.png" />  Planning</a></li>';}
 							if ($rright['stat']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="stat") echo "class=\"active\""; echo '><a href="./index.php?page=stat"><img style="border-style: none" alt="stat" src="./images/stat.png" />  Statistiques</a></li>';}
 							if ($rright['admin']!=0) {echo'<li '; if (isset($_GET['page']) && $_GET['page']=="admin") echo "class=\"active\""; echo '><a href="./index.php?page=admin"><img style="border-style: none" alt="administration" src="./images/parametre.png" />  Administration</a></li>';}
+							if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+								echo'<li '; if (isset($_GET['page']) && $_GET['page']=="admin") echo "class=\"active\""; echo '><a href="./index.php?page=admin&subpage=user&profileid=%"><img style="border-style: none" alt="administration" src="./images/parametre.png" />Utilisateurs</a></li>';
+							} 
 							echo '
 							</ul>
 						</div>

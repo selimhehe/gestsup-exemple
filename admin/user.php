@@ -39,6 +39,27 @@ if(!isset($_GET['deleteview'])) $_GET['deleteview'] = '';
 if(!isset($_GET['action'])) $_GET['action'] = '';
 if(!isset($_GET['ldap'])) $_GET['ldap'] = '';
 
+	/////
+	if ($_SESSION['user_id'])
+	{
+		//load variables
+		$uid=$_SESSION['user_id'];
+		
+		//Find profile id of connected user
+		$qprofile = mysql_query("SELECT profile FROM `tusers` WHERE id LIKE '$uid'"); 
+		$_SESSION['profile_id'] = mysql_fetch_array($qprofile);
+		$_SESSION['profile_id'] = $_SESSION['profile_id'][0];
+
+		//Load rights table
+		$qright = mysql_query("SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]");
+			//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
+		$rright= mysql_fetch_assoc($qright);
+		
+		//pr($_SESSION);
+		//pr($rright);
+	}
+	/////
+
 //Special char rename
 $_POST['firstname'] = str_replace("'","\'",$_POST['firstname']); 
 $_POST['lastname'] = str_replace("'","\'",$_POST['lastname']);
@@ -209,9 +230,9 @@ if ($_GET['action']=='edit')
 					<td><b>Profile:</b></td>
 					<td>
 						<input type="radio" name="profile" value="4" '; if ($user1['profile']=='4')echo "checked"; echo '> Administrateur <i>(Tous)</i> <br />
-						<input type="radio" name="profile" value="0" '; if ($user1['profile']=='0')echo "checked"; echo '> Technicien <i>(création, visualisation, administration)</i> <br />
-						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Superviseur <i>(création, visualisation, accés aux statistiques)</i> <br />
-						<input type="radio" name="profile" value="1" '; if ($user1['profile']=='1')echo "checked"; echo '> Utilisateur avec pouvoir <i>(création, visualisation)</i> <br />
+						<input type="radio" name="profile" value="0" '; if ($user1['profile']=='0')echo "checked"; echo '> Intervenants <i>(création, visualisation, administration)</i> <br />
+						<input type="radio" name="profile" value="3" '; if ($user1['profile']=='3')echo "checked"; echo '> Responsalble <i>(création, visualisation, accés aux statistiques)</i> <br />
+						<input type="radio" name="profile" value="1" '; if ($user1['profile']=='1')echo "checked"; echo '> Demandeur <i>(création, visualisation)</i> <br />
 						<input type="radio" name="profile" value="2" '; if ($user1['profile']=='2')echo "checked"; echo '> Utilisateur <i>(visualisation)</i> 
 					</td>
 				</tr>
@@ -593,6 +614,9 @@ else
 ?>
 	<?php
 		$sql = "Select * From `tcompany`";
+		if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+			$sql .= " Where responsible = ". $_SESSION['user_id'];
+		}
 		$rows = mysql_query($sql); 
 	?>
 	<div>
@@ -601,10 +625,10 @@ else
 				<ul class="filterFields" style="display:block;">
 					<li>
 						<label>Groures</label>
-						<select name="groupesCode" onchange='submit()'> 
+						<select name="groupesid" onchange='submit()'> 
 							<option value=""> Tous </option>
 							<?php while($row = mysql_fetch_assoc($rows)){ ?>
-							<option <?php if(isset($_POST['groupesCode']) && $_POST['groupesCode'] == $row['code']){ ?>selected="selected"<?php } ?> value="<?php echo $row['code']; ?>">
+							<option <?php if(isset($_POST['groupesid']) && $_POST['groupesid'] == $row['id']){ ?>selected="selected"<?php } ?> value="<?php echo $row['id']; ?>">
 							<?php echo $row['nom_groupe'] ; ?>
 							</option>
 							<?php } ?>
@@ -674,30 +698,44 @@ else
 							<th class=\"th\">Profile</th>
 						</tr>
 						";
-		// 				
-		if(isset($_GET['profileid']) && $_GET['profileid'] == 'ND'){
-			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
-			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
-			$sql .= " ORDER BY lastname";
-			$query = mysql_query($sql);
-		}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){
+		// 		
+		if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
 			$sql = "SELECT * FROM `tusers`";
-			$sql .= " WHERE id in(Select responsible From tcompany)";
-			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
+			if(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){
+				$sql .= " WHERE id =" . $_SESSION['user_id'];
+			}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'DEM'){
+				$sql .= " WHERE group_id in (Select id From tcompany where responsible = ". $_SESSION['user_id'];
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND id = '". $_POST['groupesid'] ."'" : "" ; 
+				$sql .= " )";
+			}else{
+				$sql .= " WHERE id =" . $_SESSION['user_id'] ." OR (group_id in (Select id From tcompany where responsible = ". $_SESSION['user_id'];
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND id = '". $_POST['groupesid'] ."'" : "" ; 
+				$sql .= " ))";
+			} 
 			$sql .= " ORDER BY lastname";
-			$query = mysql_query($sql);
-        }elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'DEM'){
-			$sql = "SELECT * FROM `tusers`";
-			$sql .= " WHERE id in(Select user From tincidents)";
-			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
-			$sql .= " ORDER BY lastname";
-			$query = mysql_query($sql);
-        } else {
-			$sql = "SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]'";
-			$sql .= isset($_POST['groupesCode']) && $_POST['groupesCode'] ? " AND code = '". $_POST['groupesCode'] ."'" : "" ; 
-			$sql .= " ORDER BY lastname";
-          $query = mysql_query($sql);
-        }
+		}else{
+			if(isset($_GET['profileid']) && $_GET['profileid'] == 'ND'){
+				$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ;  
+				$sql .= " ORDER BY lastname";
+			}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){
+				$sql = "SELECT * FROM `tusers`";
+				$sql .= " WHERE id in(Select responsible From tcompany)";
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ; 
+				$sql .= " ORDER BY lastname";
+			}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'DEM'){
+				$sql = "SELECT * FROM `tusers`";
+				$sql .= " WHERE id in(Select user From tincidents)";
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ; 
+				$sql .= " ORDER BY lastname";
+			} else {
+				$sql = "SELECT * FROM `tusers` WHERE profile LIKE '$_GET[profileid]'";
+				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ; 
+				$sql .= " ORDER BY lastname";
+			}		
+		}
+		
+		$query = mysql_query($sql);
 
 				while ($row=mysql_fetch_array($query)) 
 				{

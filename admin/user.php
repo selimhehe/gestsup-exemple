@@ -724,7 +724,6 @@ if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){
 					echo "<tr class=\"blue\">
 							<td width=\"75px\">
 								<center>";
-						
 							// Edit
 							echo"<a title=\"Editer\" href=\"./index.php?page=admin&amp;subpage=user&amp;profileid=$_GET[profileid]&amp;action=edit&amp;id=$row[id]\"><img src=\"./images/edit.png\" border=\"0\" /></a>";
 						if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){

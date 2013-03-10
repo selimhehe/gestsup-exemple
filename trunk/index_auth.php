@@ -218,19 +218,26 @@ if($_GET['state']=='') $_GET['state'] = '%';
 	}
 	else if ($profile != '' && isset($_POST['submit']) != "Enregistrer")
 	{
+		
 		//queries for count
-		$uid= $_SESSION['user_id'];
-		$cnt1 = mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and state LIKE '%' and disable='0'"); 
+		$uid = $_SESSION['user_id'];
+		if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+			$forResponsable = " AND	user in (Select u.id From tusers as u LEFT JOIN tcompany as c on c.id = u.group_id where c.responsible = ". $uid .")" ;
+		}else{
+			$forResponsable = '';
+		}
+		
+		$cnt1 = mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and state LIKE '%' and disable='0'".$forResponsable); 
 		$cnt1= mysql_fetch_array($cnt1);
-		$cnt2 = mysql_query("SELECT count(*) FROM `tincidents` WHERE state LIKE '%' and disable='0'"); 
+		$cnt2 = mysql_query("SELECT count(*) FROM `tincidents` WHERE state LIKE '%' and disable='0'".$forResponsable); 
 		$cnt2= mysql_fetch_array($cnt2);
-		$cnt3 = mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and techread='0' and disable='0'"); 
+		$cnt3 = mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and techread='0' and disable='0'".$forResponsable); 
 		$cnt3= mysql_fetch_array($cnt3);
-		$cnt4 = mysql_query("SELECT count(*) FROM `tincidents` WHERE techread='0' and disable='0'"); 
+		$cnt4 = mysql_query("SELECT count(*) FROM `tincidents` WHERE techread='0' and disable='0'".$forResponsable); 
 		$cnt4= mysql_fetch_array($cnt4);
-		$cnt5 = mysql_query("SELECT count(*) FROM `tincidents` WHERE technician='' and disable='0'"); 
+		$cnt5 = mysql_query("SELECT count(*) FROM `tincidents` WHERE technician='' and disable='0'".$forResponsable); 
 		$cnt5= mysql_fetch_array($cnt5);
-		$cnt6 = mysql_query("SELECT count(*) FROM `tincidents` WHERE state='5' and disable='0'"); 
+		$cnt6 = mysql_query("SELECT count(*) FROM `tincidents` WHERE state='5' and disable='0'".$forResponsable);
 		$cnt6= mysql_fetch_array($cnt6);
 			
 			// table resize if no right on left menu
@@ -273,7 +280,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 						$reqstate = mysql_query("SELECT * FROM `tstates` WHERE id not like 5 ORDER BY number"); 
 						while ($row=mysql_fetch_array($reqstate))
 						{
-							$cnt= mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and state LIKE '$row[id]' and disable='0'"); 
+							$cnt= mysql_query("SELECT count(*) FROM `tincidents` WHERE $profile='$uid' and state LIKE '$row[id]' and disable='0'".$forResponsable); 
 							$cnt= mysql_fetch_array($cnt);
 							echo "<li "; if (($_GET['state']==$row['id']) && ($_GET['techid']==$_SESSION['user_id'])) echo "class=\"active\""; echo '><a title="'.$row['description'].'" href="./index.php?page=dashboard&amp;techid='.$_SESSION['user_id'].'&amp;state='.$row['id'].'">'.$row['name'].' ('.$cnt[0].')</a></li>';
 						}
@@ -298,7 +305,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 								//case for no sub categories
 								if ($row['subcat']==0) $subcat='%'; else $subcat=$row['subcat']; 
 								//count entries
-								$q= mysql_query("SELECT COUNT(*) FROM `tincidents` WHERE category='$row[category]' AND subcat LIKE'$subcat' AND (state='1' OR state='2' OR state='6') AND disable='0'");
+								$q= mysql_query("SELECT COUNT(*) FROM `tincidents` WHERE category='$row[category]' AND subcat LIKE'$subcat' AND (state='1' OR state='2' OR state='6') AND disable='0'".$forResponsable);
 								$n= mysql_fetch_array($q);
 								echo '<li '; if ($_GET['viewid']==$row['id'])  echo'class="active"'; echo '><a href="./index.php?page=dashboard&amp;techid=%&amp;category='.$row['category'].'&amp;subcat='.$subcat.'&amp;viewid='.$row['id'].'">Vue '.$row['name'].' ('.$n[0].')</a></li>';
 							}
@@ -319,7 +326,7 @@ if($_GET['state']=='') $_GET['state'] = '%';
 						$reqstate = mysql_query("SELECT * FROM `tstates` ORDER BY number"); 
 						while ($row=mysql_fetch_array($reqstate))
 						{
-							$cnt= mysql_query("SELECT count(*) FROM `tincidents` WHERE state LIKE '$row[id]' and disable='0'"); 
+							$cnt= mysql_query("SELECT count(*) FROM `tincidents` WHERE state LIKE '$row[id]' and disable='0'".$forResponsable); 
 							$cnt= mysql_fetch_array($cnt);
 							echo "<li "; if (($_GET['state']==$row['id']) && ($_GET['techid']!=$_SESSION['user_id'])) echo "class=\"active\""; echo '><a title="'.$row['description'].'" href="./index.php?page=dashboard&amp;techid=%&amp;state='.$row['id'].'">'.$row['name'].' ('.$cnt[0].')</a></li>';
 						}

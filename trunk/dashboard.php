@@ -133,13 +133,13 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			AND	(tincidents.category LIKE '$_POST[category]')
 			AND	tincidents.subcat LIKE '$_POST[subcat]'
 			AND	tincidents.id LIKE '$_POST[ticket]'
-			AND	tincidents.user LIKE '$_POST[userid]'
 			AND	tincidents.date_create LIKE '$_POST[date]'
 			AND	tincidents.state LIKE '$_POST[fstate]'
 			AND	tincidents.priority LIKE '$_POST[priority]'
 			AND	tincidents.criticality LIKE '$_POST[criticality]'
 			AND	tincidents.title LIKE '%$_POST[title]%'
 			";
+			//$from .= " AND	tincidents.user LIKE '$_POST[userid]'";
 			if(count($userIds) > 0){
 				$from .=" AND tincidents.user in (". implode(",", $userIds) .")";
 			}
@@ -151,8 +151,13 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 				$from .=" AND tincidents.date_create <= '".$_POST['date_2']."'";
 			}
 			
-			
+			if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+				$from .= " AND	tincidents.user in (Select u.id From tusers as u LEFT JOIN tcompany as c on c.id = u.group_id where c.responsible = ". $_SESSION['user_id'] .")" ;
+			}else{
+				$from .= " AND	tincidents.user LIKE '$_POST[userid]'";
+			}	
 		}
+		
 		$mastercount = mysql_query("SELECT COUNT(*) $from"); 
 		$resultcount=mysql_fetch_array($mastercount);
 		
@@ -175,11 +180,11 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 					<a href="javascript:void(0)" class="toggleFilter">[-] Afficher le filtre</a>
 				<?php } ?>
 				<ul class="filterFields" <?php if(isset($_POST['filterBtn'])){ ?>style="display:block;"<?php }else{ ?> style="display:none;"<?php } ?>>
+					<?php if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 					<li>
 						<?php
 							$sql = "SELECT * FROM `tusers` where id in (Select responsible From tcompany) Order by firstname";
 							$data = mysql_query($sql);
-		
 						?>
 						<label>Responsables des groupes</label>
 						<select name="res">
@@ -189,10 +194,15 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 							<?php } ?>
 						</select>
 					</li>
+					<?php } ?>
 					<li>
 						<?php
-							$sql = "Select * From tcompany Order by nom_groupe";
-							$data = mysql_query($sql);
+							if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+								$SQL = "SELECT * FROM `tcompany` Where responsible = ". $_SESSION['user_id'] ." ORDER BY id";
+							}else{
+								$SQL = "Select * From tcompany Order by nom_groupe";
+							}
+							$data = mysql_query($SQL);
 						?>
 						<label>Groupes</label>
 						<select name="groupe">	
@@ -204,7 +214,12 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 					</li>
 					<li>
 						<?php
-							$sql = "SELECT * FROM `tusers` where id in (Select user From tincidents) Order by firstname";
+							
+							if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+								$sql = "SELECT * FROM `tusers` where group_id in (Select id From tcompany Where responsible = ". $_SESSION['user_id'] .") Order by firstname";
+							}else{
+								$sql = "SELECT * FROM `tusers` where id in (Select user From tincidents) Order by firstname";
+							}
 							$data = mysql_query($sql);
 						?>
 						<label>Les Demandeures</label>
@@ -259,7 +274,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			echo "
 			<th scope=\"col\" ";  if ($_GET['order']=='technician') echo 'class="active"'; echo ">
 				<a title=\"Technicien en charge du ticket\" class=\"th\" href=\"./index.php?page=dashboard&amp;techid=$_GET[techid]&amp;state=$_GET[state]&amp;order=technician&amp;way=$_GET[way]\">
-				TECH";
+				TECH..";
 				//Display arrows
 				if ($_GET['order']=='technician'){
 					if ($_GET['way']=='ASC') {echo '<img style="border-style: none" alt="img" src="./images/up.png" />';}

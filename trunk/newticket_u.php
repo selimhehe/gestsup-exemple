@@ -77,11 +77,11 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		$userrow=mysql_fetch_array($userquery);	
 		
 		//Mail parameters
-		if ($userrow['mail']!='') $from=$userrow['mail']; else $from=$rparameters['mail_cc'];
-		$to=$rparameters['mail_newticket_address'];
-		$object="Un nouvel incident à été déclaré par $userrow[lastname] $userrow[firstname]: $_POST[title]";
+		//if ($userrow['mail']!='') $from=$userrow['mail']; else $from=$rparameters['mail_cc'];
+		//$to=$rparameters['mail_newticket_address'];
+		$object="Une nouvelle demande à été déclarée par $userrow[lastname] $userrow[firstname]: $_POST[title]";
 		$message = "
-		L'incident n°$number à été déclaré par l'utilisateur $userrow[lastname] $userrow[firstname].<br />
+		La demande n°$number à été déclarée par l'utilisateur $userrow[lastname] $userrow[firstname].<br />
 		<br />
 		<u>Objet:</u><br />
 		$_POST[title]<br />		
@@ -90,7 +90,72 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 		$_POST[description]<br />
 		<br />
 		Pour plus d'informations vous pouvez consulter le ticket sur <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=ticket&id=$number\">http://$_SERVER[SERVER_NAME]/index.php?page=ticket&id=$number</a>. ";
-		require('./core/message.php');
+	//	require('./core/message.php');
+       require("components/PHPMailer_v5.1/class.phpmailer.php");
+    // Send mail to intervenants
+      $reqAllEmailsAdminAndTechnicien = "SELECT mail FROM tusers WHERE profile in (4,0)";
+   //   echo "intervenants : ".$reqAllEmailsAdminAndTechnicien;
+      $intervenantsquery = mysql_query($reqAllEmailsAdminAndTechnicien);
+      
+		 // $queryIntervenantsrow=mysql_fetch_array($intervenantsquery);
+     // if($queryIntervenantsrow != "")
+     // {
+        $mail = new PHPmailer();
+        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+        $mail->IsSendmail();
+        $mail->IsHTML(true); // Envoi en html
+
+        $mail->From = "$rparameters[mail_from]";
+        $mail->FromName = "$rparameters[mail_from]";
+
+
+	      $mail->AddReplyTo("$rparameters[mail_from]");
+        $mail->Subject = $object;
+        $bodyMSG = $message;
+        $mail->Body = "$bodyMSG";
+         while ($emailAddress = mysql_fetch_array($intervenantsquery))
+        {
+          $mail->AddAddress($emailAddress[mail]);
+	        $mail->Send();
+        }
+
+
+        $mail->ClearAddresses();
+     // }
+    // Send mail au responsable
+    if($_SESSION['profile'] == '1'){
+      $queryResponsable = "SELECT * FROM tusers as u, tcompany as c WHERE u.id = c.responsible and u.code ='$userrow[code]'";
+     // echo $queryResponsable;
+      $responsablequery = mysql_query($queryResponsable);
+		  $resposanblerow=mysql_fetch_array($responsablequery);
+      if($resposanblerow != "")
+      {
+
+        $email_to_send = $resposanblerow['mail'];
+     //   echo "email : ".$email_to_send;
+        $mail2 = new PHPmailer();
+        $mail2->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+       // $mail->IsMail();
+        $mail2->IsSendmail();
+        $mail2->IsHTML(true); // Envoi en html
+
+        $mail2->From = "$rparameters[mail_from]";
+        $mail2->FromName = "$rparameters[mail_from]";
+
+        $mail2->AddAddress($email_to_send);
+	      $mail2->AddReplyTo("$rparameters[mail_from]");
+        $mail2->Subject = $object;
+        $bodyMSG = $message;
+        $mail2->Body = "$bodyMSG";
+        $mail2->Send();
+        $mail2->ClearAddresses();
+      }
+
+    }
+    
+
+
 	} 
 	
 	if ($_POST['quit'])

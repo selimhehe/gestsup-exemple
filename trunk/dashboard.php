@@ -667,7 +667,6 @@ if ($r['chgpwd']=='1')
 		// ------------------------------ //
 			jQuery('.toggleFilter').toggle(
 				<?php if(isset($_POST['filterBtn'])){ ?>
-					
 					function(){
 						jQuery('.filterFields').hide();
 						jQuery(this).text('[+] Afficher le filtre.');
@@ -684,7 +683,6 @@ if ($r['chgpwd']=='1')
 						jQuery(this).text('[+] Afficher le filtre.');
 					}
 				<?php } ?>
-				
 			);
 		// ------------------------------ //
 		});

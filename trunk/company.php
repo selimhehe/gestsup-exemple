@@ -1,6 +1,27 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 ﻿<?php
 	include 'functions.php' ;
+		
+	/////
+	if ($_SESSION['user_id'])
+	{
+		//load variables
+		$uid=$_SESSION['user_id'];
+		
+		//Find profile id of connected user
+		$qprofile = mysql_query("SELECT profile FROM `tusers` WHERE id LIKE '$uid'"); 
+		$_SESSION['profile_id'] = mysql_fetch_array($qprofile);
+		$_SESSION['profile_id'] = $_SESSION['profile_id'][0];
+
+		//Load rights table
+		$qright = mysql_query("SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]");
+			//echo "SELECT * FROM `trights` WHERE profile=$_SESSION[profile_id]"; die;
+		$rright= mysql_fetch_assoc($qright);
+		
+		//pr($_SESSION);
+		//pr($rright);
+	}
+	/////
 	
 	$item = array();
 	$showForm = true ;
@@ -68,16 +89,22 @@
 		$query = mysql_query("SELECT * FROM `tcompany` Where id = ".$_GET['id']);
 		$item = mysql_fetch_assoc($query);
 	}
-	
-	$query = mysql_query("SELECT t.*, u.`firstname`, u.`lastname`, u.`mail`, u.`service`, u.`civility` FROM `tcompany` as t LEFT JOIN tusers as u ON t.responsible = u.id ORDER BY id");
-	
-	/* technicien - 0 # utilisateur avec pouvoir - 1 # utilisateur - 2 # superviseur - 3 # administrateur - 4 */
-	$query2 = mysql_query("SELECT * FROM `tusers` WHERE `profile` in (4, 1, 0) ORDER BY firstname");
+	if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
+		$SQL = "SELECT t.*, u.`firstname`, u.`lastname`, u.`mail`, u.`service`, u.`civility` 
+		FROM `tcompany` as t 
+		LEFT JOIN tusers as u ON t.responsible = u.id 
+		Where responsible = ". $_SESSION['user_id'] ."
+		ORDER BY id";
+	}else{
+		$SQL =  "SELECT t.*, u.`firstname`, u.`lastname`, u.`mail`, u.`service`, u.`civility` FROM `tcompany` as t LEFT JOIN tusers as u ON t.responsible = u.id ORDER BY id";
+	}
+	$query = mysql_query($SQL);
+	/* Intervenants - 0 # demandeur - 1 # utilisateur - 2 # responsalble - 3 # administrateur - 4 */
+	$query2 = mysql_query("SELECT * FROM `tusers` WHERE `profile` in (4, 3, 0) ORDER BY firstname");
 	
 	if(isset($returnMsg) && $returnMsg != ''){ echo '<br />'. $returnMsg .'<br />'; }
 ?>
 <form name="myForm" method="post" action="" id="myForm">
-
 <?php if($showForm && isset($_GET['action']) && ($_GET['action'] == 'add' || $_GET['action'] == 'edit')){ ?>
 <?php
 	

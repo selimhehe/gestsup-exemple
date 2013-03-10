@@ -49,7 +49,7 @@
 		8 - Modification etendu  => il peut modifier que ses tickets et ceux de son service
 		2 - Modification  => il peut voir tous les tickets
 	 */
-	 function isHasAccess($userId, $fct, $fctValue){
+	 function isHasAccess($userId, $profilId = 3, $fct, $fctValue){
 		// 10 $rright['company']  => task, 5
 		
 	 }

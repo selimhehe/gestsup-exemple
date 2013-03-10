@@ -17,3 +17,4 @@ ALTER TABLE  `trights` ADD  `company` INT( 1 ) NOT NULL AFTER  `task`;
 UPDATE  `tprofiles` SET  `name` =  'Intervenants' WHERE  `tprofiles`.`id` =1;
 UPDATE  `tprofiles` SET  `name` =  'Demandeur' WHERE  `tprofiles`.`id` =2;
 UPDATE  `tprofiles` SET  `name` =  'Responsalble' WHERE  `tprofiles`.`id` =4;
+ALTER TABLE  `tusers` CHANGE  `group_id`  `group_id` INT( 11 ) NULL COMMENT  'il pointe sur company'

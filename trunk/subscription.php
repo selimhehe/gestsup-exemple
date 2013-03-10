@@ -82,7 +82,7 @@ if (isset($_POST['submit'])){
   $r = mysql_fetch_array($query);
   if($r['0']=='')
 	{
-	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable) VALUES (2, '$_POST[code]','$_POST[civilite]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[ville]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '0')";
+	  $requete = "INSERT INTO tusers (profile, code, civility, firstname,lastname,password,salt,mail,phone,mobil,company,numero_rue, address1,zip,city,login,service, code_tva, note, disable, group_id) VALUES (1, '$_POST[code]','$_POST[civilite]', '$_POST[firstname]','$_POST[lastname]','$_POST[password]','$salt','$_POST[email]','$_POST[fixe]','$_POST[mobile]','$_POST[company]','$_POST[rue]','$_POST[address1]','$_POST[zip]','$_POST[ville]','$_POST[email]','$_POST[service]','$_POST[tva]','$_POST[note]', '0', NULL)";
 		
     $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 

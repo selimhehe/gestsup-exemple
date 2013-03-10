@@ -715,7 +715,7 @@ else
 			$sql .= " ORDER BY lastname";
 		}else{
 			if(isset($_GET['profileid']) && $_GET['profileid'] == 'ND'){
-				$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
+				$sql = "SELECT * FROM `tusers` WHERE group_id is NULL";
 				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ;  
 				$sql .= " ORDER BY lastname";
 			}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){

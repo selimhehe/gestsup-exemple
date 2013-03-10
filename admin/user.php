@@ -436,18 +436,17 @@ else if ($_GET['action']=="add")
 		</div>
 	</form>
 	';
-}
-else if ($_GET['action']=="delete")
-{
-$requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
-$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
-	//redirection vers la page d'accueil
+}else if ($_GET['action']=="delete"){
 
- $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
-  $user_to_send_email = mysql_fetch_array($requser);
-  $email_to_send = $user_to_send_email[mail];
-  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
-  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+	$requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+	$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+	//redirection vers la page d'accueil
+	$requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
+	$user_to_send_email = mysql_fetch_array($requser);
+	$email_to_send = $user_to_send_email[mail];
+	// TODO :: pkoi ???
+	//$requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+	//$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
    require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
@@ -460,7 +459,7 @@ $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error
         $mail->FromName = "$rparameters[mail_from]";
 
         $mail->AddAddress($email_to_send);
-	      $mail->AddReplyTo("$rparameters[mail_from]");
+	    $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Compte rejeter";
         $bodyMSG = "Bonjour , <br /><br />
          Votre compte a été supprimé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
@@ -470,37 +469,35 @@ $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error
         $mail->Body = "$bodyMSG";
         $mail->Send();
         $mail->ClearAddresses();
-
-
-  $www = "./index.php?page=admin&subpage=user&profileid=ND";
+		
+		$www = "./index.php?page=admin&subpage=user&profileid=ND";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
 
-}else if ($_GET['action']=="disable"){
-$requete = "UPDATE tusers set disable=1 WHERE id = '$_GET[id]'";
-$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+	}else if ($_GET['action']=="disable"){
+		$requete = "UPDATE tusers set disable=1 WHERE id = '$_GET[id]'";
+		$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
- $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
-  $user_to_send_email = mysql_fetch_array($requser);
-  $email_to_send = $user_to_send_email['mail'];
-  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
-  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+		$requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
+		$user_to_send_email = mysql_fetch_array($requser);
+		$email_to_send = $user_to_send_email['mail'];
+		// TODO : Pour quoi supprimer le user ici ?????
+		//$requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+		//$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
-   require("components/PHPMailer_v5.1/class.phpmailer.php");
+		require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-       // $mail->IsMail();
+		//$mail->IsMail();
         $mail->IsSendmail();
         $mail->IsHTML(true); // Envoi en html
-
         $mail->From = "$rparameters[mail_from]";
         $mail->FromName = "$rparameters[mail_from]";
-
         $mail->AddAddress($email_to_send);
-	      $mail->AddReplyTo("$rparameters[mail_from]");
+	    $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Compte rejeter";
         $bodyMSG = "Bonjour , <br /><br />
          Votre compte a été désactivé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
@@ -510,83 +507,67 @@ $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error
         $mail->Body = "$bodyMSG";
         $mail->Send();
         $mail->ClearAddresses();
-
-
-  $www = "./index.php?page=admin&subpage=user&profileid=ND";
+		
+		$www = "./index.php?page=admin&subpage=user&profileid=ND";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
+	}else if ($_GET['action']=="enable"){
+		$requete = "UPDATE tusers set disable=0 WHERE id = ".$_GET['id'];
+		$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
-	
-}
-else if ($_GET['action']=="enable")
-{
-$requete = "UPDATE tusers set disable=0 WHERE id = '$_GET[id]'";
-$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
+        if($_GET['profileid']=='ND'){
+			$requser = mysql_query("SELECT * FROM `tusers` where id LIKE ".$_GET['id']);
+			$user_to_send_email = mysql_fetch_array($requser);
 
-        if($_GET[profileid]=='ND'){
-
-        $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
-        $user_to_send_email = mysql_fetch_array($requser);
-
-        require("components/PHPMailer_v5.1/class.phpmailer.php");
-        $mail = new PHPmailer();
-        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-        $mail->IsSendmail();
-
-        $mail->IsHTML(true); // Envoi en html
-
-        $mail->From = "$rparameters[mail_from]";
-        $mail->FromName = "$rparameters[mail_from]";
-
-        $mail->AddAddress($user_to_send_email[mail]);
-	      $mail->AddReplyTo("$rparameters[mail_from]");
-        $mail->Subject = "Validation compte";
-        $bodyMSG = "Bonjour , <br /><br />
+			require("components/PHPMailer_v5.1/class.phpmailer.php");
+			$mail = new PHPmailer();
+			$mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+			$mail->IsSendmail();
+			$mail->IsHTML(true); // Envoi en html
+			$mail->From = $rparameters['mail_from'];
+			$mail->FromName = $rparameters['mail_from'];
+			$mail->AddAddress($user_to_send_email['mail']);
+			$mail->AddReplyTo($rparameters['mail_from']);
+			$mail->Subject = "Validation compte";
+			$bodyMSG = "Bonjour , <br /><br />
          Votre compte a été validé <br /><br />
          Vous pouvez utiliser votre email et votre mot de passe pour se connecter à notre systéme. <br /><br />
          Bien à vous
          ";
-        $mail->Body = "$bodyMSG";
-        $mail->Send();
-        $mail->ClearAddresses();
+			$mail->Body = "$bodyMSG";
+			$mail->Send();
+			$mail->ClearAddresses();
         }
 
-	//home page redirection
-	$www = "./index.php?page=admin&subpage=user";
+		//home page redirection
+		$www = "./index.php?page=admin&subpage=user";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
-}
-else if ($_GET['ldap']=="1")
-{
-	include('./core/ldap.php');
-}
-else if($_GET['action']=="reject"){
+	}else if ($_GET['ldap']=="1"){
+		include('./core/ldap.php');
+	}else if($_GET['action']=="reject"){
+		$requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
+		$user_to_send_email = mysql_fetch_array($requser);
+		$email_to_send = $user_to_send_email[mail];
+		$requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
+		$execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
 
-  
-  $requser = mysql_query("SELECT * FROM `tusers` where id LIKE '$_GET[id]'");
-  $user_to_send_email = mysql_fetch_array($requser);
-  $email_to_send = $user_to_send_email[mail];
-  $requete = "DELETE FROM tusers WHERE id = '$_GET[id]'";
-  $execution = mysql_query($requete) or die('Erreur SQL !<br /><br />'.mysql_error());
-  
-   require("components/PHPMailer_v5.1/class.phpmailer.php");
+		require("components/PHPMailer_v5.1/class.phpmailer.php");
         $mail = new PHPmailer();
         $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
-       // $mail->IsMail();
+		//$mail->IsMail();
         $mail->IsSendmail();
         $mail->IsHTML(true); // Envoi en html
-
         $mail->From = "$rparameters[mail_from]";
         $mail->FromName = "$rparameters[mail_from]";
-
         $mail->AddAddress($email_to_send);
-	      $mail->AddReplyTo("$rparameters[mail_from]");
+	    $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = "Compte rejeter";
         $bodyMSG = "Bonjour , <br /><br />
          Votre compte a été supprimé par le système, nous reprenons contact avec vous dès que possible. <br /><br />
@@ -596,19 +577,16 @@ else if($_GET['action']=="reject"){
         $mail->Body = "$bodyMSG";
         $mail->Send();
         $mail->ClearAddresses();
-
-
-  $www = "./index.php?page=admin&subpage=user&profileid=ND";
+		
+		$www = "./index.php?page=admin&subpage=user&profileid=ND";
 			echo '<script language="Javascript">
 			<!--
 			document.location.replace("'.$www.'");
 			// -->
 			</script>';
-
-}
+	}
 // Else display users
-else
-{
+else{
 ?>
 	<?php
 		$sql = "Select * From `tcompany`";
@@ -646,6 +624,7 @@ else
 	</div>
 	
 <?php
+if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){
 	//Display Buttons
 		if($rparameters['ldap']==1)	echo"<div  class=\"buttons2\">"; else echo"<div  class=\"buttons1\">";
 		echo'<br />
@@ -674,16 +653,17 @@ else
 				';
 			}
 	echo'<br />';
-
-	//Count user 
-	$q = mysql_query("SELECT COUNT(*) FROM tusers where disable='0'");
-	$r = mysql_fetch_array($q);
-	$q1 = mysql_query("SELECT COUNT(*) FROM tusers where disable='1'");
-	$r2 = mysql_fetch_array($q1);
-	echo "<u>Nombre d'utilisateurs Activé:</u> $r[0] <i>($r2[0] Désactivés)</i><br /><br />";
+	
+		//Count user 
+		$q = mysql_query("SELECT COUNT(*) FROM tusers where disable='0'");
+		$r = mysql_fetch_array($q);
+		$q1 = mysql_query("SELECT COUNT(*) FROM tusers where disable='1'");
+		$r2 = mysql_fetch_array($q1);
+		echo "<u>Nombre d'utilisateurs Activé:</u> $r[0] <i>($r2[0] Désactivés)</i><br /><br />";
+	}
 					//Display user table
-					echo "<center>";
-					echo "<table  >";
+					echo "<br /><center>";
+					echo "<table>";
 					echo "
 						<tr  >
 							<th class=\"th\" >Actions</th>
@@ -713,7 +693,7 @@ else
 			$sql .= " ORDER BY lastname";
 		}else{
 			if(isset($_GET['profileid']) && $_GET['profileid'] == 'ND'){
-				$sql = "SELECT * FROM `tusers` WHERE group_id is NULL";
+				$sql = "SELECT * FROM `tusers` WHERE profile LIKE '2' AND disable = 1";
 				$sql .= isset($_POST['groupesid']) && $_POST['groupesid'] ? " AND group_id = '". $_POST['groupesid'] ."'" : "" ;  
 				$sql .= " ORDER BY lastname";
 			}elseif(isset($_POST['typeUser']) && $_POST['typeUser'] == 'RES'){

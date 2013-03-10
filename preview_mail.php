@@ -38,7 +38,7 @@ else
 	include('./core/mail.php');	
 	//Display preview message
 	echo "<form name=\"mail\" method=\"post\" action=\"\">";
-		echo "<h2 class=\"sec_head\">Paramètres du Message</h2>";
+		echo "<h2 class=\"sec_head\">ParamÃ¨tres du Message</h2>";
 		echo "<div id=catalogue><b>Emetteur:</b> $emetteur<br  /></div>"; 
 		echo "<div id=catalogue><b>Destinataire:</b> $destinataire<br /></div>";
 		echo "<div id=catalogue><b>Copie:</b> $rparameters[mail_cc], 
@@ -77,7 +77,7 @@ else
 		
 		if (($globalrow['img1']!='')||($globalrow['img2']!='')||($globalrow['img3']!=''))
 		{
-			echo "<div id=catalogue><b>Pièce jointe:</b><br /><br />";
+			echo "<div id=catalogue><b>PiÃ¨ce jointe:</b><br /><br />";
 			if ($globalrow['img1']!='')
 			{	
 				$ext = explode('.', $globalrow['img1']);

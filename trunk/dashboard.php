@@ -109,23 +109,25 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			include "./searchengine.php";
 		} else {
 			$userIds = array();
-			if(isset($_POST['demandeure']) && $_POST['demandeure'] != ''){
-				$userIds[] = $_POST['demandeure'];
-				$from .=" AND tincidents.user = ".$_POST['demandeure'];
-			}
-			if(isset($_POST['res']) && $_POST['res'] != ''){
-				$userIds[] = $_POST['res'];
-				$from .=" AND tincidents.user = ".$_POST['res'];
-			}
 			if(isset($_POST['groupe']) && $_POST['groupe'] != ''){
-				$userIds[] = $_POST['groupe'];
-				
+				$SQL = "Select id From tusers Where group_id =".$_POST['groupe'];
+				$rows = mysql_query($SQL);
+				while($row = mysql_fetch_assoc($rows)){
+					$userIds[] = $row['id']; // Récupération des ids utilisateurs qui appartient au Groupe XX 
+				}
+				////
+				/*
+				$SQL = "Select responsible From tcompany Where id =".$_POST['groupe'];
+				$rows = mysql_query($SQL);
+				while($row = mysql_fetch_assoc($rows)){
+					$userIds[] = $row['responsible']; // Récupération du responsable du Groupe XX 
+				}
+				*/
 			}
 		
 			$from ="
 			FROM tincidents
-			WHERE 
-			tincidents.$profile LIKE '$_GET[techid]'
+			WHERE 	tincidents.$profile LIKE '$_GET[techid]'
 			AND	tincidents.technician LIKE '$_POST[technician]'
 			AND	tincidents.state LIKE '$_GET[state]'
 			AND	tincidents.techread LIKE '$_GET[techread]'
@@ -140,6 +142,16 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			AND	tincidents.title LIKE '%$_POST[title]%'
 			";
 			//$from .= " AND	tincidents.user LIKE '$_POST[userid]'";
+			
+			if(isset($_POST['demandeure']) && $_POST['demandeure'] != ''){
+					//$userIds[] = $_POST['demandeure'];
+					$from .=" AND tincidents.user = ".$_POST['demandeure'];
+			}
+			if(isset($_POST['res']) && $_POST['res'] != ''){
+				//$userIds[] = $_POST['res'];
+				$from .=" AND tincidents.user = ".$_POST['res'];
+			}
+			
 			if(count($userIds) > 0){
 				$from .=" AND tincidents.user in (". implode(",", $userIds) .")";
 			}
@@ -152,7 +164,10 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			}
 			
 			if(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3){
-				$from .= " AND	tincidents.user in (Select u.id From tusers as u LEFT JOIN tcompany as c on c.id = u.group_id where c.responsible = ". $_SESSION['user_id'] .")" ;
+				$from .= " AND	tincidents.user in (Select u.id 
+				From tusers as u 
+				LEFT JOIN tcompany as c on c.id = u.group_id 
+				Where c.responsible = ". $_SESSION['user_id'] .")" ;
 			}else{
 				$from .= " AND	tincidents.user LIKE '$_POST[userid]'";
 			}	
@@ -168,18 +183,26 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 		$_GET[order] $_GET[way],
 		date_create DESC LIMIT $_GET[cursor],
 		$rparameters[maxline]
-		"); 
+		");
+		
 ?>
+<form name="filter" enctype="multipart/form-data" method="post" action="" id="filtreTask">
 <div id="filtre">
-<form name="thisform" enctype="multipart/form-data" method="post" action="" id="filtreTask">
 <fieldset> <legend>Filtre</legend>
 				
-				<?php if(isset($_POST['filterBtn'])){ ?>
+				<?php 
+				if((isset($_POST['groupe']) && $_POST['groupe'] != '') || 
+				(isset($_POST['res']) && $_POST['res'] != '') || 
+				(isset($_POST['demandeure']) && $_POST['demandeure'] != '') || 
+				(isset($_POST['date_1']) && $_POST['date_1'] != '') || 
+				(isset($_POST['date_2']) && $_POST['date_2'] != '') ){ $filtre = true; } else{ $filtre = false ; }
+				if($filtre){
+				?>
 					<a href="javascript:void(0)" class="toggleFilter">[-] Masquer le filtre</a>
 				<?php }else{ ?>
-					<a href="javascript:void(0)" class="toggleFilter">[-] Afficher le filtre</a>
+					<a href="javascript:void(0)" class="toggleFilter">[+] Afficher le filtre</a>
 				<?php } ?>
-				<ul class="filterFields" <?php if(isset($_POST['filterBtn'])){ ?>style="display:block;"<?php }else{ ?> style="display:none;"<?php } ?>>
+				<ul class="filterFields" <?php if( $filtre ){ ?>style="display:block;"<?php }else{ ?> style="display:none;"<?php } ?>>
 					<?php if(!(isset($_SESSION['profile_id']) && $_SESSION['profile_id'] == 3)){ ?>
 					<li>
 						<?php
@@ -208,7 +231,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 						<select name="groupe">	
 							<option value=""> ... </option>
 							<?php while($row = mysql_fetch_array($data)){ ?>
-								<option <?php if(isset($_POST['groupe']) && $_POST['groupe'] == $row['responsible']){ ?>selected="selected"<?php } ?> value="<?php echo $row['responsible']; ?>"><?php echo $row['nom_groupe']; ?></option>
+								<option <?php if(isset($_POST['groupe']) && $_POST['groupe'] == $row['id']){ ?>selected="selected"<?php } ?> value="<?php echo $row['id']; ?>"><?php echo $row['nom_groupe']; ?></option>
 							<?php } ?>
 						</select>
 					</li>
@@ -243,15 +266,43 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 						<input type="submit" name="filterBtn" class="filterBtn" value="Appliquer" />
 					</li>
 				</ul>
-	
+				<?php
+if(isset($_POST['res']) && $_POST['res'] != ''){ $_SESSION['pdf']['res'] = $_POST['res']; }else{ $_SESSION['pdf']['res'] = ''; }
+if(isset($_POST['groupe']) && $_POST['groupe'] != ''){ $_SESSION['pdf']['groupe'] = $_POST['groupe']; }else{ $_SESSION['pdf']['groupe'] = ''; }
+if(isset($_POST['demandeure']) && $_POST['demandeure'] != ''){ $_SESSION['pdf']['demandeure'] = $_POST['demandeure']; }else{ $_SESSION['pdf']['demandeure'] = ''; }
+if(isset($_POST['date_1']) && $_POST['date_1'] != ''){ $_SESSION['pdf']['date_1'] = $_POST['date_1']; }else{ $_SESSION['pdf']['date_1'] = ''; }
+if(isset($_POST['date_2']) && $_POST['date_2'] != ''){ $_SESSION['pdf']['date_2'] = $_POST['date_2']; }else{ $_SESSION['pdf']['date_2'] = ''; }
+
+//ticket
+if(isset($_POST['ticket']) && $_POST['ticket'] != ''){ $_SESSION['pdf']['ticket'] = $_POST['ticket']; }else{ $_SESSION['pdf']['ticket'] = ''; }
+if(isset($_POST['technician']) && $_POST['technician'] != ''){ $_SESSION['pdf']['technician'] = $_POST['technician']; }else{ $_SESSION['pdf']['technician'] = ''; }
+if(isset($_POST['userid']) && $_POST['userid'] != ''){ $_SESSION['pdf']['userid'] = $_POST['userid']; }else{ $_SESSION['pdf']['userid'] = ''; }
+if(isset($_POST['category']) && $_POST['category'] != ''){ $_SESSION['pdf']['category'] = $_POST['category']; }else{ $_SESSION['pdf']['category'] = ''; }
+if(isset($_POST['subcat']) && $_POST['subcat'] != ''){ $_SESSION['pdf']['subcat'] = $_POST['subcat']; }else{ $_SESSION['pdf']['subcat'] = ''; }
+if(isset($_POST['title']) && $_POST['title'] != ''){ $_SESSION['pdf']['title'] = $_POST['title']; }else{ $_SESSION['pdf']['title'] = ''; }
+if(isset($_POST['date']) && $_POST['date'] != ''){ $_SESSION['pdf']['date'] = $_POST['date']; }else{ $_SESSION['pdf']['date'] = ''; }
+if(isset($_POST['fstate']) && $_POST['fstate'] != ''){ $_SESSION['pdf']['fstate'] = $_POST['fstate']; }else{ $_SESSION['pdf']['fstate'] = ''; }
+if(isset($_POST['priority']) && $_POST['priority'] != ''){ $_SESSION['pdf']['priority'] = $_POST['priority']; }else{ $_SESSION['pdf']['priority'] = ''; }
+if(isset($_POST['criticality']) && $_POST['criticality'] != ''){ $_SESSION['pdf']['criticality'] = $_POST['criticality']; }else{ $_SESSION['pdf']['criticality'] = ''; }
+if(isset($_GET['techid']) && $_GET['techid'] != ''){ $_SESSION['pdf']['techid'] = $_GET['techid']; }else{ $_SESSION['pdf']['techid'] = ''; }
+if(isset($profile)){ $_SESSION['pdf']['profile'] = $profile; }else{ $_SESSION['pdf']['profile'] = ''; }
+?>
 </fieldset> 
-</form>
 </div>
 <div class="post">
-<h2>
-<?php if ($_GET['searchengine']=='1') echo "Recherche: $keywords[0] "; else  echo "Liste des demandes";?> 
-<span class="description">Nombre: <?php echo $resultcount[0] ?></span>
-</h2>
+
+<div style="background: #EEE;padding: 6px 8px 4px;overflow:hidden;margin: 10px 0;border-radius: 4px;">
+	<h2 style="float:left;margin:0;">
+	<?php if ($_GET['searchengine']=='1') echo "Recherche: $keywords[0] "; else  echo "Liste des demandes";?> 
+	<span class="description">Nombre: <?php echo $resultcount[0] ?></span>
+	</h2>
+	<div style="float:right;">
+	<img src="images/print.png" />
+	<label>Imprimer cette liste : </label>
+	<a class="print" target="_blank" href="print.pdf.php">Liste Etat condensé</a> - 
+	<a class="print" target="_blank" href="print.pdf.php?etendu=1">Liste Etat Etendu</a>
+	</div>
+</div>
 	<table cellspacing="0" cellpadding="0" >
 		<?php //*********************** FIRST LIGN *********************** ?>
 		<tr class="list">
@@ -388,7 +439,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			</th>
 		</tr>
 		<?php // *********************************** FILTER LIGN ************************************** ?>
-		<form name="filter" method="post">
+		
 			<tr class="green">
 				<td>
 					<input name="ticket"  onchange="submit();" type="text" size="6" value="<?php if ($_POST['ticket']!='%')echo $_POST['ticket']; ?>" />
@@ -493,7 +544,7 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			</tr>
 			<input name="state" type="hidden" value="<?php echo $_GET['state']; ?>" />
 			<input name="filter" type="hidden" value="on" />
-		</form>
+		
 		<?php
 		while ($row=mysql_fetch_array($masterquery))
 		{ 
@@ -589,7 +640,8 @@ elseif ($_GET['order']=='') $_GET['order']='priority';
 			";
 		}
 		?>
-	</table>	
+	</table>
+</form>	
 	<?php
 	//Multi-pages link
 	if  ($resultcount[0]>$rparameters['maxline'])
@@ -681,7 +733,7 @@ if ($r['chgpwd']=='1')
 		jQuery(document).ready(function(){
 		// ------------------------------ //
 			jQuery('.toggleFilter').toggle(
-				<?php if(isset($_POST['filterBtn'])){ ?>
+				<?php if($filtre){ ?>
 					function(){
 						jQuery('.filterFields').hide();
 						jQuery(this).text('[+] Afficher le filtre.');

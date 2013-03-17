@@ -104,7 +104,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = $object;
         $bodyMSG = $message;
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
          while ($emailAddress = mysql_fetch_array($intervenantsquery))
         {
           $mail->AddAddress($emailAddress[mail]);

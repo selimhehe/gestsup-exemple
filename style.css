@@ -219,8 +219,7 @@ padding: 4px 25px 2px 50px;
 #filtreTask{margin:0; padding:0;position:relative;}
 #filtreTask legend{font-size:11px;font-weight:bold; background:#FFF; padding:0 4px;}
 #filtreTask fieldset{padding:8px;}
-#right #filtreTask table {margin:0;}
-#right #filtreTask table td{border:none;}
+
 #filtreTask .filterFields{margin:0;}
 #filtreTask .filterFields li{border-bottom: 1px dashed #EEE; color: #666; font-size: 12px;  list-style: none outside none;overflow: hidden;  padding: 3px 0;}
 #filtreTask .filterFields li select{background: #E9F2F5; border: 1px solid #CBE0E7; font-size: 12px; min-width: 160px;  padding: 2px;}

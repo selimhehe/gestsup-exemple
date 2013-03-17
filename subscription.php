@@ -107,7 +107,7 @@ if (isset($_POST['submit'])){
          Voila votre nom d'utilisateur et mot de passe pour accéder à la plateforme <br />
          <b>Login </b> : $_POST[email]<br />
          <b>Mot de passe </b> : $password <br />";
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
         if (!$mail->Send()){
           $msg = '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" />';
           $msg = $mail->ErrorInfo;
@@ -122,7 +122,7 @@ if (isset($_POST['submit'])){
          L’utilisateur : $_POST[email] a déposé une nouvelle demande dans le système.<br /><br />
          Vous pouvez valider ou réfuser son compte sur le lien suivant : <a href=\"http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND\">http://$_SERVER[SERVER_NAME]/index.php?page=admin&subpage=user&profileid=ND</a> <br />";
 
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
 
 
         while ($emailAddress = mysql_fetch_array($reqAllEmailsAdminAndTechnicien))

@@ -466,7 +466,7 @@ else if ($_GET['action']=="add")
          Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
          Bien à vous
          ";
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
         $mail->Send();
         $mail->ClearAddresses();
 		
@@ -504,7 +504,7 @@ else if ($_GET['action']=="add")
          Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
          Bien à vous
          ";
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
         $mail->Send();
         $mail->ClearAddresses();
 		
@@ -537,7 +537,7 @@ else if ($_GET['action']=="add")
          Vous pouvez utiliser votre email et votre mot de passe pour se connecter à notre systéme. <br /><br />
          Bien à vous
          ";
-			$mail->Body = "$bodyMSG";
+			$mail->Body = utf8_encode( "$bodyMSG" );
 			$mail->Send();
 			$mail->ClearAddresses();
         }
@@ -574,7 +574,7 @@ else if ($_GET['action']=="add")
          Nous restons à votre disposition pour tout renseignement complémentaire.  <br /><br />
          Bien à vous
          ";
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
         $mail->Send();
         $mail->ClearAddresses();
 		

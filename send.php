@@ -23,7 +23,7 @@ require("components/PHPMailer_v5.1/class.phpmailer.php");
          Nous vous remercions pour votre nouvelle demande dans le système.<br />
          Celle-ci sera prise en compte dans les prochaines heures.<br /><br />
          Voila votre nom d'utilisateur et mot de passe pour accéder à la plateforme <br />";
-        $mail->Body = "$bodyMSG";
+        $mail->Body = utf8_encode( "$bodyMSG" );
         if (!$mail->Send()){
           $msg = '<div id="erreur"><img src="./images/access.png" alt="erreur" style="border-style: none" alt="img" />';
           $msg = $mail->ErrorInfo;

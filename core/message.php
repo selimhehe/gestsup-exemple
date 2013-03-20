@@ -15,13 +15,14 @@ Last update: 21/11/2012
 require("components/PHPMailer_v5.1/class.phpmailer.php"); 
 $mail = new PHPmailer();
 $mail->CharSet = 'ISO-8859-1'; //UTF-8 possible if characters problems
-$mail->IsSMTP();
-$mail->Host = "$rparameters[mail_smtp]";
-$mail->SMTPAuth = $rparameters['mail_auth'];
-if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
-if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
-if ($rparameters['mail_secure']=='465') $mail->Port = 465;
-if ($rparameters['mail_secure']=='587') $mail->Port = 587;
+//$mail->IsSMTP();
+$mail->IsSendmail();
+//$mail->Host = "$rparameters[mail_smtp]";
+//$mail->SMTPAuth = $rparameters['mail_auth'];
+//if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
+//if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
+//if ($rparameters['mail_secure']=='465') $mail->Port = 465;
+//if ($rparameters['mail_secure']=='587') $mail->Port = 587;
 $mail->Username = "$rparameters[mail_username]";
 $mail->Password = "$rparameters[mail_password]";
 $mail->IsHTML(true); // Envoi en html
@@ -38,5 +39,5 @@ if (!$mail->Send())
 	echo $mail->ErrorInfo;
 	echo '</div>';
 }
-$mail->SmtpClose();
+//$mail->SmtpClose();
 ?>

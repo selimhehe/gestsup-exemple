@@ -104,7 +104,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 	      $mail->AddReplyTo("$rparameters[mail_from]");
         $mail->Subject = $object;
         $bodyMSG = $message;
-        $mail->Body = utf8_encode( "$bodyMSG" );
+        $mail->Body =$bodyMSG;
          while ($emailAddress = mysql_fetch_array($intervenantsquery))
         {
           $mail->AddAddress($emailAddress[mail]);
@@ -117,7 +117,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
     // Send mail au responsable
     if($_SESSION['profile'] == '1'){
       $queryResponsable = "SELECT * FROM tusers as u, tcompany as c WHERE u.id = c.responsible and u.group_id ='$userrow[group_id]'";
-      echo $queryResponsable;
+   //   echo $queryResponsable;
       $responsablequery = mysql_query($queryResponsable);
 		  $resposanblerow=mysql_fetch_array($responsablequery);
       //   echo "resp row : ".$resposanblerow;
@@ -141,7 +141,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
 	      $mail2->AddReplyTo("$rparameters[mail_from]");
         $mail2->Subject = $object;
         $bodyMSG = $message;
-        $mail2->Body = "$bodyMSG";
+        $mail2->Body = $bodyMSG;
         $mail2->Send();
         $mail2->ClearAddresses();
       }

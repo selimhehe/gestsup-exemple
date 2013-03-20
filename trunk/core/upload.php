@@ -37,7 +37,7 @@ if ($_GET['id']=="") $_GET['id']=$number;
 		if (move_uploaded_file($_FILES['file1']['tmp_name'], $repertoireDestination.$file1_rename)) 
 		{
 		} else {
-			echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+			echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 		$query = "UPDATE tincidents SET img1='$file1_rename' WHERE id='$_GET[id]'";
 		$execution = mysql_query($query) or die('Erreur SQL !<br><br>'.mysql_error());
@@ -51,7 +51,7 @@ if ($_GET['id']=="") $_GET['id']=$number;
 		if (move_uploaded_file($_FILES['file2']['tmp_name'], $repertoireDestination.$file2_rename)   ) 
 		{
 		} else {
-		echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+		echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 		$query = "UPDATE tincidents SET img2='$file2_rename' WHERE id='$_GET[id]'";
 		$execution = mysql_query($query) or die('Erreur SQL !<br><br>'.mysql_error());
@@ -65,7 +65,7 @@ if ($_GET['id']=="") $_GET['id']=$number;
 		if (move_uploaded_file($_FILES['file3']['tmp_name'], $repertoireDestination.$file3_rename)   ) 
 		{
 		} else {
-		echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+		echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 		$query = "UPDATE tincidents SET img3='$file3_rename' WHERE id='$_GET[id]'";
 		$execution = mysql_query($query) or die('Erreur SQL !<br><br>'.mysql_error());
@@ -79,7 +79,7 @@ if ($_GET['id']=="") $_GET['id']=$number;
 		if (move_uploaded_file($_FILES['file4']['tmp_name'], $repertoireDestination.$file4_rename)   ) 
 		{
 		} else {
-		echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+		echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 		$query = "UPDATE tincidents SET img4='$file4_rename' WHERE id='$_GET[id]'";
 		$execution = mysql_query($query) or die('Erreur SQL !<br><br>'.mysql_error());
@@ -93,7 +93,7 @@ if ($_GET['id']=="") $_GET['id']=$number;
 		if (move_uploaded_file($_FILES['file5']['tmp_name'], $repertoireDestination.$file5_rename)   ) 
 		{
 		} else {
-		echo "Erreur de transfert vérifier le chemin ".$repertoireDestination;
+		echo "Erreur de transfert vÃ©rifier le chemin ".$repertoireDestination;
 		}
 		$query = "UPDATE tincidents SET img5='$file5_rename' WHERE id='$_GET[id]'";
 		$execution = mysql_query($query) or die('Erreur SQL !<br><br>'.mysql_error());

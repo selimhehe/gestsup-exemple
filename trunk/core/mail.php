@@ -53,7 +53,7 @@ $date_res = date_cnv("$globalrow[date_res]");
 //Mail object for states
 $qobject = mysql_query("SELECT * FROM tstates WHERE id LIKE '$globalrow[state]'");
 $robject=mysql_fetch_array($qobject);
-$objet="$robject[mail_object] pour le ticket n�$_GET[id]: $globalrow[title]";
+$objet="$robject[mail_object] pour le ticket n°$_GET[id]: $globalrow[title]";
 
 $destinataire="$userrow[mail]";
 $emetteur="$creatorrow[mail]";
@@ -120,14 +120,14 @@ if ($send==1)
 {
 	require("components/PHPMailer_v5.1/class.phpmailer.php"); 
 	$mail = new PHPmailer();
-	$mail->CharSet = 'ISO-8859-1'; //UTF-8 possible if characters problems
-	$mail->IsSMTP();
-	$mail->Host = "$rparameters[mail_smtp]";
-	$mail->SMTPAuth = $rparameters['mail_auth'];
-	if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
-	if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
-	if ($rparameters['mail_secure']=='465') $mail->Port = 465;
-	if ($rparameters['mail_secure']=='587') $mail->Port = 587;
+	$mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+	$mail->IsSendmail();
+//	$mail->Host = "$rparameters[mail_smtp]";
+//	$mail->SMTPAuth = $rparameters['mail_auth'];
+//	if ($rparameters['mail_secure']=='465') $mail->SMTPSecure = 'ssl';
+//	if ($rparameters['mail_secure']=='587') $mail->SMTPSecure = 'tls';
+//	if ($rparameters['mail_secure']=='465') $mail->Port = 465;
+//	if ($rparameters['mail_secure']=='587') $mail->Port = 587;
 	$mail->Username = "$rparameters[mail_username]";
 	$mail->Password = "$rparameters[mail_password]";
 	$mail->IsHTML(true); // Envoi en html
@@ -135,7 +135,7 @@ if ($send==1)
 	// add picture
 	// $mail->AddEmbeddedImage("chemin_image", "non_image", "cid_image");
 	 
-	$mail->From = "$techrow[mail]";
+	$mail->From = "demande.me";
 	$mail->FromName = "$rparameters[mail_from]";
 	$mail->AddAddress("$userrow[mail]");
 	$mail->AddReplyTo("$techrow[mail]");
@@ -168,7 +168,7 @@ if ($send==1)
 				</SCRIPT>
 				";
 	}
-	$mail->SmtpClose();
+	//$mail->SmtpClose();
 }
 
 

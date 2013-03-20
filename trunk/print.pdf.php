@@ -47,7 +47,7 @@ if ($_SESSION['user_id']){
 		$gHtml .= '<table width="100%" border="1" cellspacing="0" cellpadding="4" style="border-collapse:collapse; font-size:12px;font-family:arial;background:#F8F8F8">';
 		$gHtml .= '<tr>
 				<td width="120" style="background:#EDEDED;">'. $gRow['nom_groupe'] .'</td>
-				<td colspan="7" style="background:#EDEDED;">'. utf8_encode( $gRow['rue'] .' - '. $gRow['code_postal'] .' '. $gRow['ville'] .' - '. $gRow['civilite'] .' '. $gRow['prenom'] .' '. $gRow['nom']) .'</td>
+				<td colspan="7" style="background:#EDEDED;">'.  $gRow['rue'] .' - '. $gRow['code_postal'] .' '. $gRow['ville'] .' - '. $gRow['civilite'] .' '. $gRow['prenom'] .' '. $gRow['nom'] .'</td>
 			</tr>';
 		
 		// Demandeurs
@@ -128,23 +128,23 @@ if ($_SESSION['user_id']){
 					$tHtml .= '</tr>';
 					
 					$tHtml .= '<tr>';
-					$tHtml .= '<td width="100px">'. utf8_encode( $tRow['date_create'] ) .'</td>';
-					$tHtml .= '<td>'. utf8_encode( $tRow['title'] ) .'</td>';
-					$tHtml .= '<td>'. utf8_encode( $tRow['pname'] ) .'</td>';
-					$tHtml .= '<td><span style="color:'. utf8_encode( $tRow['ccolor'] ) .'" >'. utf8_encode( $tRow['cname'] ) .'</span></td>';
-					$tHtml .= '<td>'. utf8_encode( $tRow['sname'] ) .'</td>';
-					$tHtml .= '<td>'. utf8_encode( $tRow['date_hope'] ) .'</td>';
-					$tHtml .= '<td>'. utf8_encode( $tRow['time'] ) .'</td>';
+					$tHtml .= '<td width="100px">'.  $tRow['date_create']  .'</td>';
+					$tHtml .= '<td>'.  $tRow['title']  .'</td>';
+					$tHtml .= '<td>'.  $tRow['pname']  .'</td>';
+					$tHtml .= '<td><span style="color:'.  $tRow['ccolor']  .'" >'.  $tRow['cname']  .'</span></td>';
+					$tHtml .= '<td>'.  $tRow['sname']  .'</td>';
+					$tHtml .= '<td>'.  $tRow['date_hope']  .'</td>';
+					$tHtml .= '<td>'.  $tRow['time']  .'</td>';
 					$tHtml .= '</tr>';
 					if($etendu){
 					$tHtml .= '<tr>';
 					$tHtml .= '<td> Note > </td>';
-					$tHtml .= '<td colspan="6">'. utf8_encode( $tRow['description'] ) .'</td>';
+					$tHtml .= '<td colspan="6">'.  $tRow['description']  .'</td>';
 					$tHtml .= '</tr>';
 					//$tHtml .= '<tr><td colspan="7" style="background:#FFF;"> </td></tr>';
 					$tHtml .= '<tr>';
 					$tHtml .= '<td> Résolution > </td>';
-					$tHtml .= '<td colspan="6">'. utf8_encode( $tRow['resolution'] ) .'</td>';
+					$tHtml .= '<td colspan="6">'.  $tRow['resolution']  .'</td>';
 					$tHtml .= '</tr>';
 					//$tHtml .= '<tr><td colspan="7" style="background:#FFF;"> </td></tr>';
 					}

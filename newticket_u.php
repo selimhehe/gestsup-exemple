@@ -96,7 +96,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
       $reqAllEmailsAdminAndTechnicien = "SELECT mail FROM tusers WHERE profile in (4,0)";
       $intervenantsquery = mysql_query($reqAllEmailsAdminAndTechnicien);
         $mail = new PHPmailer();
-        $mail->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+        $mail->CharSet = 'utf-8'; //UTF-8 possible if characters problems
         $mail->IsSendmail();
         $mail->IsHTML(true); // Envoi en html
         $mail->From = "$rparameters[mail_from]";
@@ -129,7 +129,7 @@ if($_POST['save']||$_POST['mail']||$_POST['quit'])
         $email_to_send = $resposanblerow['mail'];
      //   echo "email : ".$email_to_send;
         $mail2 = new PHPmailer();
-        $mail2->CharSet = 'UTF-8'; //UTF-8 possible if characters problems
+        $mail2->CharSet = 'utf-8'; //UTF-8 possible if characters problems
        // $mail->IsMail();
         $mail2->IsSendmail();
         $mail2->IsHTML(true); // Envoi en html
